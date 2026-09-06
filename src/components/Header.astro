@@ -3,9 +3,10 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 
 interface Props {
   lang: 'en' | 'zh';
+  alternatePath: string;
 }
 
-const { lang } = Astro.props;
+const { lang, alternatePath } = Astro.props;
 const isChinese = lang === 'zh';
 const navItems = isChinese
   ? [
@@ -20,12 +21,12 @@ const navItems = isChinese
       { href: '/docs', label: 'Docs' },
       { href: '/support', label: 'Support' },
     ];
-const alternatePath = isChinese ? '/' : '/zh/';
+const homeLabel = isChinese ? 'oh-my-md 首页' : 'oh-my-md home';
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href={isChinese ? '/zh/' : '/'} aria-label="oh-my-md home">
+    <a class="brand" href={isChinese ? '/zh/' : '/'} aria-label={homeLabel}>
       <img src="/logo.png" width="32" height="32" alt="" />
       <span>oh-my-md</span>
     </a>

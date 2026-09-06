@@ -33,7 +33,7 @@ const locale = lang === 'zh' ? 'zh-CN' : 'en';
   </head>
   <body>
     <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳到主要内容' : 'Skip to content'}</a>
-    <Header lang={lang} />
+    <Header lang={lang} alternatePath={alternatePath} />
     <main id="main-content"><slot /></main>
     <Footer lang={lang} />
   </body>
