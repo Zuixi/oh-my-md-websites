@@ -19,8 +19,8 @@ for (const relativePath of requiredFiles) {
 
 const html = [readFileSync(join(dist.pathname, 'index.html'), 'utf8'), readFileSync(join(dist.pathname, 'zh/index.html'), 'utf8')].join('\n');
 const supportPages = [
-  { path: 'support/index.html', label: 'current v0.0.1 release', ariaLabel: 'Language' },
-  { path: 'zh/support/index.html', label: '当前 v0.0.1 发布版本', ariaLabel: '语言' },
+  { path: 'support/index.html', label: 'current v0.0.1 release', ariaLabel: 'Switch language' },
+  { path: 'zh/support/index.html', label: '当前 v0.0.1 发布版本', ariaLabel: '切换语言' },
 ];
 for (const page of supportPages) {
   const supportHtml = readFileSync(join(dist.pathname, page.path), 'utf8');
@@ -30,7 +30,7 @@ for (const page of supportPages) {
   if (supportHtml.includes('releases/latest')) {
     throw new Error(`${page.path} must not use the mutable latest-release URL for the current release label`);
   }
-  if (!supportHtml.includes(`class="language-switcher" aria-label="${page.ariaLabel}"`)) {
+  if (!supportHtml.includes(`class="footer-lang" aria-label="${page.ariaLabel}"`)) {
     throw new Error(`${page.path} is missing the localized language switcher label: ${page.ariaLabel}`);
   }
   if (!supportHtml.includes(page.label)) {

@@ -79,8 +79,6 @@ const applicationSchema = canonicalUrl ? {
     <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳到主要内容' : 'Skip to content'}</a>
     <Header
       lang={lang}
-      alternatePath={alternatePath ?? (lang === 'zh' ? '/' : '/zh/')}
-      showLanguageSwitcher={!noindex}
     />
     <main id="main-content"><slot /></main>
     <Footer lang={lang} />
