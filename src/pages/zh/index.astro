@@ -1,4 +1,5 @@
 ---
+import CtaMid from '../../components/CtaMid.astro';
 import FeatureSection from '../../components/FeatureSection.astro';
 import Hero from '../../components/Hero.astro';
 import PerformanceSection from '../../components/PerformanceSection.astro';
@@ -11,9 +12,10 @@ const copy = siteCopy.zh;
 
 <SiteLayout title={copy.title} description={copy.description} lang="zh" canonicalPath="/zh/">
   <Hero lang="zh" copy={siteCopy} />
-  <TrustStrip items={copy.trust} ariaLabel={copy.trustAriaLabel} />
   <FeatureSection id="live-preview" copy={copy.livePreview} tone="light" />
+  <CtaMid lang="zh" />
   <PerformanceSection copy={copy.performance} />
+  <TrustStrip items={copy.trust} ariaLabel={copy.trustAriaLabel} />
   <FeatureSection id="markdown" copy={copy.markdown} tone="tint" />
   <FeatureSection id="local-files" copy={copy.localFiles} tone="light" />
   <FeatureSection id="platform" copy={copy.platform} tone="tint" />

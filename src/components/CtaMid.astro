@@ -1,0 +1,22 @@
+---
+import { siteCopy } from '../data/site';
+
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const isZh = lang === 'zh';
+const copy = siteCopy[lang].ctaMid;
+---
+
+<section class="cta-mid" aria-labelledby="cta-mid-title">
+  <div class="container cta-mid-inner">
+    <h2 id="cta-mid-title">{copy.title}</h2>
+    <p class="cta-mid-subtitle">{copy.subtitle}</p>
+    <div class="cta-mid-actions">
+      <a class="button" href={isZh ? '/zh/download/' : '/download/'}>{copy.downloadLabel}</a>
+      <a class="button button-secondary" href={isZh ? '/zh/docs/' : '/docs/'}>{copy.docsLabel}</a>
+    </div>
+  </div>
+</section>

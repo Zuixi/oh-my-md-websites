@@ -4,8 +4,18 @@ import { join } from 'node:path';
 const root = new URL('..', import.meta.url);
 const dist = new URL('./dist/', root);
 const pages = [
-  { path: 'index.html', headline: 'Markdown, without the cloud lock-in.', download: '/download' },
-  { path: 'zh/index.html', headline: 'Markdown，不被云端锁定。', download: '/zh/download' },
+  {
+    path: 'index.html',
+    headline: 'A fast Markdown editor that keeps your files on your disk.',
+    headlineNeedle: 'A fast Markdown editor that keeps your files on your disk',
+    download: '/download',
+  },
+  {
+    path: 'zh/index.html',
+    headline: '一款快到让你忘掉的 Markdown 编辑器，文件始终留在你的硬盘上。',
+    headlineNeedle: '一款快到让你忘掉的 Markdown 编辑器',
+    download: '/zh/download',
+  },
 ];
 const github = 'https://github.com/Zuixi/oh-my-md';
 const forbidden = ['AI providers', 'plugin marketplace', 'signed & notarized', 'working updater', '插件市场', 'AI 提供商'];
@@ -13,7 +23,7 @@ const forbidden = ['AI providers', 'plugin marketplace', 'signed & notarized', '
 for (const page of pages) {
   const html = readFileSync(join(dist.pathname, page.path), 'utf8');
   const checks = [
-    [page.headline, 'headline'],
+    [page.headlineNeedle, 'headline'],
     ['/hero.png', 'hero screenshot asset'],
     [page.download, 'download link'],
     [github, 'GitHub repository link'],

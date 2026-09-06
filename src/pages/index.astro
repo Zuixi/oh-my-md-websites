@@ -1,4 +1,5 @@
 ---
+import CtaMid from '../components/CtaMid.astro';
 import FeatureSection from '../components/FeatureSection.astro';
 import Hero from '../components/Hero.astro';
 import PerformanceSection from '../components/PerformanceSection.astro';
@@ -11,12 +12,13 @@ const copy = siteCopy.en;
 
 <SiteLayout title={copy.title} description={copy.description} lang="en" canonicalPath="/">
   <Hero lang="en" copy={siteCopy} />
-  <TrustStrip items={copy.trust} ariaLabel={copy.trustAriaLabel} />
   <FeatureSection id="live-preview" copy={copy.livePreview} tone="light" />
+  <CtaMid lang="en" />
   <PerformanceSection copy={copy.performance} />
-  <FeatureSection id="markdown" copy={copy.markdown} tone="tint" />
-  <FeatureSection id="local-files" copy={copy.localFiles} tone="light" />
-  <FeatureSection id="platform" copy={copy.platform} tone="tint" />
+  <TrustStrip items={copy.trust} ariaLabel={copy.trustAriaLabel} />
+  <FeatureSection id="markdown" copy={copy.markdown} tone="light" />
+  <FeatureSection id="local-files" copy={copy.localFiles} tone="tint" />
+  <FeatureSection id="platform" copy={copy.platform} tone="light" />
   <section class="section section-cta" aria-labelledby="license-title">
     <div class="container">
       <span class="eyebrow">{copy.cta.eyebrow}</span>

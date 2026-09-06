@@ -49,6 +49,13 @@ export interface CtaCopy {
   buttonLabel: string;
 }
 
+export interface CtaMidCopy {
+  title: string;
+  subtitle: string;
+  downloadLabel: string;
+  docsLabel: string;
+}
+
 export interface LocaleCopy {
   title: string;
   description: string;
@@ -60,6 +67,8 @@ export interface LocaleCopy {
     githubLabel: string;
     screenshotAlt: string;
     screenshotCaption: string;
+    versionBadge: string;
+    buildFromSourceLabel: string;
   };
   trust: readonly TrustItem[];
   livePreview: FeatureSectionCopy;
@@ -68,6 +77,7 @@ export interface LocaleCopy {
   localFiles: FeatureSectionCopy;
   platform: FeatureSectionCopy;
   cta: CtaCopy;
+  ctaMid: CtaMidCopy;
   trustAriaLabel: string;
   languageSwitcherAriaLabel: string;
   license: string;
@@ -95,12 +105,14 @@ export const siteCopy: SiteCopy = {
     description: 'A fast, native Markdown editor for large documents, with true Live Preview and Source modes.',
     hero: {
       eyebrow: 'Open source · local-first · built for large documents',
-      headline: 'Markdown, without the cloud lock-in.',
-      subtitle: 'A fast, native desktop editor with true Live Preview and Source modes. Keep your writing in local files and work at your own pace.',
+      headline: 'A fast Markdown editor that keeps your files on your disk.',
+      subtitle: 'Open your .md files in milliseconds. Stay in the zone for 100k-line notes. No account, no sync, no telemetry — just your text, in a native Tauri shell.',
       downloadLabel: 'Download oh-my-md',
-      githubLabel: 'View on GitHub',
+      githubLabel: 'Star on GitHub',
       screenshotAlt: 'oh-my-md showing a dark Markdown document with a file tree, outline, rendered KaTeX math, and an inline Mermaid diagram',
-      screenshotCaption: 'A real screenshot from the desktop app',
+      screenshotCaption: 'A real screenshot from the v0.0.1 desktop app',
+      versionBadge: 'v0.0.1',
+      buildFromSourceLabel: 'Build from source',
     },
     trust: [
       { label: 'License', value: 'Apache-2.0' },
@@ -170,6 +182,12 @@ export const siteCopy: SiteCopy = {
       description: 'Download the current release, or inspect the source and build it yourself. Apache-2.0 licensed.',
       buttonLabel: 'Choose your platform',
     },
+    ctaMid: {
+      title: 'Ready to try it on your own notes?',
+      subtitle: 'Open any .md file in milliseconds. No account, no telemetry — just you and your text.',
+      downloadLabel: 'Download oh-my-md',
+      docsLabel: 'Read the documentation',
+    },
     trustAriaLabel: 'Product facts',
     languageSwitcherAriaLabel: 'Language',
     license: 'Apache-2.0',
@@ -179,12 +197,14 @@ export const siteCopy: SiteCopy = {
     description: '面向大型文档的快速原生 Markdown 编辑器，支持真正的 Live Preview 与 Source 模式。',
     hero: {
       eyebrow: '开源 · 本地优先 · 为大型文档而生',
-      headline: 'Markdown，不被云端锁定。',
-      subtitle: '快速的原生桌面编辑器，支持真正的 Live Preview 与 Source 模式。写作保存在本地文件中，按自己的节奏工作。',
+      headline: '一款快到让你忘掉的 Markdown 编辑器，文件始终留在你的硬盘上。',
+      subtitle: '毫秒级打开 .md 文件，10 万行笔记也保持流畅。无需账号、无需同步、无后台遥测——只有你的文字，封装在原生 Tauri 桌面里。',
       downloadLabel: '下载 oh-my-md',
-      githubLabel: '在 GitHub 查看',
+      githubLabel: '在 GitHub 加星',
       screenshotAlt: 'oh-my-md 深色编辑器界面，展示文件树、大纲、KaTeX 数学公式和 Mermaid 图表',
-      screenshotCaption: '真实应用截图',
+      screenshotCaption: 'v0.0.1 真实应用截图',
+      versionBadge: 'v0.0.1',
+      buildFromSourceLabel: '从源码编译',
     },
     trust: [
       { label: '协议', value: 'Apache-2.0' },
@@ -253,6 +273,12 @@ export const siteCopy: SiteCopy = {
       title: '保持简单的 Markdown 编辑器。',
       description: '下载当前版本，或查看源码并自行构建。采用 Apache-2.0 协议。',
       buttonLabel: '选择你的平台',
+    },
+    ctaMid: {
+      title: '想在自己笔记上试一试？',
+      subtitle: '毫秒级打开任意 .md 文件。无需账号、无后台遥测——只有你与你的文字。',
+      downloadLabel: '下载 oh-my-md',
+      docsLabel: '阅读使用文档',
     },
     trustAriaLabel: '产品信息',
     languageSwitcherAriaLabel: '语言',
