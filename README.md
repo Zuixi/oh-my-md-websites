@@ -9,6 +9,18 @@ pnpm install
 pnpm dev
 ```
 
+The development server listens on all network interfaces so you can open it from another device on the same local network. Find this machine's LAN IP address using your operating system's network settings or network tools, then visit:
+
+```text
+http://<LAN-IP>:4321/
+```
+
+Allow incoming connections for port 4321 in your machine's firewall when prompted or when required by your firewall configuration. The Astro development server is intended for trusted local-network development only; do not expose it to the public Internet. For local-only access, use the loopback command instead:
+
+```sh
+pnpm dev:loopback
+```
+
 Build and run the deterministic output check with:
 
 ```sh
