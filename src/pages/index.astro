@@ -1,36 +1,28 @@
 ---
+import FeatureSection from '../components/FeatureSection.astro';
+import Hero from '../components/Hero.astro';
+import PerformanceSection from '../components/PerformanceSection.astro';
+import TrustStrip from '../components/TrustStrip.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import { siteCopy } from '../data/site';
+
+const copy = siteCopy.en;
 ---
 
-<SiteLayout
-  title="oh-my-md — A fast, local-first Markdown editor"
-  description="oh-my-md is an open-source, native Markdown editor for large documents."
-  lang="en"
-  canonicalPath="/"
->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Open source · local first</span>
-        <h1>Markdown, without the cloud lock-in.</h1>
-        <p>A fast, native editor for large documents, with true Live Preview and Source modes.</p>
-        <div class="button-row">
-          <a class="button" href="/download">Download oh-my-md</a>
-          <a class="button button-secondary" href="/docs">Explore the docs</a>
-        </div>
-      </div>
-      <img class="hero-image" src="/hero.png" width="1920" height="1027" alt="oh-my-md editor showing a Markdown document" />
-    </div>
-  </section>
-  <section class="section section-light">
+<SiteLayout title={copy.title} description={copy.description} lang="en" canonicalPath="/">
+  <Hero lang="en" copy={siteCopy} />
+  <TrustStrip items={copy.trust} />
+  <FeatureSection id="live-preview" copy={copy.livePreview} tone="light" />
+  <PerformanceSection copy={copy.performance} />
+  <FeatureSection id="markdown" copy={copy.markdown} tone="tint" />
+  <FeatureSection id="local-files" copy={copy.localFiles} tone="light" />
+  <FeatureSection id="platform" copy={copy.platform} tone="tint" />
+  <section class="section section-cta" aria-labelledby="license-title">
     <div class="container">
-      <span class="eyebrow">Built for serious writing</span>
-      <h2>Everything stays on your machine.</h2>
-      <div class="card-grid">
-        <article class="card"><h3>Live Preview</h3><p>Switch between readable rendered Markdown and precise source editing.</p></article>
-        <article class="card"><h3>Rich Markdown</h3><p>CommonMark, GFM, KaTeX, Mermaid, syntax highlighting, and tables.</p></article>
-        <article class="card"><h3>Open and local</h3><p>No account, no hosted documents, and Apache-2.0 source you can inspect.</p></article>
-      </div>
+      <span class="eyebrow">Open by default</span>
+      <h2 id="license-title">A Markdown editor you can keep simple.</h2>
+      <p>Download the current release, or inspect the source and build it yourself. {copy.license} licensed.</p>
+      <a class="button" href="/download">Choose your platform</a>
     </div>
   </section>
 </SiteLayout>

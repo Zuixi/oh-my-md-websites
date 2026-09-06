@@ -1,0 +1,32 @@
+---
+import type { FeatureSectionCopy } from '../data/site';
+
+interface Props {
+  copy: FeatureSectionCopy;
+  tone?: 'light' | 'dark' | 'tint';
+  id: string;
+}
+
+const { copy, tone = 'light', id } = Astro.props;
+---
+
+<section class:list={['section', `section-${tone}`]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <span class="eyebrow">{copy.eyebrow}</span>
+    <h2 id={`${id}-title`}>{copy.title}</h2>
+    <p class="section-intro">{copy.intro}</p>
+    <div class="card-grid">
+      {copy.cards.map((card) => (
+        <article class="card">
+          <h3>{card.title}</h3>
+          <p>{card.description}</p>
+          {card.details && (
+            <ul>
+              {card.details.map((detail) => <li>{detail}</li>)}
+            </ul>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

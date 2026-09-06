@@ -1,36 +1,28 @@
 ---
+import FeatureSection from '../../components/FeatureSection.astro';
+import Hero from '../../components/Hero.astro';
+import PerformanceSection from '../../components/PerformanceSection.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
 import SiteLayout from '../../layouts/SiteLayout.astro';
+import { siteCopy } from '../../data/site';
+
+const copy = siteCopy.zh;
 ---
 
-<SiteLayout
-  title="oh-my-md — 快速、本地优先的 Markdown 编辑器"
-  description="oh-my-md 是一款面向大型文档的开源原生 Markdown 编辑器。"
-  lang="zh"
-  canonicalPath="/zh/"
->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">开源 · 本地优先</span>
-        <h1>Markdown，不被云端锁定。</h1>
-        <p>面向大型文档的快速原生编辑器，支持真正的 Live Preview 与 Source 模式。</p>
-        <div class="button-row">
-          <a class="button" href="/zh/download">下载 oh-my-md</a>
-          <a class="button button-secondary" href="/zh/docs">浏览文档</a>
-        </div>
-      </div>
-      <img class="hero-image" src="/hero.png" width="1920" height="1027" alt="oh-my-md 编辑器中的 Markdown 文档" />
-    </div>
-  </section>
-  <section class="section section-light">
+<SiteLayout title={copy.title} description={copy.description} lang="zh" canonicalPath="/zh/">
+  <Hero lang="zh" copy={siteCopy} />
+  <TrustStrip items={copy.trust} />
+  <FeatureSection id="live-preview" copy={copy.livePreview} tone="light" />
+  <PerformanceSection copy={copy.performance} />
+  <FeatureSection id="markdown" copy={copy.markdown} tone="tint" />
+  <FeatureSection id="local-files" copy={copy.localFiles} tone="light" />
+  <FeatureSection id="platform" copy={copy.platform} tone="tint" />
+  <section class="section section-cta" aria-labelledby="license-title">
     <div class="container">
-      <span class="eyebrow">为认真写作而生</span>
-      <h2>一切都留在你的设备上。</h2>
-      <div class="card-grid">
-        <article class="card"><h3>Live Preview</h3><p>在易读的渲染视图与精准的源码编辑之间切换。</p></article>
-        <article class="card"><h3>丰富的 Markdown</h3><p>支持 CommonMark、GFM、KaTeX、Mermaid、代码高亮和表格。</p></article>
-        <article class="card"><h3>开放且本地</h3><p>无需账号、不托管文档，源码以 Apache-2.0 协议开放。</p></article>
-      </div>
+      <span class="eyebrow">默认开放</span>
+      <h2 id="license-title">保持简单的 Markdown 编辑器。</h2>
+      <p>下载当前版本，或查看源码并自行构建。采用 {copy.license} 协议。</p>
+      <a class="button" href="/zh/download">选择你的平台</a>
     </div>
   </section>
 </SiteLayout>

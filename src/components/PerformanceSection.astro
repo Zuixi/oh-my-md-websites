@@ -1,0 +1,40 @@
+---
+import type { PerformanceCopy } from '../data/site';
+
+interface Props {
+  copy: PerformanceCopy;
+  id?: string;
+}
+
+const { copy, id = 'performance' } = Astro.props;
+---
+
+<section class="section section-dark performance-section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <span class="eyebrow">{copy.eyebrow}</span>
+    <h2 id={`${id}-title`}>{copy.title}</h2>
+    <p class="section-intro">{copy.intro}</p>
+    <p class="performance-promise">{copy.promise}</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">{copy.headers.document}</th>
+            <th scope="col">{copy.headers.typing}</th>
+            <th scope="col">{copy.headers.open}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {copy.rows.map((row) => (
+            <tr>
+              <th scope="row">{row.document}</th>
+              <td>{row.typing}</td>
+              <td>{row.open}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="methodology"><sup>1</sup> {copy.footnote} <code>{copy.command}</code>.</p>
+  </div>
+</section>
