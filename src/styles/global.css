@@ -618,6 +618,8 @@ blockquote p {
   .docs-sidebar { position: static; max-height: none; margin-bottom: var(--space-4); }
   .feature-cards-grid { grid-template-columns: minmax(0, 1fr); }
   .support-channels-grid { grid-template-columns: minmax(0, 1fr); }
+  .header-inner { flex-wrap: wrap; gap: var(--space-3); padding-block: var(--space-3); }
+  .primary-nav { order: 3; flex-basis: 100%; justify-content: flex-start; overflow-x: auto; padding-bottom: var(--space-1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
