@@ -10,7 +10,7 @@ interface Props {
 
 const { lang, copy } = Astro.props;
 const locale: LocaleCopy = copy[lang];
-const downloadPath = lang === 'zh' ? '/zh/download' : '/download';
+const downloadPath = lang === 'zh' ? '/zh/download/' : '/download/';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
