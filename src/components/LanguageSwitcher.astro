@@ -1,0 +1,17 @@
+---
+interface Props {
+  lang: 'en' | 'zh';
+  alternatePath: string;
+}
+
+const { lang, alternatePath } = Astro.props;
+const isChinese = lang === 'zh';
+---
+
+<nav class="language-switcher" aria-label="Language">
+  {isChinese ? (
+    <a href={alternatePath} lang="en" hreflang="en">English</a>
+  ) : (
+    <a href={alternatePath} lang="zh-CN" hreflang="zh-CN">简体中文</a>
+  )}
+</nav>

@@ -1,0 +1,37 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const isChinese = lang === 'zh';
+const navItems = isChinese
+  ? [
+      { href: '/zh/', label: '首页' },
+      { href: '/zh/download', label: '下载' },
+      { href: '/zh/docs', label: '文档' },
+      { href: '/zh/support', label: '支持' },
+    ]
+  : [
+      { href: '/', label: 'Home' },
+      { href: '/download', label: 'Download' },
+      { href: '/docs', label: 'Docs' },
+      { href: '/support', label: 'Support' },
+    ];
+const alternatePath = isChinese ? '/' : '/zh/';
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href={isChinese ? '/zh/' : '/'} aria-label="oh-my-md home">
+      <img src="/logo.png" width="32" height="32" alt="" />
+      <span>oh-my-md</span>
+    </a>
+    <nav class="primary-nav" aria-label={isChinese ? '主导航' : 'Primary navigation'}>
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <LanguageSwitcher lang={lang} alternatePath={alternatePath} />
+  </div>
+</header>
