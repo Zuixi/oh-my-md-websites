@@ -87,14 +87,14 @@ for (const page of pages) {
     }
   }
 
-  // Verify non-download pages remain narrow (by checking docs/index.html)
-  const docsPath = page.lang === 'zh' ? 'zh/docs/index.html' : 'docs/index.html';
-  const docsHtml = readFileSync(join(dist.pathname, docsPath), 'utf8');
-  if (docsHtml.includes('content-page-wide') || docsHtml.includes('download-layout')) {
-    throw new Error(`${docsPath} should not have wide layout markers!`);
+  // Verify text pages remain narrow (by checking privacy/index.html)
+  const privacyPath = page.lang === 'zh' ? 'zh/privacy/index.html' : 'privacy/index.html';
+  const privacyHtml = readFileSync(join(dist.pathname, privacyPath), 'utf8');
+  if (privacyHtml.includes('download-layout')) {
+    throw new Error(`${privacyPath} should not have download layout markers!`);
   }
-  if (!docsHtml.includes('content-column')) {
-    throw new Error(`${docsPath} must keep narrow content-column`);
+  if (!privacyHtml.includes('content-column')) {
+    throw new Error(`${privacyPath} must keep narrow content-column`);
   }
 }
 

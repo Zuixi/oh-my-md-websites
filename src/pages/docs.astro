@@ -1,63 +1,169 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
+import DocsNav from '../components/DocsNav.astro';
+import ShortcutTable from '../components/ShortcutTable.astro';
 import { siteUrls } from '../data/site';
+import { currentRelease } from '../data/releases';
+
+const navItems = [
+  { id: 'quick-start', label: 'Quick Start & Workspaces' },
+  { id: 'modes', label: 'Live Preview & Source Mode' },
+  { id: 'syntax', label: 'Rich Syntax & Blocks' },
+  { id: 'shortcuts', label: 'Keyboard Shortcuts' },
+  { id: 'performance', label: 'Large-Document Performance' },
+  { id: 'troubleshooting', label: 'Troubleshooting & Exports' },
+];
+
+const shortcuts = [
+  { action: 'Toggle Live Preview / Source mode', mac: '⌘ E', win: 'Ctrl + E', description: 'Switch between in-place render and raw markdown' },
+  { action: 'Command Palette', mac: '⇧ ⌘ P', win: 'Ctrl + Shift + P', description: 'Search and run all available actions' },
+  { action: 'Bold text', mac: '⌘ B', win: 'Ctrl + B' },
+  { action: 'Italic text', mac: '⌘ I', win: 'Ctrl + I' },
+  { action: 'Insert Link', mac: '⌘ K', win: 'Ctrl + K' },
+  { action: 'Headings 1 to 6', mac: '⌘ 1 – 6', win: 'Ctrl + 1 – 6' },
+  { action: 'Typewriter / Focus mode', mac: '⌥ ⌘ T', win: 'Alt + Ctrl + T' },
+];
 ---
 
 <ContentPage
-  title="oh-my-md docs"
-  description="Quick start and supported Markdown features for oh-my-md."
+  title="Documentation — oh-my-md"
+  description="Comprehensive documentation, workspace guide, keyboard shortcuts, and performance architecture for oh-my-md."
   lang="en"
   canonicalPath="/docs/"
+  layoutClass="docs-layout"
 >
-  <span class="eyebrow">Documentation</span>
-  <h1>Start writing locally</h1>
-  <p class="lede">
-    oh-my-md is a desktop Markdown editor for local files. Choose a package on the
-    <a href="/download/">download page</a>, open a Markdown file, and keep your work in a folder you
-    control.
-  </p>
-  <section class="content-section">
-    <h2>Quick start</h2>
-    <ol>
-      <li>Install the package for your platform.</li>
-      <li>Open a Markdown file or folder workspace.</li>
-      <li>Write in Live Preview, or switch to Source mode for the exact Markdown text.</li>
-      <li>Save your file and keep related images in the local workspace.</li>
-    </ol>
-  </section>
-  <section class="content-section">
-    <h2>Live Preview and Source mode</h2>
-    <p>
-      Live Preview renders supported Markdown in place while keeping the document editable. Source
-      mode shows the underlying Markdown without the preview presentation. Use the mode that fits
-      the task, and switch between them as needed.
+  <header class="docs-hero">
+    <span class="eyebrow">Documentation</span>
+    <h1>Start writing with oh-my-md</h1>
+    <p class="lede">
+      A fast, native desktop Markdown editor designed for local files and documents that scale to hundreds of thousands of lines. Choose your package on the <a href="/download/">download page</a>.
     </p>
-  </section>
-  <section class="content-section">
-    <h2>Supported Markdown</h2>
-    <ul>
-      <li>CommonMark and GitHub Flavored Markdown, including tables, task lists, footnotes, and strikethrough.</li>
-      <li>KaTeX math and Mermaid diagrams in the live document.</li>
-      <li>Shiki code highlighting, highlights, and gemoji.</li>
-      <li>File tree, search, outline, and tabs for local workspaces.</li>
-    </ul>
-  </section>
-  <section class="content-section">
-    <h2>Platforms and exports</h2>
-    <p>
-      Current packages are available for macOS Universal, Windows x64, and Linux x64. oh-my-md
-      works with Markdown files and local assets; it does not promise a hosted publishing or export
-      service. For the most accurate current behavior, see the
-      <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>.
-    </p>
-  </section>
-  <section class="content-section">
-    <h2>Troubleshooting</h2>
-    <p>
-      First check the <a href={siteUrls.readme} rel="noopener noreferrer">README</a> and the
-      project’s <a href={siteUrls.manual} rel="noopener noreferrer">manual testing notes</a>. If a
-      problem persists, <a href="/support/">contact the project through its support links</a> with
-      reproducible steps.
-    </p>
-  </section>
+  </header>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar">
+      <DocsNav lang="en" items={navItems} />
+    </aside>
+
+    <div class="docs-content">
+      <!-- Section 1: Quick Start & Workspaces -->
+      <section id="quick-start" class="docs-section">
+        <h2>Quick start & workspaces</h2>
+        <p>
+          oh-my-md is entirely local-first. There are no cloud vaults, forced sync accounts, or proprietary databases. Everything lives directly in plain Markdown files on your disk.
+        </p>
+
+        <div class="feature-cards-grid">
+          <div class="feature-card">
+            <h3>Single file mode</h3>
+            <p>
+              Double-click any <code>.md</code> or <code>.markdown</code> file from Finder or Windows Explorer to open it immediately with minimal footprint.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Folder workspace</h3>
+            <p>
+              Mount any local directory as a workspace to unlock the file tree explorer, full-folder search, document outline panel, and multi-tab editing.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout-box callout-tip">
+          <p>
+            <strong>Local asset rule:</strong> Pasted and dragged images are saved automatically into an adjacent <code>assets/</code> folder relative to your Markdown document, keeping links portable and Git-friendly.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: Live Preview & Source Mode -->
+      <section id="modes" class="docs-section">
+        <h2>Live Preview & source mode</h2>
+        <p>
+          Traditional split-pane editors waste half your display showing duplicates. oh-my-md provides true in-place rendering inspired by modern word processors, backed by the robust CodeMirror 6 engine:
+        </p>
+        <ul>
+          <li><strong>Live Preview:</strong> Markdown syntax markers (such as asterisks, brackets, or math delimiters) naturally fade out as you write, rendering styled text, tables, and blocks in place while remaining fully editable.</li>
+          <li><strong>Source Mode:</strong> Flip to raw, unrendered Markdown with full syntax highlighting anytime with <kbd class="kbd-key">⌘ E</kbd> (or <kbd class="kbd-key">Ctrl + E</kbd>).</li>
+        </ul>
+        <p>
+          Mode switching is instantaneous because it simply mounts or unmounts CodeMirror decoration layers without rebuilding the underlying document model.
+        </p>
+      </section>
+
+      <!-- Section 3: Rich Syntax & Blocks -->
+      <section id="syntax" class="docs-section">
+        <h2>Supported Markdown & rich blocks</h2>
+        <p>
+          Full conformance to CommonMark and GitHub Flavored Markdown (GFM), alongside rich technical content blocks:
+        </p>
+
+        <div class="feature-cards-grid">
+          <div class="feature-card">
+            <h3>GFM Tables & Task Lists</h3>
+            <p>Rendered interactively with clean cell alignment, strikethrough, and clickable task checkmarks.</p>
+          </div>
+          <div class="feature-card">
+            <h3>KaTeX Math Blocks</h3>
+            <p>Inline math <code>$E=mc^2$</code> and centered display blocks <code>$$...$$</code> rendered in real time with LaTeX accuracy.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Mermaid Diagrams</h3>
+            <p>Flowcharts, sequence diagrams, and architecture maps rendered directly inside <code>```mermaid</code> fenced blocks.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Shiki Code Highlighting</h3>
+            <p>Accurate syntax highlighting powered by VS Code themes, preserving your active light/dark palette.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Keyboard Shortcuts -->
+      <section id="shortcuts" class="docs-section">
+        <h2>Core keyboard shortcuts</h2>
+        <p>
+          Every command is discoverable through the Command Palette (<kbd class="kbd-key">⇧ ⌘ P</kbd> / <kbd class="kbd-key">Ctrl + Shift + P</kbd>). Key common actions:
+        </p>
+
+        <ShortcutTable lang="en" shortcuts={shortcuts} />
+      </section>
+
+      <!-- Section 5: Large Document Performance -->
+      <section id="performance" class="docs-section">
+        <h2>Large-document performance architecture</h2>
+        <p>
+          One core promise of oh-my-md: <strong>you should never have to split a file because your editor gets sluggish</strong>.
+        </p>
+        <p>
+          Unlike Electron-based editors that render the entire document DOM, oh-my-md utilizes CodeMirror 6's viewport virtualization paired with a lightweight Tauri 2 Rust native host:
+        </p>
+        <ul>
+          <li><strong>Viewport-windowed rendering:</strong> Only the lines visible on your screen are rendered into the DOM. Complex math and diagrams outside the screen are measured and held in memory without taxing your GPU.</li>
+          <li><strong>Sub-millisecond mode toggling:</strong> Switching between Live and Source modes only builds decoration seeds around the cursor, keeping transitions instant even on 100,000+ line files.</li>
+          <li><strong>Deterministic durability:</strong> Native file saves use guarded atomic writes to prevent data loss or silent external file overwrites.</li>
+        </ul>
+      </section>
+
+      <!-- Section 6: Troubleshooting & System Warnings -->
+      <section id="troubleshooting" class="docs-section">
+        <h2>Troubleshooting & platforms</h2>
+        <p>
+          Current packages are available for macOS Universal, Windows x64, and Linux x64:
+        </p>
+        <ul>
+          <li><strong>HTML Export:</strong> Available across macOS, Windows, and Linux.</li>
+          <li><strong>PDF & PNG Export:</strong> Currently available on macOS via native WebView print rendering.</li>
+        </ul>
+
+        <div class="callout-box callout-warning">
+          <p>
+            <strong>Unsigned community build notice:</strong> The v{currentRelease.version} preview binaries are not code-signed. On macOS, right-click and choose "Open", or run <code>xattr -cr /Applications/oh-my-md.app</code> if blocked by Gatekeeper. On Windows, click "More info" and "Run anyway" in Microsoft Defender SmartScreen.
+          </p>
+        </div>
+
+        <p>
+          Still encountering an issue? Check the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a> and the <a href={siteUrls.manual} rel="noopener noreferrer">manual testing notes</a>, or head over to the <a href="/support/">Support Hub</a> to file a bug report with reproducible steps.
+        </p>
+      </section>
+    </div>
+  </div>
 </ContentPage>
