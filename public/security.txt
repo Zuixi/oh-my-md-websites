@@ -1,0 +1,4 @@
+Contact: https://github.com/Zuixi/oh-my-md-website/security/advisories/new
+Policy: https://github.com/Zuixi/oh-my-md-website/security/policy
+Preferred-Languages: en, zh
+Canonical: https://ohmd.us/.well-known/security.txt

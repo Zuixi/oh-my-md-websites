@@ -1,0 +1,24 @@
+{
+  "name": "oh-my-md-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs && pnpm run check-release-manifest && pnpm run check-routes && pnpm run check-seo && pnpm run check-security",
+    "check-release-manifest": "tsx scripts/check-release-manifest.mjs",
+    "check-routes": "tsx scripts/check-routes.mjs",
+    "check-seo": "node scripts/check-seo.mjs",
+    "check-security": "node scripts/check-security.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.13.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.2"
+  }
+}

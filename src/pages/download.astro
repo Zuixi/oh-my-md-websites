@@ -1,0 +1,95 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import DownloadCard from '../components/DownloadCard.astro';
+import InstallCommand from '../components/InstallCommand.astro';
+import { currentRelease, releaseDisplay, releasePackagesByPlatform } from '../data/releases';
+import { siteUrls } from '../data/site';
+
+const mac = releasePackagesByPlatform.macOS[0];
+const windows = releasePackagesByPlatform.Windows;
+const linux = releasePackagesByPlatform.Linux;
+const display = releaseDisplay;
+const version = currentRelease.version;
+const commandCopy = {
+  label: display.copyCommand.en,
+  copied: display.copiedCommand.en,
+  failed: display.copyUnavailable.en,
+};
+---
+
+<ContentPage
+  title={`Download oh-my-md ${version}`}
+  description={display.downloadDescription(version).en}
+  lang="en"
+  canonicalPath="/download/"
+>
+  <span class="eyebrow">{display.currentReleaseLabel(version).en}</span>
+  <h1>Download oh-my-md</h1>
+  <p class="lede">
+    Choose a package for your desktop. {display.authoritativeSource.en}
+  </p>
+  <aside class="warning" aria-label={display.unsignedAriaLabel.en}>
+    <strong>{display.unsignedLabel.en}</strong> {display.unsignedNotice(version).en}
+  </aside>
+
+  <section class="download-section" aria-labelledby="macos-title">
+    <h2 id="macos-title">macOS</h2>
+    <div class="download-grid">
+      <DownloadCard package={mac} lang="en" />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="windows-title">
+    <h2 id="windows-title">Windows</h2>
+    <p>{display.windowsGuidance.en}</p>
+    <div class="download-grid">
+      <DownloadCard package={windows[0]} lang="en" />
+      <DownloadCard
+        package={windows[1]}
+        lang="en"
+        note={display.msiNote.en}
+      />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="linux-title">
+    <h2 id="linux-title">Linux</h2>
+    <div class="download-grid">
+      <DownloadCard package={linux[0]} lang="en" />
+      <DownloadCard package={linux[1]} lang="en" />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="verify-title">
+    <h2 id="verify-title">{display.verifyHeading.en}</h2>
+    <p>
+      Download <a href={currentRelease.checksumUrl} rel="noopener noreferrer">{display.checksumLinkLabel.en}</a>
+      {display.verificationInstructions.en}
+      <a href={currentRelease.releasePage} rel="noopener noreferrer">{display.releasePageLinkLabel(version).en}</a>.
+    </p>
+    <div class="install-grid">
+      <InstallCommand
+        label={display.commandLabels.unix.en}
+        shell="bash"
+        command={`shasum -a 256 <downloaded-file>`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+      <InstallCommand
+        label={display.commandLabels.windows.en}
+        shell="powershell"
+        command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+    </div>
+    <p class="muted">{display.copyOnlyNotice.en}</p>
+    <p>
+      <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
+        {display.allReleases.en}
+      </a>
+    </p>
+  </section>
+</ContentPage>

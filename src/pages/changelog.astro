@@ -1,0 +1,32 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../data/releases';
+
+const description = releaseDisplay.changelogDescription(currentRelease.version).en;
+---
+
+<ContentPage
+  title="Changelog — oh-my-md"
+  description={description}
+  lang="en"
+  canonicalPath="/changelog/"
+>
+  <span class="eyebrow">Changelog</span>
+  <h1>oh-my-md {currentRelease.version}</h1>
+  <p class="lede">{releaseDisplay.changelogIntro(currentRelease.version, currentRelease.releasedAt).en}</p>
+  <section class="content-section">
+    <h2>{currentRelease.version}</h2>
+    <ul>
+      {releaseDisplay.changelogFeatures.map((feature) => <li>{feature.en}</li>)}
+    </ul>
+    <p>
+      <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">
+        {releaseDisplay.changelogReleaseLinkLabel(currentRelease.version).en}
+      </a>
+    </p>
+  </section>
+  <p>
+    For the project’s full context and source, see the
+    <a href="https://github.com/Zuixi/oh-my-md#readme" rel="noopener noreferrer">main README</a>.
+  </p>
+</ContentPage>

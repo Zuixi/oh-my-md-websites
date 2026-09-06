@@ -1,0 +1,35 @@
+---
+import ContentPage from '../../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../../data/releases';
+import { siteUrls } from '../../data/site';
+
+const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).zh;
+---
+
+<ContentPage
+  title="支持 — oh-my-md"
+  description="oh-my-md 的支持、问题反馈、安全报告和贡献入口。"
+  lang="zh"
+  canonicalPath="/zh/support/"
+>
+  <span class="eyebrow">支持</span>
+  <h1>获取帮助、报告问题并参与贡献</h1>
+  <p class="lede">oh-my-md 在公开环境中开发。请使用现有的 GitHub 渠道，让问题和讨论能够被社区检索。</p>
+  <section class="content-section">
+    <h2>选择入口</h2>
+    <ul>
+      <li><a href={siteUrls.issues} rel="noopener noreferrer">GitHub Issues</a>：提交可复现的错误并讨论功能。</li>
+      <li><a href={siteUrls.discussions} rel="noopener noreferrer">GitHub Discussions</a>：提出问题和进行更广泛的交流。</li>
+      <li><a href={siteUrls.security} rel="noopener noreferrer">安全公告</a>：在可用时私下报告安全漏洞。</li>
+      <li><a href={siteUrls.contributing} rel="noopener noreferrer">贡献指南</a>：了解如何为项目提交更改。</li>
+    </ul>
+  </section>
+  <section class="content-section">
+    <h2>有用链接</h2>
+    <p>
+      阅读<a href={siteUrls.readme} rel="noopener noreferrer">主 README</a>，查看
+      <a href={currentRelease.releasePage} rel="noopener noreferrer">{releaseLabel}</a>，或从
+      <a href="/zh/docs/">文档</a>开始。
+    </p>
+  </section>
+</ContentPage>

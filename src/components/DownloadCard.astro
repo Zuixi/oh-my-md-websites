@@ -1,0 +1,48 @@
+---
+import { releaseDisplay } from '../data/releases';
+import type { ReleasePackage } from '../data/releases';
+
+interface Props {
+  package: ReleasePackage;
+  lang: 'en' | 'zh';
+  note?: string;
+}
+
+const { package: releasePackage, lang, note } = Astro.props;
+const downloadLabel = releaseDisplay.downloadLabels[releasePackage.fileType][lang];
+const availabilityLabel = releaseDisplay.availabilityLabels[releasePackage.availability][lang];
+const metadataLabels = releaseDisplay.metadataLabels;
+---
+
+<article class="download-card card">
+  <div class="download-card-heading">
+    <div>
+      <h3>{releasePackage.fileType}</h3>
+      {availabilityLabel && <span class="badge">{availabilityLabel}</span>}
+    </div>
+    <a class="button button-small" href={releasePackage.url} download>
+      {downloadLabel}
+    </a>
+  </div>
+  <dl class="package-meta">
+    <div>
+      <dt>{metadataLabels.file[lang]}</dt>
+      <dd><code>{releasePackage.filename}</code></dd>
+    </div>
+    <div>
+      <dt>{metadataLabels.architecture[lang]}</dt>
+      <dd>{releasePackage.architecture}</dd>
+    </div>
+    <div>
+      <dt>{metadataLabels.type[lang]}</dt>
+      <dd>{releasePackage.fileType}</dd>
+    </div>
+    <div>
+      <dt>{metadataLabels.signature[lang]}</dt>
+      <dd>
+        {releasePackage.signed ? metadataLabels.signed[lang] : metadataLabels.unsigned[lang]}
+      </dd>
+    </div>
+  </dl>
+  {note && <p class="package-note">{note}</p>}
+</article>

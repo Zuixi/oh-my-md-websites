@@ -1,0 +1,32 @@
+---
+import type { Language } from '../data/site';
+import { siteUrls } from '../data/site';
+import type { LocaleCopy, SiteCopy } from '../data/site';
+
+interface Props {
+  lang: Language;
+  copy: SiteCopy;
+}
+
+const { lang, copy } = Astro.props;
+const locale: LocaleCopy = copy[lang];
+const downloadPath = lang === 'zh' ? '/zh/download/' : '/download/';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">{locale.hero.eyebrow}</span>
+      <h1 id="hero-title">{locale.hero.headline}</h1>
+      <p>{locale.hero.subtitle}</p>
+      <div class="button-row">
+        <a class="button" href={downloadPath}>{locale.hero.downloadLabel}</a>
+        <a class="button button-secondary" href={siteUrls.repository} rel="noopener noreferrer">{locale.hero.githubLabel}</a>
+      </div>
+    </div>
+      <figure class="hero-figure">
+        <img class="hero-image" src="/hero.png" width="1920" height="1027" alt={locale.hero.screenshotAlt} loading="eager" />
+        <figcaption>{locale.hero.screenshotCaption}</figcaption>
+    </figure>
+  </div>
+</section>

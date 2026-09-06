@@ -1,0 +1,32 @@
+---
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const isChinese = lang === 'zh';
+const links = isChinese
+  ? [
+      { href: '/zh/privacy/', label: '隐私' },
+      { href: '/zh/changelog/', label: '更新日志' },
+      { href: '/zh/support/', label: '支持' },
+    ]
+  : [
+      { href: '/privacy/', label: 'Privacy' },
+      { href: '/changelog/', label: 'Changelog' },
+      { href: '/support/', label: 'Support' },
+    ];
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <a class="brand brand-footer" href={isChinese ? '/zh/' : '/'}>oh-my-md</a>
+      <p>{isChinese ? '开源、本地优先的 Markdown 编辑器。' : 'An open-source, local-first Markdown editor.'}</p>
+    </div>
+    <nav aria-label={isChinese ? '页脚导航' : 'Footer navigation'}>
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <p class="copyright">© {new Date().getFullYear()} oh-my-md · Apache-2.0</p>
+  </div>
+</footer>

@@ -1,0 +1,21 @@
+---
+import type { TrustItem } from '../data/site';
+
+interface Props {
+  items: readonly TrustItem[];
+  ariaLabel: string;
+}
+
+const { items, ariaLabel } = Astro.props;
+---
+
+<div class="trust-strip" aria-label={ariaLabel}>
+  <div class="container trust-grid">
+    {items.map((item) => (
+      <div class="trust-item">
+        <span>{item.label}</span>
+        <strong>{item.value}</strong>
+      </div>
+    ))}
+  </div>
+</div>

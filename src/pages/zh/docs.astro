@@ -1,0 +1,59 @@
+---
+import ContentPage from '../../components/ContentPage.astro';
+import { siteUrls } from '../../data/site';
+---
+
+<ContentPage
+  title="oh-my-md 文档"
+  description="oh-my-md 快速开始和支持的 Markdown 功能。"
+  lang="zh"
+  canonicalPath="/zh/docs/"
+>
+  <span class="eyebrow">文档</span>
+  <h1>从本地写作开始</h1>
+  <p class="lede">
+    oh-my-md 是面向本地文件的桌面 Markdown 编辑器。在<a href="/zh/download/">下载页</a>选择安装包，
+    打开 Markdown 文件，并将工作保存在自己控制的文件夹中。
+  </p>
+  <section class="content-section">
+    <h2>快速开始</h2>
+    <ol>
+      <li>安装适合你平台的安装包。</li>
+      <li>打开 Markdown 文件或文件夹工作区。</li>
+      <li>使用 Live Preview 写作，或切换到 Source 模式查看准确的 Markdown 文本。</li>
+      <li>保存文件，并将相关图片放在本地工作区中。</li>
+    </ol>
+  </section>
+  <section class="content-section">
+    <h2>Live Preview 与 Source 模式</h2>
+    <p>
+      Live Preview 会在文档中渲染支持的 Markdown，同时保持可编辑。Source 模式显示底层 Markdown 文本，
+      不使用预览呈现。根据任务需要随时切换。
+    </p>
+  </section>
+  <section class="content-section">
+    <h2>支持的 Markdown</h2>
+    <ul>
+      <li>CommonMark 与 GitHub Flavored Markdown，包括表格、任务列表、脚注和删除线。</li>
+      <li>在实时文档中使用 KaTeX 数学公式和 Mermaid 图表。</li>
+      <li>Shiki 代码高亮、高亮标记和 gemoji。</li>
+      <li>本地工作区的文件树、搜索、大纲和标签页。</li>
+    </ul>
+  </section>
+  <section class="content-section">
+    <h2>平台与导出</h2>
+    <p>
+      当前提供 macOS Universal、Windows x64 和 Linux x64 安装包。oh-my-md 面向 Markdown 文件和本地资源，
+      不承诺托管发布或导出服务。准确的当前行为请查看
+      <a href={siteUrls.readme} rel="noopener noreferrer">主 README</a>。
+    </p>
+  </section>
+  <section class="content-section">
+    <h2>故障排查</h2>
+    <p>
+      请先查看 <a href={siteUrls.readme} rel="noopener noreferrer">README</a> 和项目的
+      <a href={siteUrls.manual} rel="noopener noreferrer">手动测试记录</a>。如果问题仍然存在，请按
+      <a href="/zh/support/">支持页面的入口</a>提供可复现步骤。
+    </p>
+  </section>
+</ContentPage>

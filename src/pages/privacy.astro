@@ -1,0 +1,43 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../data/releases';
+
+const updateNotice = releaseDisplay.updateNotice(currentRelease.version).en;
+---
+
+<ContentPage
+  title="Privacy — oh-my-md"
+  description="Privacy information for the oh-my-md website and desktop app."
+  lang="en"
+  canonicalPath="/privacy/"
+>
+  <span class="eyebrow">Privacy</span>
+  <h1>A local-first product and a static website</h1>
+  <p class="lede">
+    This website is static. It has no accounts, no website-owned telemetry, no document upload, and
+    no advertising or analytics scripts.
+  </p>
+  <section class="content-section">
+    <h2>What the website does not collect</h2>
+    <ul>
+      <li>No account or sign-in is required.</li>
+      <li>The website does not upload, store, or inspect your Markdown documents.</li>
+      <li>There are no website-owned advertising, analytics, or telemetry scripts.</li>
+    </ul>
+  </section>
+  <section class="content-section">
+    <h2>Normal network metadata</h2>
+    <p>
+      When you follow a download link, your browser and the hosting service may receive normal request
+      metadata such as an IP address, time, user agent, and requested URL. Download assets currently
+      live on GitHub, so GitHub’s own policies apply to those requests.
+    </p>
+  </section>
+  <section class="content-section">
+    <h2>Desktop app updates</h2>
+    <p>
+      App update behavior is documented separately from this website. In particular, {updateNotice} Do
+      not treat this page as an update service.
+    </p>
+  </section>
+</ContentPage>
