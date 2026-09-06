@@ -1,59 +1,169 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
+import DocsNav from '../../components/DocsNav.astro';
+import ShortcutTable from '../../components/ShortcutTable.astro';
 import { siteUrls } from '../../data/site';
+import { currentRelease } from '../../data/releases';
+
+const navItems = [
+  { id: 'quick-start', label: '快速上手与工作区' },
+  { id: 'modes', label: 'Live 预览与源码模式' },
+  { id: 'syntax', label: '核心语法与富内容块' },
+  { id: 'shortcuts', label: '常用快捷键速查' },
+  { id: 'performance', label: '大文档性能与架构' },
+  { id: 'troubleshooting', label: '系统提示与问题排查' },
+];
+
+const shortcuts = [
+  { action: '切换 Live 预览 / 源码模式', mac: '⌘ E', win: 'Ctrl + E', description: '在原位实时渲染与底层纯文本间即时切换' },
+  { action: '命令面板', mac: '⇧ ⌘ P', win: 'Ctrl + Shift + P', description: '检索并执行全部编辑器动作' },
+  { action: '粗体', mac: '⌘ B', win: 'Ctrl + B' },
+  { action: '斜体', mac: '⌘ I', win: 'Ctrl + I' },
+  { action: '插入链接', mac: '⌘ K', win: 'Ctrl + K' },
+  { action: '1 至 6 级标题', mac: '⌘ 1 – 6', win: 'Ctrl + 1 – 6' },
+  { action: '打字机 / 专注模式', mac: '⌥ ⌘ T', win: 'Alt + Ctrl + T' },
+];
 ---
 
 <ContentPage
-  title="oh-my-md 文档"
-  description="oh-my-md 快速开始和支持的 Markdown 功能。"
+  title="使用文档 — oh-my-md"
+  description="oh-my-md 桌面编辑器快速上手、工作区使用指南、核心快捷键与大文档性能机制。"
   lang="zh"
   canonicalPath="/zh/docs/"
+  layoutClass="docs-layout"
 >
-  <span class="eyebrow">文档</span>
-  <h1>从本地写作开始</h1>
-  <p class="lede">
-    oh-my-md 是面向本地文件的桌面 Markdown 编辑器。在<a href="/zh/download/">下载页</a>选择安装包，
-    打开 Markdown 文件，并将工作保存在自己控制的文件夹中。
-  </p>
-  <section class="content-section">
-    <h2>快速开始</h2>
-    <ol>
-      <li>安装适合你平台的安装包。</li>
-      <li>打开 Markdown 文件或文件夹工作区。</li>
-      <li>使用 Live Preview 写作，或切换到 Source 模式查看准确的 Markdown 文本。</li>
-      <li>保存文件，并将相关图片放在本地工作区中。</li>
-    </ol>
-  </section>
-  <section class="content-section">
-    <h2>Live Preview 与 Source 模式</h2>
-    <p>
-      Live Preview 会在文档中渲染支持的 Markdown，同时保持可编辑。Source 模式显示底层 Markdown 文本，
-      不使用预览呈现。根据任务需要随时切换。
+  <header class="docs-hero">
+    <span class="eyebrow">使用文档</span>
+    <h1>开始使用 oh-my-md 写作</h1>
+    <p class="lede">
+      面向本地文件的轻量桌面 Markdown 编辑器，专为应对万行至几十万行的大型文档而设计。在<a href="/zh/download/">下载页面</a>获取适合你系统的安装包。
     </p>
-  </section>
-  <section class="content-section">
-    <h2>支持的 Markdown</h2>
-    <ul>
-      <li>CommonMark 与 GitHub Flavored Markdown，包括表格、任务列表、脚注和删除线。</li>
-      <li>在实时文档中使用 KaTeX 数学公式和 Mermaid 图表。</li>
-      <li>Shiki 代码高亮、高亮标记和 gemoji。</li>
-      <li>本地工作区的文件树、搜索、大纲和标签页。</li>
-    </ul>
-  </section>
-  <section class="content-section">
-    <h2>平台与导出</h2>
-    <p>
-      当前提供 macOS Universal、Windows x64 和 Linux x64 安装包。oh-my-md 面向 Markdown 文件和本地资源，
-      不承诺托管发布或导出服务。准确的当前行为请查看
-      <a href={siteUrls.readme} rel="noopener noreferrer">主 README</a>。
-    </p>
-  </section>
-  <section class="content-section">
-    <h2>故障排查</h2>
-    <p>
-      请先查看 <a href={siteUrls.readme} rel="noopener noreferrer">README</a> 和项目的
-      <a href={siteUrls.manual} rel="noopener noreferrer">手动测试记录</a>。如果问题仍然存在，请按
-      <a href="/zh/support/">支持页面的入口</a>提供可复现步骤。
-    </p>
-  </section>
+  </header>
+
+  <div class="docs-shell">
+    <aside class="docs-sidebar">
+      <DocsNav lang="zh" items={navItems} />
+    </aside>
+
+    <div class="docs-content">
+      <!-- Section 1: 快速上手与工作区 -->
+      <section id="quick-start" class="docs-section">
+        <h2>快速上手与工作区</h2>
+        <p>
+          oh-my-md 遵循 100% 本地优先原则。没有强制云端同步账号、没有私有格式数据库，所有内容直接存放在你电脑中的纯文本 Markdown 文件里。
+        </p>
+
+        <div class="feature-cards-grid">
+          <div class="feature-card">
+            <h3>单文件打开模式</h3>
+            <p>
+              在访达（Finder）或 Windows 文件资源管理器中双击任意 <code>.md</code> 或 <code>.markdown</code>，即可秒开编辑，资源占用极小。
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>文件夹工作区模式</h3>
+            <p>
+              挂载任意本地文件夹作为工作区，解锁左侧文件树、全目录搜索、大纲 TOC 提取及多标签页管理。
+            </p>
+          </div>
+        </div>
+
+        <div class="callout-box callout-tip">
+          <p>
+            <strong>本地图片存放约定：</strong> 粘贴或拖放插入的截图会自动保存到当前文档同级的 <code>assets/</code> 目录中，使用相对路径链接，极易被 Git 管理和分享。
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: Live 预览与源码模式 -->
+      <section id="modes" class="docs-section">
+        <h2>Live 预览与源码模式</h2>
+        <p>
+          传统分栏编辑器一边看源码一边看预览，白白浪费屏幕空间。oh-my-md 基于成熟的 CodeMirror 6 引擎构建了真正的所见即所得体验：
+        </p>
+        <ul>
+          <li><strong>Live 预览模式：</strong> 星号、括号、数学分隔符等标记在输入时自然淡出，就地渲染出高精度的标题、表格与富内容块，同时光标依然停留在原文位置随时可编辑。</li>
+          <li><strong>源码模式：</strong> 随时按下 <kbd class="kbd-key">⌘ E</kbd>（或 <kbd class="kbd-key">Ctrl + E</kbd>）即可切回带有完整语法高亮的纯源文本视图。</li>
+        </ul>
+        <p>
+          双模式切换是在底层文档树上增删装饰层（Decorations），不重新构建 DOM，因此切换瞬时完成且绝不丢字。
+        </p>
+      </section>
+
+      <!-- Section 3: 核心语法与富内容块 -->
+      <section id="syntax" class="docs-section">
+        <h2>支持的 Markdown 与富内容块</h2>
+        <p>
+          完整遵循 CommonMark 与 GitHub Flavored Markdown (GFM) 规范，并支持现代学术和技术文档常用扩展：
+        </p>
+
+        <div class="feature-cards-grid">
+          <div class="feature-card">
+            <h3>GFM 表格与任务列表</h3>
+            <p>交互式整齐对齐的表格呈现，支持删除线与可点击勾选的任务待办复选框。</p>
+          </div>
+          <div class="feature-card">
+            <h3>KaTeX 数学公式</h3>
+            <p>支持行内公式 <code>$E=mc^2$</code> 与居中独立块 <code>$$...$$</code>，实时具备 LaTeX 级排版精度。</p>
+          </div>
+          <div class="feature-card">
+            <h3>Mermaid 图表渲染</h3>
+            <p>在 <code>```mermaid</code> 代码块内直接渲染流程图、时序图、架构拓扑与状态机图表。</p>
+          </div>
+          <div class="feature-card">
+            <h3>Shiki 语法高亮</h3>
+            <p>与 VS Code 代码高亮同源的精准着色，并自动跟随明暗主题切换配色。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: 常用快捷键速查 -->
+      <section id="shortcuts" class="docs-section">
+        <h2>常用快捷键速查</h2>
+        <p>
+          所有指令都可以通过命令面板搜索找到（<kbd class="kbd-key">⇧ ⌘ P</kbd> / <kbd class="kbd-key">Ctrl + Shift + P</kbd>）。以下为日常最高频的操作：
+        </p>
+
+        <ShortcutTable lang="zh" shortcuts={shortcuts} />
+      </section>
+
+      <!-- Section 5: 大文档性能与架构 -->
+      <section id="performance" class="docs-section">
+        <h2>大文档性能与架构保证</h2>
+        <p>
+          oh-my-md 的核心承诺：<strong>你永远不必因为编辑器卡顿而把长篇文档拆成许多碎片文件</strong>。
+        </p>
+        <p>
+          与把整个文档全量转成巨大网页 DOM 的 Electron 方案不同，oh-my-md 结合了视口虚拟化与 Tauri 2 原生 Rust 外壳：
+        </p>
+        <ul>
+          <li><strong>视口窗口化渲染：</strong> 仅对当前屏幕可见区域内的行进行 DOM 挂载。离开屏幕的复杂公式或图表在后台按行高占位，不拖慢滚动帧率。</li>
+          <li><strong>增量局部解析：</strong> 单击键盘输入时只重新计算光标附近的语法节点与装饰种子，无论文档有 1 万行还是数十万行，打字延迟都能维持在帧预算内。</li>
+          <li><strong>保护性原子保存：</strong> 存盘走 Rust 双重指纹比对机制，绝不静默覆盖外部变动，杜绝闪退丢字。</li>
+        </ul>
+      </section>
+
+      <!-- Section 6: 系统提示与问题排查 -->
+      <section id="troubleshooting" class="docs-section">
+        <h2>系统提示与问题排查</h2>
+        <p>
+          当前 v{currentRelease.version} 发布版本覆盖 macOS Universal、Windows x64 与 Linux x64：
+        </p>
+        <ul>
+          <li><strong>HTML 导出：</strong> 支持全平台导出完整渲染的单文件网页。</li>
+          <li><strong>PDF / PNG 导出：</strong> 目前仅支持 macOS 平台通过系统原生 WebView 打印管线输出。</li>
+        </ul>
+
+        <div class="callout-box callout-warning">
+          <p>
+            <strong>未签名社区构建说明：</strong> 当前首发版本未完成商业代码签名。macOS 用户若被 Gatekeeper 拦截，请在“应用程序”中按住 Control 键点击应用选择“打开”，或在终端运行 <code>xattr -cr /Applications/oh-my-md.app</code>。Windows 用户如遇 SmartScreen 提示，请核对校验和后点击“更多信息 → 仍要运行”。
+          </p>
+        </div>
+
+        <p>
+          遇到异常问题？请参阅<a href={siteUrls.readme} rel="noopener noreferrer">主 README</a> 与项目的<a href={siteUrls.manual} rel="noopener noreferrer">手动测试记录</a>，或前往<a href="/zh/support/">支持中心</a>提交附带复现步骤的 Issue。
+        </p>
+      </section>
+    </div>
+  </div>
 </ContentPage>
