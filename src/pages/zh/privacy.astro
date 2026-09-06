@@ -1,40 +1,87 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
 import { currentRelease, releaseDisplay } from '../../data/releases';
+import { siteUrls } from '../../data/site';
 
 const updateNotice = releaseDisplay.updateNotice(currentRelease.version).zh;
 ---
 
 <ContentPage
-  title="隐私 — oh-my-md"
-  description="oh-my-md 官网和桌面应用的隐私说明。"
+  title="隐私政策 — oh-my-md"
+  description="oh-my-md 官方网站与桌面客户端的隐私政策及本地优先数据架构说明。"
   lang="zh"
   canonicalPath="/zh/privacy/"
 >
-  <span class="eyebrow">隐私</span>
-  <h1>本地优先的产品与静态网站</h1>
-  <p class="lede">
-    本网站是静态网站：无需账号，没有官网自建遥测，不上传文档，也不加载广告或分析脚本。
-  </p>
-  <section class="content-section">
-    <h2>网站不会收集什么</h2>
+  <header class="policy-header">
+    <span class="eyebrow">隐私与可信</span>
+    <h1>隐私政策</h1>
+    <div class="policy-meta">最近更新：2026 年 9 月 · 适用于 oh-my-md 官网与桌面应用程序</div>
+    <p class="lede">
+      oh-my-md 坚守毫不妥协的<strong>本地优先（Local-first）</strong>设计哲学。我们坚信你的笔记、文章与思考属于你个人，绝不应被锁在专有云端，更不应受到任何后台追踪程序的窥探。
+    </p>
+  </header>
+
+  <div class="policy-summary-box">
+    <strong>核心摘要：</strong>
     <ul>
-      <li>无需账号或登录。</li>
-      <li>网站不会上传、保存或读取你的 Markdown 文档。</li>
-      <li>网站没有自建广告、分析或遥测脚本。</li>
+      <li>你的 Markdown 文档与图片文件仅保存在你电脑本地磁盘中。</li>
+      <li>使用本编辑器或浏览本官网均无需注册任何账号或提供个人信息。</li>
+      <li>本网站零追踪 Cookie、零第三方行为分析脚本、零广告。</li>
+      <li>桌面客户端不进行任何未经许可的静默遥测或私下数据上传。</li>
+    </ul>
+  </div>
+
+  <section class="policy-section">
+    <h2>1. 文档存储与本地文件</h2>
+    <p>
+      oh-my-md 直接读写你电脑文件系统中的纯文本 <code>.md</code> 文件：
+    </p>
+    <ul>
+      <li>我们不设云端同步服务器，也不将你的文档存入任何远程数据库。</li>
+      <li>粘贴或拖放的图片会自动保存到当前文档同级的 <code>assets/</code> 本地目录。</li>
+      <li>我们绝不读取、分析、索引或上传你的工作区内容。</li>
     </ul>
   </section>
-  <section class="content-section">
-    <h2>正常的网络请求信息</h2>
+
+  <section class="policy-section">
+    <h2>2. 官网行为与零自建遥测</h2>
     <p>
-      点击下载链接时，浏览器和托管服务可能收到 IP 地址、时间、用户代理和请求 URL 等正常请求信息。当前安装包托管在
-      GitHub，因此相关请求适用 GitHub 自身的政策。
+      本官方网站（<code>ohmd.us</code>）为纯静态站点，在架构层面杜绝了用户数据收集：
     </p>
+    <ul>
+      <li><strong>无分析脚本：</strong> 我们不加载 Google Analytics、Cloudflare Web Analytics 探测脚本或任何追踪像素。</li>
+      <li><strong>无广告网络：</strong> 绝不嵌入广告联盟横幅或第三方行为追踪 Cookie。</li>
+      <li><strong>无外部字体 CDN：</strong> 页面完全使用操作系统原生系统字体栈渲染，你的浏览器不会因此产生向字体服务器的外发请求。</li>
+    </ul>
   </section>
-  <section class="content-section">
-    <h2>桌面应用更新</h2>
+
+  <section class="policy-section">
+    <h2>3. 下载过程中的网络请求</h2>
     <p>
-      应用更新行为与本网站分开记录。尤其要注意，{updateNotice} 请不要把本页面当作更新服务。
+      当你在本网站点击安装包下载时：
+    </p>
+    <ul>
+      <li>发布安装包托管于公共 GitHub Releases。发起下载时，你的浏览器将直连 GitHub 基础设施。</li>
+      <li>作为标准网络交互，GitHub 服务器会记录常规网络日志（例如访问 IP、HTTP 用户代理与时间戳），这部分请求适用 GitHub 自身的隐私声明。</li>
+    </ul>
+  </section>
+
+  <section class="policy-section">
+    <h2>4. 桌面客户端网络隔离承诺</h2>
+    <p>
+      基于 Tauri 2 与 Rust 构建的桌面客户端，在日常编辑中保持严格的网络隔离：
+    </p>
+    <ul>
+      <li>日常写作、公式渲染、图表绘制与导出功能 100% 离线可用。</li>
+      <li>{updateNotice}</li>
+      <li>应用内不包含任何未经授权的静默使用率追踪、崩溃回传或后台遥测。</li>
+    </ul>
+  </section>
+
+  <section class="policy-section">
+    <h2>5. 隐私咨询与安全联系</h2>
+    <p>
+      如果你对我们的隐私保护机制有任何疑问，或希望负责任地披露安全设计缺陷，请访问我们的<a href="/zh/support/">支持中心</a>，或通过 <a href={siteUrls.security} rel="noopener noreferrer">GitHub Security Advisories</a> 提交私密报告。
     </p>
   </section>
 </ContentPage>
