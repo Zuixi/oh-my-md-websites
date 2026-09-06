@@ -1,43 +1,87 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
 import { currentRelease, releaseDisplay } from '../data/releases';
+import { siteUrls } from '../data/site';
 
 const updateNotice = releaseDisplay.updateNotice(currentRelease.version).en;
 ---
 
 <ContentPage
-  title="Privacy — oh-my-md"
-  description="Privacy information for the oh-my-md website and desktop app."
+  title="Privacy Policy — oh-my-md"
+  description="Privacy policy and local-first data architecture for oh-my-md website and desktop application."
   lang="en"
   canonicalPath="/privacy/"
 >
-  <span class="eyebrow">Privacy</span>
-  <h1>A local-first product and a static website</h1>
-  <p class="lede">
-    This website is static. It has no accounts, no website-owned telemetry, no document upload, and
-    no advertising or analytics scripts.
-  </p>
-  <section class="content-section">
-    <h2>What the website does not collect</h2>
+  <header class="policy-header">
+    <span class="eyebrow">Privacy & Trust</span>
+    <h1>Privacy Policy</h1>
+    <div class="policy-meta">Last updated: September 2026 · Applies to oh-my-md website and desktop application</div>
+    <p class="lede">
+      oh-my-md is built on an uncompromising <strong>local-first</strong> philosophy. We believe your notes, ideas, and documents belong solely to you on your machine—never trapped in proprietary clouds or monitored by background trackers.
+    </p>
+  </header>
+
+  <div class="policy-summary-box">
+    <strong>Key Summary:</strong>
     <ul>
-      <li>No account or sign-in is required.</li>
-      <li>The website does not upload, store, or inspect your Markdown documents.</li>
-      <li>There are no website-owned advertising, analytics, or telemetry scripts.</li>
+      <li>Your Markdown files and images remain strictly on your local disk.</li>
+      <li>No account, email, or sign-up is required to use the editor or this website.</li>
+      <li>This website has zero tracking cookies, zero analytics beacons, and zero advertisements.</li>
+      <li>The desktop application performs no silent telemetry or unprompted network calls.</li>
+    </ul>
+  </div>
+
+  <section class="policy-section">
+    <h2>1. Document Storage & Local Files</h2>
+    <p>
+      oh-my-md operates directly on standard plain-text <code>.md</code> files located on your computer's filesystem. 
+    </p>
+    <ul>
+      <li>We do not host your documents on remote servers or sync engines.</li>
+      <li>Pasted screenshots and images are saved to an adjacent local <code>assets/</code> directory on your disk.</li>
+      <li>We never inspect, scan, index, or transmit the contents of your workspace.</li>
     </ul>
   </section>
-  <section class="content-section">
-    <h2>Normal network metadata</h2>
+
+  <section class="policy-section">
+    <h2>2. Website Data Collection & Zero Telemetry</h2>
     <p>
-      When you follow a download link, your browser and the hosting service may receive normal request
-      metadata such as an IP address, time, user agent, and requested URL. Download assets currently
-      live on GitHub, so GitHub’s own policies apply to those requests.
+      This website (<code>ohmd.us</code>) is statically generated. It functions completely without server-side user databases or client-side surveillance:
     </p>
+    <ul>
+      <li><strong>No Analytics Scripts:</strong> We do not load Google Analytics, Cloudflare Web Analytics beacons, or tracking pixels.</li>
+      <li><strong>No Advertising Networks:</strong> We do not embed ad banners or third-party behavioral cookies.</li>
+      <li><strong>No External CDN Fonts:</strong> All typography relies on native system font stacks, meaning your browser makes no outbound requests to font providers.</li>
+    </ul>
   </section>
-  <section class="content-section">
-    <h2>Desktop app updates</h2>
+
+  <section class="policy-section">
+    <h2>3. Network Interaction on Downloads</h2>
     <p>
-      App update behavior is documented separately from this website. In particular, {updateNotice} Do
-      not treat this page as an update service.
+      When you click download links on this website:
+    </p>
+    <ul>
+      <li>Release packages are hosted on public GitHub Releases. When initiating a download, your web browser connects directly to GitHub's infrastructure.</li>
+      <li>As with any standard web transaction, GitHub's servers receive conventional network metadata (such as your IP address, HTTP user agent, and timestamp). Those interactions are governed by GitHub's Privacy Statement.</li>
+    </ul>
+  </section>
+
+  <section class="policy-section">
+    <h2>4. Desktop App Network Isolation</h2>
+    <p>
+      The desktop application (built with Tauri 2 and Rust) maintains strict isolation from external services:
+    </p>
+    <ul>
+      <li>The app runs entirely offline for everyday writing, editing, math rendering, and diagram generation.</li>
+      <li>{updateNotice}</li>
+      <li>No background usage statistics, crash telemetry, or diagnostics are transmitted without explicit user action and knowledge.</li>
+    </ul>
+  </section>
+
+  <section class="policy-section">
+    <h2>5. Inquiries & Security Contact</h2>
+    <p>
+      If you have questions about our privacy commitments or wish to responsibly disclose a security concern, please refer to our <a href="/support/">Support Hub</a> or submit a private report via <a href={siteUrls.security} rel="noopener noreferrer">GitHub Security Advisories</a>.
     </p>
   </section>
 </ContentPage>
