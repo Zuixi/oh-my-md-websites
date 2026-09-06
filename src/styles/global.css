@@ -140,7 +140,7 @@ p { max-width: var(--copy-width); }
 .download-trust-facts li { display: flex; align-items: center; gap: var(--space-2); font-size: 0.88rem; font-weight: 600; color: #1e5a50; }
 .download-trust-facts li::before { content: "✓"; font-weight: bold; color: var(--color-accent-strong); }
 .platform-chooser { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-5); }
-.platform-action-card { display: flex; flex-direction: column; justify-content: space-between; padding: var(--space-5); border-radius: var(--radius-md); border: 2px solid var(--color-line); background: var(--color-surface); transition: border-color 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; }
+.platform-action-card { min-width: 0; display: flex; flex-direction: column; justify-content: space-between; padding: var(--space-5); border-radius: var(--radius-md); border: 2px solid var(--color-line); background: var(--color-surface); transition: border-color 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; }
 .platform-action-card:hover { border-color: var(--color-accent-strong); box-shadow: var(--shadow-soft); color: inherit; }
 .platform-action-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
 .platform-action-card-header h3 { margin: 0; font-size: 1.25rem; }
@@ -154,7 +154,7 @@ p { max-width: var(--copy-width); }
 .platform-panel-packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--space-4); }
 .install-guidance-section { margin-top: var(--space-7); }
 .install-guidance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
-.install-guidance-card { padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
+.install-guidance-card { min-width: 0; padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
 .install-guidance-card h3 { margin-top: 0; font-size: 1.15rem; }
 .install-guidance-card p { font-size: 0.9rem; color: var(--color-muted); }
 .install-guidance-card .note { padding: var(--space-2) var(--space-3); background: #fff6dd; border-left: 3px solid #b47712; border-radius: var(--radius-sm); font-size: 0.84rem; color: #5a3c00; margin-top: var(--space-3); }
@@ -183,15 +183,15 @@ p { max-width: var(--copy-width); }
 .package-meta dd { margin: 0; text-align: right; }
 .package-meta code { font-size: 0.78rem; overflow-wrap: anywhere; }
 .package-note, .muted { color: var(--color-muted); font-size: 0.9rem; }
-.install-command { overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
+.install-command { min-width: 0; max-width: 100%; overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
 .install-command-header { padding: var(--space-3); background: #eaf3f1; font-size: 0.88rem; font-weight: 700; }
 .copy-button { padding: 0.35rem 0.6rem; border: 1px solid var(--color-line); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); font: inherit; cursor: pointer; }
-.install-command pre { overflow-x: auto; margin: 0; padding: var(--space-3); background: #0b1420; color: #cde9df; font: 0.84rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.install-command pre { min-width: 0; max-width: 100%; overflow-x: auto; margin: 0; padding: var(--space-3); background: #0b1420; color: #cde9df; font: 0.84rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
 
 @media (max-width: 52rem) {
-  .download-grid, .install-grid { grid-template-columns: 1fr; }
-  .platform-chooser { grid-template-columns: 1fr; }
-  .install-guidance-grid { grid-template-columns: 1fr; }
+  .download-grid, .install-grid { grid-template-columns: minmax(0, 1fr); }
+  .platform-chooser { grid-template-columns: minmax(0, 1fr); }
+  .install-guidance-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (prefers-reduced-motion: reduce) {
