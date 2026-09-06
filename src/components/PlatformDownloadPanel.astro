@@ -1,0 +1,33 @@
+---
+import DownloadCard from './DownloadCard.astro';
+import type { ReleasePackage, ReleasePlatform } from '../data/releases';
+import { releaseDisplay } from '../data/releases';
+
+interface Props {
+  platform: ReleasePlatform;
+  primary: ReleasePackage;
+  secondary?: ReleasePackage;
+  lang: 'en' | 'zh';
+}
+
+const { platform, primary, secondary, lang } = Astro.props;
+const display = releaseDisplay;
+const headingId = `${platform.toLowerCase()}-packages-title`;
+---
+
+<section class="platform-panel" aria-labelledby={headingId}>
+  <div class="platform-panel-header">
+    <h2 id={headingId}>{platform}</h2>
+    {platform === 'Windows' && <p class="muted">{display.windowsGuidance[lang]}</p>}
+  </div>
+  <div class="platform-panel-packages">
+    <DownloadCard package={primary} lang={lang} />
+    {secondary && (
+      <DownloadCard
+        package={secondary}
+        lang={lang}
+        note={secondary.fileType === 'MSI installer' ? display.msiNote[lang] : undefined}
+      />
+    )}
+  </div>
+</section>

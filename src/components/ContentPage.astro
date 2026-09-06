@@ -7,14 +7,15 @@ interface Props {
   description: string;
   lang: Language;
   canonicalPath: string;
+  wide?: boolean;
 }
 
-const { title, description, lang, canonicalPath } = Astro.props;
+const { title, description, lang, canonicalPath, wide = false } = Astro.props;
 ---
 
 <SiteLayout title={title} description={description} lang={lang} canonicalPath={canonicalPath}>
-  <section class="section content-page">
-    <div class="container content-column">
+  <section class={`section content-page ${wide ? 'content-page-wide' : ''}`}>
+    <div class={`container ${wide ? 'download-layout' : 'content-column'}`}>
       <slot />
     </div>
   </section>

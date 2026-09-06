@@ -42,6 +42,52 @@ export interface ReleaseDisplay {
   changelogReleaseLinkLabel: (version: string) => LocalizedText;
   updateNotice: (version: string) => LocalizedText;
   supportReleaseLabel: (version: string) => LocalizedText;
+  platformHero: {
+    title: LocalizedText;
+    statement: LocalizedText;
+    trustFacts: {
+      openSource: LocalizedText;
+      localFiles: LocalizedText;
+      noAccount: LocalizedText;
+      unsignedHonesty: LocalizedText;
+    };
+    platformCards: Record<ReleasePlatform, {
+      title: LocalizedText;
+      actionText: LocalizedText;
+      description: LocalizedText;
+    }>;
+  };
+  installGuidance: {
+    heading: LocalizedText;
+    macOS: {
+      title: LocalizedText;
+      description: LocalizedText;
+      note: LocalizedText;
+    };
+    windows: {
+      title: LocalizedText;
+      description: LocalizedText;
+      warning: LocalizedText;
+    };
+    linux: {
+      title: LocalizedText;
+      description: LocalizedText;
+      appImageLabel: LocalizedText;
+      debLabel: LocalizedText;
+    };
+  };
+  verification: {
+    heading: LocalizedText;
+    description: LocalizedText;
+    commandLabels: {
+      linuxSha: LocalizedText;
+      macSha: LocalizedText;
+      windowsSha: LocalizedText;
+    };
+    immutableReleaseLabel: (version: string) => LocalizedText;
+    viewAllReleasesLabel: LocalizedText;
+    changelogLinkLabel: (version: string) => LocalizedText;
+  };
 }
 
 export interface ReleasePackage {
@@ -161,6 +207,139 @@ export const releaseDisplay = {
     en: `current v${releaseVersion} release`,
     zh: `当前 v${releaseVersion} 发布版本`,
   }),
+  platformHero: {
+    title: {
+      en: 'Download oh-my-md for desktop',
+      zh: '下载 oh-my-md 桌面端',
+    },
+    statement: {
+      en: 'A fast, native-feeling Markdown editor for local files. Choose your platform below.',
+      zh: '专为本地文件打造的快速、原生质感 Markdown 编辑器。在下方选择你的平台。',
+    },
+    trustFacts: {
+      openSource: {
+        en: 'Apache-2.0 open source',
+        zh: 'Apache-2.0 开源协议',
+      },
+      localFiles: {
+        en: '100% local files',
+        zh: '100% 本地文件',
+      },
+      noAccount: {
+        en: 'No account required',
+        zh: '无需注册账号',
+      },
+      unsignedHonesty: {
+        en: 'Unsigned community builds',
+        zh: '未签名社区构建',
+      },
+    },
+    platformCards: {
+      macOS: {
+        title: { en: 'macOS', zh: 'macOS' },
+        actionText: { en: 'Download DMG (Universal)', zh: '下载 DMG（Universal）' },
+        description: {
+          en: 'Apple Silicon and Intel Macs (macOS 11+)',
+          zh: '适用于 Apple Silicon 与 Intel Mac（macOS 11+）',
+        },
+      },
+      Windows: {
+        title: { en: 'Windows', zh: 'Windows' },
+        actionText: { en: 'Download EXE (x64 NSIS)', zh: '下载 EXE（x64 NSIS）' },
+        description: {
+          en: '64-bit Windows 10 and 11 installer',
+          zh: '适用于 64 位 Windows 10 与 11 安装包',
+        },
+      },
+      Linux: {
+        title: { en: 'Linux', zh: 'Linux' },
+        actionText: { en: 'Download AppImage (x64)', zh: '下载 AppImage（x64）' },
+        description: {
+          en: 'Portable executable for 64-bit Linux distributions',
+          zh: '适用于主流 64 位 Linux 发行版的便携执行文件',
+        },
+      },
+    },
+  },
+  installGuidance: {
+    heading: {
+      en: 'Installation & First-Run Notes',
+      zh: '安装与首次运行说明',
+    },
+    macOS: {
+      title: { en: 'macOS installation', zh: 'macOS 安装说明' },
+      description: {
+        en: 'Open the DMG and drag oh-my-md to Applications.',
+        zh: '打开 DMG 镜像并将 oh-my-md 拖入 Applications（应用程序）文件夹。',
+      },
+      note: {
+        en: 'Because these initial community builds are unsigned, macOS Gatekeeper may block the first launch. Right-click (or Control-click) oh-my-md in Applications and select "Open", or run xattr -cr /Applications/oh-my-md.app if prompted.',
+        zh: '由于首个社区版本尚未进行 Apple 开发者公证，macOS Gatekeeper 可能会阻止首次打开。请在“应用程序”中右键（或按住 Control 点击）oh-my-md 并选择“打开”，或在终端执行 xattr -cr /Applications/oh-my-md.app。',
+      },
+    },
+    windows: {
+      title: { en: 'Windows installation', zh: 'Windows 安装说明' },
+      description: {
+        en: 'Run the setup installer. NSIS is recommended for personal desktops; MSI is available for enterprise or managed policies.',
+        zh: '运行安装程序。个人电脑推荐使用 NSIS 安装包；受管理或企业环境可选用 MSI 安装包。',
+      },
+      warning: {
+        en: 'Microsoft Defender SmartScreen may display "Windows protected your PC" because the installer is not yet code-signed. Click "More info" followed by "Run anyway" after verifying the checksum.',
+        zh: '由于安装包尚未进行代码签名，Windows Defender SmartScreen 可能会提示“已保护你的电脑”。在核对校验和确认无误后，点击“更多信息”并选择“仍要运行”。',
+      },
+    },
+    linux: {
+      title: { en: 'Linux installation', zh: 'Linux 安装说明' },
+      description: {
+        en: 'Download the AppImage or Debian package according to your distribution.',
+        zh: '根据你的 Linux 发行版选择下载 AppImage 或 Debian 安装包。',
+      },
+      appImageLabel: {
+        en: 'Make AppImage executable and run',
+        zh: '赋予 AppImage 执行权限并运行',
+      },
+      debLabel: {
+        en: 'Install Debian / Ubuntu package',
+        zh: '安装 Debian / Ubuntu 软件包',
+      },
+    },
+  },
+  verification: {
+    heading: {
+      en: 'Verify Checksums & Authoritative Release',
+      zh: '校验和与官方发布页',
+    },
+    description: {
+      en: 'Every release artifact is published with an authoritative SHA256 checksum in SHA256SUMS.txt. Verify your download against the official digest before execution.',
+      zh: '每次发布的所有安装包均在 SHA256SUMS.txt 中提供权威的 SHA256 校验和。请在运行前校验安装包散列值。',
+    },
+    commandLabels: {
+      linuxSha: {
+        en: 'Linux (sha256sum)',
+        zh: 'Linux（sha256sum）',
+      },
+      macSha: {
+        en: 'macOS (shasum)',
+        zh: 'macOS（shasum）',
+      },
+      windowsSha: {
+        en: 'Windows PowerShell (Get-FileHash)',
+        zh: 'Windows PowerShell（Get-FileHash）',
+      },
+    },
+    immutableReleaseLabel: (releaseVersion) => ({
+      en: `View immutable v${releaseVersion} release on GitHub`,
+      zh: `在 GitHub 查看不可变的 v${releaseVersion} 发布记录`,
+    }),
+    viewAllReleasesLabel: {
+      en: 'All GitHub releases',
+      zh: '查看所有 GitHub 发布版本',
+    },
+    changelogLinkLabel: (releaseVersion) => ({
+      en: `Read v${releaseVersion} changelog notes`,
+      zh: `阅读 v${releaseVersion} 更新说明`,
+    }),
+  },
 } satisfies ReleaseDisplay;
 
 const packageRecord = (

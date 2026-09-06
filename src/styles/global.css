@@ -127,9 +127,42 @@ p { max-width: var(--copy-width); }
 }
 
 .content-page { background: var(--color-paper); min-height: 38rem; }
+.content-page-wide { background: var(--color-paper); }
 .not-found-page { min-height: 60vh; display: grid; align-items: center; }
 .content-column { max-width: var(--copy-width); }
 .content-column > h1 { max-width: 18ch; margin: var(--space-3) 0 var(--space-4); }
+.download-layout { max-width: 68rem; margin-inline: auto; }
+.download-hero { margin-bottom: var(--space-6); }
+.download-hero-header { margin-bottom: var(--space-5); }
+.download-hero-header h1 { margin: var(--space-2) 0 var(--space-3); font-size: clamp(2rem, 5vw, 3.2rem); max-width: 24ch; }
+.download-hero-statement { font-size: 1.15rem; color: var(--color-muted); max-width: 48rem; margin-bottom: var(--space-4); }
+.download-trust-facts { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); padding: var(--space-3) var(--space-4); background: #eaf3f1; border-radius: var(--radius-sm); border: 1px solid var(--color-line); list-style: none; margin: 0; }
+.download-trust-facts li { display: flex; align-items: center; gap: var(--space-2); font-size: 0.88rem; font-weight: 600; color: #1e5a50; }
+.download-trust-facts li::before { content: "✓"; font-weight: bold; color: var(--color-accent-strong); }
+.platform-chooser { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-5); }
+.platform-action-card { display: flex; flex-direction: column; justify-content: space-between; padding: var(--space-5); border-radius: var(--radius-md); border: 2px solid var(--color-line); background: var(--color-surface); transition: border-color 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; }
+.platform-action-card:hover { border-color: var(--color-accent-strong); box-shadow: var(--shadow-soft); color: inherit; }
+.platform-action-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+.platform-action-card-header h3 { margin: 0; font-size: 1.25rem; }
+.platform-action-card-desc { color: var(--color-muted); font-size: 0.88rem; margin-bottom: var(--space-4); flex-grow: 1; }
+.platform-action-btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-sm); background: var(--color-accent); color: var(--color-accent-ink); font-weight: 700; text-align: center; text-decoration: none; border: 1px solid transparent; }
+.platform-action-btn:hover { background: #a0ebdc; color: var(--color-accent-ink); }
+.platform-panels { display: flex; flex-direction: column; gap: var(--space-6); margin-top: var(--space-6); }
+.platform-panel { padding: var(--space-5); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
+.platform-panel-header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); border-bottom: 2px solid var(--color-line); padding-bottom: var(--space-2); }
+.platform-panel-header h2 { margin: 0; font-size: 1.6rem; }
+.platform-panel-packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--space-4); }
+.install-guidance-section { margin-top: var(--space-7); }
+.install-guidance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.install-guidance-card { padding: var(--space-4); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
+.install-guidance-card h3 { margin-top: 0; font-size: 1.15rem; }
+.install-guidance-card p { font-size: 0.9rem; color: var(--color-muted); }
+.install-guidance-card .note { padding: var(--space-2) var(--space-3); background: #fff6dd; border-left: 3px solid #b47712; border-radius: var(--radius-sm); font-size: 0.84rem; color: #5a3c00; margin-top: var(--space-3); }
+.install-guidance-card .install-command { margin-top: var(--space-3); }
+.verification-section { margin-top: var(--space-7); padding: var(--space-5); border: 1px solid var(--color-line); border-radius: var(--radius-md); background: #fdfefe; }
+.verification-header { margin-bottom: var(--space-4); }
+.verification-header h2 { margin: 0 0 var(--space-2); font-size: 1.5rem; }
+.verification-links { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-4); align-items: center; }
 .lede { color: var(--color-muted); font-size: 1.15rem; }
 .content-section { margin-top: var(--space-6); }
 .content-section h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
@@ -157,6 +190,8 @@ p { max-width: var(--copy-width); }
 
 @media (max-width: 52rem) {
   .download-grid, .install-grid { grid-template-columns: 1fr; }
+  .platform-chooser { grid-template-columns: 1fr; }
+  .install-guidance-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

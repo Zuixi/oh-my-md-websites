@@ -1,0 +1,63 @@
+---
+import InstallCommand from './InstallCommand.astro';
+import { releaseDisplay, type ReleasePackage } from '../data/releases';
+
+interface Props {
+  lang: 'en' | 'zh';
+  packages: {
+    appImage: ReleasePackage;
+    deb: ReleasePackage;
+  };
+}
+
+const { lang, packages } = Astro.props;
+const display = releaseDisplay;
+const guidance = display.installGuidance;
+const commandCopy = {
+  label: display.copyCommand[lang],
+  copied: display.copiedCommand[lang],
+  failed: display.copyUnavailable[lang],
+};
+---
+
+<section class="install-guidance-section" aria-labelledby="install-notes-title">
+  <h2 id="install-notes-title">{guidance.heading[lang]}</h2>
+  <div class="install-guidance-grid">
+    <div class="install-guidance-card">
+      <h3>{guidance.macOS.title[lang]}</h3>
+      <p>{guidance.macOS.description[lang]}</p>
+      <div class="note">
+        <strong>{display.unsignedLabel[lang]}</strong> {guidance.macOS.note[lang]}
+      </div>
+    </div>
+
+    <div class="install-guidance-card">
+      <h3>{guidance.windows.title[lang]}</h3>
+      <p>{guidance.windows.description[lang]}</p>
+      <div class="note">
+        <strong>{display.unsignedLabel[lang]}</strong> {guidance.windows.warning[lang]}
+      </div>
+    </div>
+
+    <div class="install-guidance-card">
+      <h3>{guidance.linux.title[lang]}</h3>
+      <p>{guidance.linux.description[lang]}</p>
+      <InstallCommand
+        label={guidance.linux.appImageLabel[lang]}
+        shell="bash"
+        command={`chmod +x ${packages.appImage.filename} && ./${packages.appImage.filename}`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+      <InstallCommand
+        label={guidance.linux.debLabel[lang]}
+        shell="bash"
+        command={`sudo apt install ./${packages.deb.filename}`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+    </div>
+  </div>
+</section>

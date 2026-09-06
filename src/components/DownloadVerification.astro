@@ -1,0 +1,76 @@
+---
+import InstallCommand from './InstallCommand.astro';
+import { currentRelease, releaseDisplay } from '../data/releases';
+import { siteUrls } from '../data/site';
+
+interface Props {
+  lang: 'en' | 'zh';
+}
+
+const { lang } = Astro.props;
+const display = releaseDisplay;
+const version = currentRelease.version;
+const verification = display.verification;
+const commandCopy = {
+  label: display.copyCommand[lang],
+  copied: display.copiedCommand[lang],
+  failed: display.copyUnavailable[lang],
+};
+const changelogPath = lang === 'zh' ? '/zh/changelog/' : '/changelog/';
+---
+
+<section class="verification-section" aria-labelledby="verify-title">
+  <div class="verification-header">
+    <h2 id="verify-title">{display.verifyHeading[lang]}</h2>
+    <p>
+      {lang === 'zh' ? '下载 ' : 'Download '}
+      <a href={currentRelease.checksumUrl} rel="noopener noreferrer">{display.checksumLinkLabel[lang]}</a>
+      {display.verificationInstructions[lang]}
+      <a href={currentRelease.releasePage} rel="noopener noreferrer">{display.releasePageLinkLabel(version)[lang]}</a>。
+    </p>
+    <p class="muted">
+      {verification.description[lang]}
+    </p>
+  </div>
+
+  <div class="install-grid">
+    <InstallCommand
+      label={verification.commandLabels.linuxSha[lang]}
+      shell="bash"
+      command={`sha256sum <downloaded-file>`}
+      copyLabel={commandCopy.label}
+      copiedLabel={commandCopy.copied}
+      copyFailedLabel={commandCopy.failed}
+    />
+    <InstallCommand
+      label={verification.commandLabels.macSha[lang]}
+      shell="bash"
+      command={`shasum -a 256 <downloaded-file>`}
+      copyLabel={commandCopy.label}
+      copiedLabel={commandCopy.copied}
+      copyFailedLabel={commandCopy.failed}
+    />
+    <InstallCommand
+      label={verification.commandLabels.windowsSha[lang]}
+      shell="powershell"
+      command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`}
+      copyLabel={commandCopy.label}
+      copiedLabel={commandCopy.copied}
+      copyFailedLabel={commandCopy.failed}
+    />
+  </div>
+
+  <p class="muted">{display.copyOnlyNotice[lang]}</p>
+
+  <div class="verification-links">
+    <a class="button button-secondary-light" href={currentRelease.releasePage} rel="noopener noreferrer">
+      {verification.immutableReleaseLabel(version)[lang]}
+    </a>
+    <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
+      {display.allReleases[lang]}
+    </a>
+    <a class="button button-secondary-light" href={changelogPath}>
+      {verification.changelogLinkLabel(version)[lang]}
+    </a>
+  </div>
+</section>

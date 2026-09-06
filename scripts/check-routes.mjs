@@ -29,6 +29,10 @@ const downloadPages = [
     managed: 'Managed / manual',
     checksum: 'SHA256SUMS.txt',
     release: `v${currentRelease.version} release page`,
+    installHeading: 'Installation & First-Run Notes',
+    layoutMarker: 'download-layout',
+    heroMarker: 'platform-chooser',
+    sha256Marker: 'sha256sum <downloaded-file>',
   },
   {
     path: 'zh/download/index.html',
@@ -38,6 +42,10 @@ const downloadPages = [
     managed: '受管理 / 手动',
     checksum: 'SHA256SUMS.txt',
     release: `v${currentRelease.version} 发布页`,
+    installHeading: '安装与首次运行说明',
+    layoutMarker: 'download-layout',
+    heroMarker: 'platform-chooser',
+    sha256Marker: 'sha256sum <downloaded-file>',
   },
 ];
 
@@ -53,8 +61,9 @@ for (const page of downloadPages) {
   for (const url of expectedUrls) {
     if (!html.includes(url)) throw new Error(`${page.path} is missing versioned package URL: ${url}`);
   }
-  for (const label of [page.unsigned, page.recommended, page.managed, page.checksum, page.release]) {
-    if (!html.includes(label)) throw new Error(`${page.path} is missing download disclosure or label: ${label}`);
+  for (const label of [page.unsigned, page.recommended, page.managed, page.checksum, page.release, page.installHeading, page.layoutMarker, page.heroMarker, page.sha256Marker]) {
+    const escaped = label.replace(/&/g, '&amp;');
+    if (!html.includes(label) && !html.includes(escaped)) throw new Error(`${page.path} is missing download disclosure, layout marker, or label: ${label}`);
   }
   if (!lower.includes(`v${currentRelease.version}`)) throw new Error(`${page.path} is missing the current version`);
   if (!html.includes(currentRelease.checksumUrl) || !html.includes(currentRelease.releasePage)) {

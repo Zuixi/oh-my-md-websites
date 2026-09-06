@@ -1,0 +1,53 @@
+---
+import type { ReleaseManifest, ReleasePackage, ReleasePlatform } from '../data/releases';
+import { releaseDisplay } from '../data/releases';
+
+interface Props {
+  release: ReleaseManifest;
+  lang: 'en' | 'zh';
+  platformPrimaries: Record<ReleasePlatform, ReleasePackage>;
+}
+
+const { release, lang, platformPrimaries } = Astro.props;
+const display = releaseDisplay;
+const heroText = display.platformHero;
+const trust = heroText.trustFacts;
+const platforms: ReleasePlatform[] = ['macOS', 'Windows', 'Linux'];
+---
+
+<header class="download-hero">
+  <div class="download-hero-header">
+    <span class="eyebrow">{display.currentReleaseLabel(release.version)[lang]}</span>
+    <h1>{heroText.title[lang]}</h1>
+    <p class="download-hero-statement">
+      {heroText.statement[lang]} {display.authoritativeSource[lang]}
+    </p>
+    <ul class="download-trust-facts" aria-label={lang === 'zh' ? '产品信任要点' : 'Trust points'}>
+      <li>{trust.openSource[lang]}</li>
+      <li>{trust.localFiles[lang]}</li>
+      <li>{trust.noAccount[lang]}</li>
+      <li>{trust.unsignedHonesty[lang]}</li>
+    </ul>
+  </div>
+
+  <div class="platform-chooser" aria-label={lang === 'zh' ? '主要平台下载' : 'Primary platform downloads'}>
+    {platforms.map((plat) => {
+      const pkg = platformPrimaries[plat];
+      const cardInfo = heroText.platformCards[plat];
+      return (
+        <div class="platform-action-card">
+          <div class="platform-action-card-header">
+            <h3>{cardInfo.title[lang]}</h3>
+            {pkg.availability === 'recommended' && (
+              <span class="badge">{display.availabilityLabels.recommended[lang]}</span>
+            )}
+          </div>
+          <p class="platform-action-card-desc">{cardInfo.description[lang]}</p>
+          <a class="platform-action-btn" href={pkg.url} download>
+            {cardInfo.actionText[lang]}
+          </a>
+        </div>
+      );
+    })}
+  </div>
+</header>
