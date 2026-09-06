@@ -16,10 +16,6 @@ This checklist separates changes that belong in this repository from actions tha
   - `node scripts/check-seo.mjs`
   - `node scripts/check-security.mjs`
   - `git diff --check`
-- [ ] Configure the Cloudflare Pages project to use the repository's build settings:
-  - Framework/build command: `pnpm build`
-  - Output directory: `dist`
-  - No server-side runtime, functions, or database binding is required for this site.
 - [ ] Keep release package URLs aligned with the typed manifest in `src/data/releases.ts`. The current v0.0.1 files are sourced from the authoritative GitHub Release; do not replace them with an unverified mirror.
 - [ ] If the release manifest changes, update its exact versioned filenames, checksums, unsigned status, and release-page URL together, then rerun all checks.
 - [ ] Keep deployment configuration and production credentials out of this public repository. The validation workflow requires only read access to repository contents and must not receive Cloudflare, R2, signing, or updater secrets.
@@ -29,8 +25,7 @@ This checklist separates changes that belong in this repository from actions tha
 These actions require access to the Cloudflare account and are not performed by repository changes.
 
 - [ ] Create or select the Cloudflare Pages project for this website.
-- [ ] Connect the intended GitHub repository and production branch, or upload the already-validated `dist/` artifact through the approved Pages workflow.
-- [ ] Set the Pages production build command to `pnpm build` and the output directory to `dist`.
+- [ ] Connect the intended GitHub repository and production branch, or upload the already-validated `dist/` artifact through the approved Pages workflow, using build command `pnpm build`, output directory `dist`, and no server-side runtime, functions, or database binding.
 - [ ] Add `ohmd.us` as the production custom domain in Cloudflare Pages.
 - [ ] Complete Cloudflare's domain verification and confirm that the authoritative DNS zone is the intended `ohmd.us` zone.
 - [ ] Add or approve only the DNS records requested by Cloudflare for the Pages custom domain. Do not change unrelated DNS records.

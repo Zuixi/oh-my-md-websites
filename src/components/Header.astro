@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { siteCopy } from '../data/site';
 
 interface Props {
   lang: 'en' | 'zh';
@@ -34,6 +35,12 @@ const homeLabel = isChinese ? 'oh-my-md 首页' : 'oh-my-md home';
     <nav class="primary-nav" aria-label={isChinese ? '主导航' : 'Primary navigation'}>
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
-    {showLanguageSwitcher && <LanguageSwitcher lang={lang} alternatePath={alternatePath} />}
+    {showLanguageSwitcher && (
+      <LanguageSwitcher
+        lang={lang}
+        alternatePath={alternatePath}
+        ariaLabel={siteCopy[lang].languageSwitcherAriaLabel}
+      />
+    )}
   </div>
 </header>

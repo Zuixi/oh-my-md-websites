@@ -69,6 +69,7 @@ export interface LocaleCopy {
   platform: FeatureSectionCopy;
   cta: CtaCopy;
   trustAriaLabel: string;
+  languageSwitcherAriaLabel: string;
   license: string;
 }
 
@@ -170,6 +171,7 @@ export const siteCopy: SiteCopy = {
       buttonLabel: 'Choose your platform',
     },
     trustAriaLabel: 'Product facts',
+    languageSwitcherAriaLabel: 'Language',
     license: 'Apache-2.0',
   },
   zh: {
@@ -253,6 +255,7 @@ export const siteCopy: SiteCopy = {
       buttonLabel: '选择你的平台',
     },
     trustAriaLabel: '产品信息',
+    languageSwitcherAriaLabel: '语言',
     license: 'Apache-2.0',
   },
 };
