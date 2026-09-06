@@ -1,32 +1,107 @@
 ---
+import { currentRelease } from '../data/releases';
+import { siteUrls } from '../data/site';
+
 interface Props {
   lang: 'en' | 'zh';
 }
 
 const { lang } = Astro.props;
-const isChinese = lang === 'zh';
-const links = isChinese
-  ? [
-      { href: '/zh/privacy/', label: '隐私' },
-      { href: '/zh/changelog/', label: '更新日志' },
-      { href: '/zh/support/', label: '支持' },
-    ]
-  : [
-      { href: '/privacy/', label: 'Privacy' },
-      { href: '/changelog/', label: 'Changelog' },
-      { href: '/support/', label: 'Support' },
-    ];
+const isZh = lang === 'zh';
+const prefix = isZh ? '/zh' : '';
+
+const copy = {
+  mission: isZh
+    ? '专为大文档设计的快速、本地优先开源 Markdown 编辑器。'
+    : 'A fast, local-first open-source Markdown editor built for large documents.',
+  techStack: isZh
+    ? '由 Tauri 2 · Rust · CodeMirror 6 驱动'
+    : 'Powered by Tauri 2 · Rust · CodeMirror 6',
+  headers: {
+    product: isZh ? '产品与下载' : 'Product',
+    docs: isZh ? '文档与指南' : 'Documentation',
+    community: isZh ? '社区与安全' : 'Community',
+  },
+  links: {
+    download: isZh ? '全部安装包' : 'All Downloads',
+    mac: 'macOS (DMG)',
+    win: 'Windows (EXE / MSI)',
+    linux: 'Linux (AppImage / deb)',
+    changelog: isZh ? '更新日志 (v' + currentRelease.version + ')' : 'Changelog (v' + currentRelease.version + ')',
+    checksums: 'SHA256SUMS.txt',
+    docsHome: isZh ? '使用文档' : 'Documentation',
+    quickStart: isZh ? '快速上手' : 'Quick Start',
+    shortcuts: isZh ? '快捷键速查' : 'Keyboard Shortcuts',
+    performance: isZh ? '大文档性能' : 'Performance Architecture',
+    privacy: isZh ? '隐私政策' : 'Privacy Policy',
+    repo: isZh ? 'GitHub 源码仓库' : 'GitHub Repository',
+    issues: isZh ? '反馈问题 / Issues' : 'Report an Issue',
+    discussions: isZh ? '社区讨论区' : 'Discussions',
+    security: isZh ? '安全漏洞披露' : 'Security Advisories',
+    contributing: isZh ? '参与代码贡献' : 'Contributing Guide',
+  },
+  trustBadge: isZh
+    ? '100% 本地文件 · 零追踪 · 无账号'
+    : '100% Local-first · Zero Tracking · No Account',
+  copyright: `© ${new Date().getFullYear()} oh-my-md contributors · Apache-2.0 License`,
+};
 ---
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <div>
-      <a class="brand brand-footer" href={isChinese ? '/zh/' : '/'}>oh-my-md</a>
-      <p>{isChinese ? '开源、本地优先的 Markdown 编辑器。' : 'An open-source, local-first Markdown editor.'}</p>
+  <div class="container footer-main">
+    <div class="footer-col footer-col-brand">
+      <a class="brand brand-footer" href={isZh ? '/zh/' : '/'}>
+        <img src="/logo.png" width="28" height="28" alt="" />
+        <span>oh-my-md</span>
+      </a>
+      <p class="footer-mission">{copy.mission}</p>
+      <div class="footer-tech-tag">{copy.techStack}</div>
+      <div class="footer-version-tag">
+        <span class="badge">v{currentRelease.version}</span>
+        <span class="footer-release-date">{currentRelease.releasedAt.slice(0, 10)}</span>
+      </div>
     </div>
-    <nav aria-label={isChinese ? '页脚导航' : 'Footer navigation'}>
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
-    </nav>
-    <p class="copyright">© {new Date().getFullYear()} oh-my-md · Apache-2.0</p>
+
+    <div class="footer-col">
+      <div class="footer-heading">{copy.headers.product}</div>
+      <nav class="footer-nav" aria-label={copy.headers.product}>
+        <a href={`${prefix}/download/`}>{copy.links.download}</a>
+        <a href={`${prefix}/download/#macos-packages-title`}>{copy.links.mac}</a>
+        <a href={`${prefix}/download/#windows-packages-title`}>{copy.links.win}</a>
+        <a href={`${prefix}/download/#linux-packages-title`}>{copy.links.linux}</a>
+        <a href={`${prefix}/changelog/`}>{copy.links.changelog}</a>
+        <a href={currentRelease.checksumUrl} rel="noopener noreferrer">{copy.links.checksums} ↗</a>
+      </nav>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">{copy.headers.docs}</div>
+      <nav class="footer-nav" aria-label={copy.headers.docs}>
+        <a href={`${prefix}/docs/`}>{copy.links.docsHome}</a>
+        <a href={`${prefix}/docs/#quick-start`}>{copy.links.quickStart}</a>
+        <a href={`${prefix}/docs/#shortcuts`}>{copy.links.shortcuts}</a>
+        <a href={`${prefix}/docs/#performance`}>{copy.links.performance}</a>
+        <a href={`${prefix}/privacy/`}>{copy.links.privacy}</a>
+      </nav>
+    </div>
+
+    <div class="footer-col">
+      <div class="footer-heading">{copy.headers.community}</div>
+      <nav class="footer-nav" aria-label={copy.headers.community}>
+        <a href={siteUrls.repository} rel="noopener noreferrer">{copy.links.repo} ↗</a>
+        <a href={siteUrls.issues} rel="noopener noreferrer">{copy.links.issues} ↗</a>
+        <a href={siteUrls.discussions} rel="noopener noreferrer">{copy.links.discussions} ↗</a>
+        <a href={siteUrls.security} rel="noopener noreferrer">{copy.links.security} ↗</a>
+        <a href={siteUrls.contributing} rel="noopener noreferrer">{copy.links.contributing} ↗</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p class="copyright">{copy.copyright}</p>
+    <div class="footer-trust-note">
+      <span class="trust-dot" aria-hidden="true">●</span>
+      <span>{copy.trustBadge}</span>
+    </div>
   </div>
 </footer>
