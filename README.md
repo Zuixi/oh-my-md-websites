@@ -16,7 +16,17 @@ pnpm check
 pnpm build
 ```
 
-The site is static-only: it has no runtime API, accounts, ads, analytics, hosted documents, external fonts, or user uploads.
+The site is static-only: it has no runtime API, accounts, ads, analytics, hosted documents, external fonts, or user uploads. All release links point to the allowlisted HTTPS GitHub Releases host.
+
+## Cloudflare Pages delivery
+
+- Build command: `pnpm build`
+- Output directory: `dist`
+- Production custom domain: `ohmd.us`
+- Future download custom domain: `downloads.ohmd.us`, backed by an R2 bucket with a custom domain.
+- Future R2 objects use immutable, versioned paths such as `releases/v0.0.1/<filename>`; never overwrite a published version.
+- This first release has no R2 write integration. Downloads remain sourced from the current GitHub Release manifest.
+- CI validates the static build only. Deployment credentials and production permissions are intentionally outside this public repository workflow.
 
 ## Approved public assets
 

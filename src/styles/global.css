@@ -127,6 +127,7 @@ p { max-width: var(--copy-width); }
 }
 
 .content-page { background: var(--color-paper); min-height: 38rem; }
+.not-found-page { min-height: 60vh; display: grid; align-items: center; }
 .content-column { max-width: var(--copy-width); }
 .content-column > h1 { max-width: 18ch; margin: var(--space-3) 0 var(--space-4); }
 .lede { color: var(--color-muted); font-size: 1.15rem; }
