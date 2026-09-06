@@ -7,7 +7,7 @@
     "dev:loopback": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs && pnpm run check-release-manifest && pnpm run check-routes && node scripts/check-download-layout.mjs && pnpm run check-seo && pnpm run check-security && node scripts/check-dev-host.mjs",
+    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs && pnpm run check-release-manifest && pnpm run check-routes && node scripts/check-download-layout.mjs && node scripts/check-docs-support.mjs && pnpm run check-seo && pnpm run check-security && node scripts/check-dev-host.mjs",
     "check-release-manifest": "tsx scripts/check-release-manifest.mjs",
     "check-routes": "tsx scripts/check-routes.mjs",
     "check-download-layout": "tsx scripts/check-download-layout.mjs",
