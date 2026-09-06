@@ -1,5 +1,6 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
+import SupportCard from '../../components/SupportCard.astro';
 import { currentRelease, releaseDisplay } from '../../data/releases';
 import { siteUrls } from '../../data/site';
 
@@ -7,29 +8,73 @@ const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).
 ---
 
 <ContentPage
-  title="支持 — oh-my-md"
-  description="oh-my-md 的支持、问题反馈、安全报告和贡献入口。"
+  title="支持与社区中心 — oh-my-md"
+  description="提交问题反馈、加入功能讨论、报告安全漏洞并获取 oh-my-md 官方支持。"
   lang="zh"
   canonicalPath="/zh/support/"
+  layoutClass="support-layout"
 >
-  <span class="eyebrow">支持</span>
-  <h1>获取帮助、报告问题并参与贡献</h1>
-  <p class="lede">oh-my-md 在公开环境中开发。请使用现有的 GitHub 渠道，让问题和讨论能够被社区检索。</p>
-  <section class="content-section">
-    <h2>选择入口</h2>
-    <ul>
-      <li><a href={siteUrls.issues} rel="noopener noreferrer">GitHub Issues</a>：提交可复现的错误并讨论功能。</li>
-      <li><a href={siteUrls.discussions} rel="noopener noreferrer">GitHub Discussions</a>：提出问题和进行更广泛的交流。</li>
-      <li><a href={siteUrls.security} rel="noopener noreferrer">安全公告</a>：在可用时私下报告安全漏洞。</li>
-      <li><a href={siteUrls.contributing} rel="noopener noreferrer">贡献指南</a>：了解如何为项目提交更改。</li>
-    </ul>
-  </section>
-  <section class="content-section">
-    <h2>有用链接</h2>
-    <p>
-      阅读<a href={siteUrls.readme} rel="noopener noreferrer">主 README</a>，查看
-      <a href={currentRelease.releasePage} rel="noopener noreferrer">{releaseLabel}</a>，或从
-      <a href="/zh/docs/">文档</a>开始。
+  <header class="support-hero">
+    <span class="eyebrow">支持与社区中心</span>
+    <h1>我们需要怎样协助你？</h1>
+    <p class="lede">
+      oh-my-md 遵循 Apache-2.0 协议开源并在公开环境中演进。请根据诉求选择合适的入口，以便你的建议或反馈能够及时得到跟进。
     </p>
-  </section>
+  </header>
+
+  <div class="support-channels-grid">
+    <SupportCard
+      title="缺陷反馈与功能提案"
+      badge="Issues"
+      icon="🐛"
+      description="遇到崩溃、渲染异常，或想提议具有针对性的功能改进？请在 GitHub 提交结构化 Issue。"
+      href={siteUrls.issues}
+      actionText="前往 GitHub Issues"
+    />
+
+    <SupportCard
+      title="社区交流与日常 Q&A"
+      badge="Discussions"
+      icon="💬"
+      description="有关于本地工作流配置、主题定制的疑问，或想分享使用心得？欢迎加入社区 Discussions 交流。"
+      href={siteUrls.discussions}
+      actionText="进入 Discussions"
+    />
+
+    <SupportCard
+      title="安全公告与漏洞披露"
+      badge="安全应急"
+      icon="🛡️"
+      description="发现了潜在的安全风险或隐私设计缺陷？请通过 GitHub 私密安全通道（Security Advisories）安全披露。"
+      href={siteUrls.security}
+      actionText="私密漏洞报告"
+    />
+
+    <SupportCard
+      title="参与开发与代码贡献"
+      badge="开源协作"
+      icon="🤝"
+      description="想协助修复错误、完善使用文档，或为 CodeMirror 引擎添砖加瓦？请查看我们的贡献规范。"
+      href={siteUrls.contributing}
+      actionText="阅读贡献指南"
+    />
+  </div>
+
+  <div class="support-checklist-card">
+    <h3>在提交 Issue 之前，建议先确认：</h3>
+    <ol>
+      <li><strong>检索已有记录：</strong> 在 <a href={siteUrls.issues} rel="noopener noreferrer">已关闭或正在讨论的 Issue</a> 中搜索，避免重复创建相同的反馈。</li>
+      <li><strong>提供系统信息：</strong> 告知你的操作系统类型与架构（macOS / Windows / Linux）以及软件版本（当前为 v{currentRelease.version}）。</li>
+      <li><strong>附带复现步骤：</strong> 附上触发异常的最小 Markdown 片段或具体操作顺序，这能极大缩短定位问题的周期。</li>
+      <li><strong>本地资源路径：</strong> 若问题与图片或相对目录关联，请简要说明本地文件夹的层级结构。</li>
+    </ol>
+  </div>
+
+  <div class="support-resources-bar">
+    <span class="muted">快捷导航：</span>
+    <a href={siteUrls.readme} class="button button-small button-secondary-light" rel="noopener noreferrer">项目 README</a>
+    <a href={currentRelease.releasePage} class="button button-small button-secondary-light" rel="noopener noreferrer">{releaseLabel}</a>
+    <a href={currentRelease.checksumUrl} class="button button-small button-secondary-light" rel="noopener noreferrer">SHA256SUMS.txt</a>
+    <a href="/zh/docs/" class="button button-small button-secondary-light">使用文档</a>
+  </div>
 </ContentPage>

@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  badge?: string;
+  description: string;
+  href: string;
+  actionText: string;
+  icon?: string;
+}
+
+const { title, badge, description, href, actionText, icon } = Astro.props;
+---
+
+<div class="support-channel-card card">
+  <div class="support-card-header">
+    {icon && <span class="support-card-icon" aria-hidden="true">{icon}</span>}
+    <div class="support-card-title-group">
+      <h3>{title}</h3>
+      {badge && <span class="badge">{badge}</span>}
+    </div>
+  </div>
+  <p class="support-card-desc">{description}</p>
+  <div class="support-card-action">
+    <a href={href} class="button button-small" rel="noopener noreferrer">
+      {actionText} →
+    </a>
+  </div>
+</div>

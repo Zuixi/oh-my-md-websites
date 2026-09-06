@@ -1,0 +1,25 @@
+---
+interface Props {
+  lang: 'en' | 'zh';
+  items: Array<{
+    id: string;
+    label: string;
+  }>;
+}
+
+const { lang, items } = Astro.props;
+const title = lang === 'zh' ? '本页目录' : 'On this page';
+---
+
+<nav class="docs-toc" aria-label={title}>
+  <div class="docs-toc-title">{title}</div>
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={`#${item.id}`} class="docs-toc-link">
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

@@ -1,5 +1,6 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
+import SupportCard from '../components/SupportCard.astro';
 import { currentRelease, releaseDisplay } from '../data/releases';
 import { siteUrls } from '../data/site';
 
@@ -7,32 +8,73 @@ const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).
 ---
 
 <ContentPage
-  title="Support — oh-my-md"
-  description="Support, bug reports, security reporting, and contributing links for oh-my-md."
+  title="Support & Community Hub — oh-my-md"
+  description="Report bugs, ask questions, submit feature requests, and get help for oh-my-md."
   lang="en"
   canonicalPath="/support/"
+  layoutClass="support-layout"
 >
-  <span class="eyebrow">Support</span>
-  <h1>Find help, report issues, and contribute</h1>
-  <p class="lede">
-    oh-my-md is developed in the open. Use the project’s existing GitHub channels so reports and
-    discussions stay searchable for the community.
-  </p>
-  <section class="content-section">
-    <h2>Choose an entry point</h2>
-    <ul>
-      <li><a href={siteUrls.issues} rel="noopener noreferrer">GitHub Issues</a> for reproducible bugs and feature discussion.</li>
-      <li><a href={siteUrls.discussions} rel="noopener noreferrer">GitHub Discussions</a> for questions and broader conversation.</li>
-      <li><a href={siteUrls.security} rel="noopener noreferrer">Security Advisories</a> for private vulnerability reporting when available.</li>
-      <li><a href={siteUrls.contributing} rel="noopener noreferrer">Contributing guide</a> for changes to the project.</li>
-    </ul>
-  </section>
-  <section class="content-section">
-    <h2>Useful references</h2>
-    <p>
-      Read the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>, review the
-      <a href={currentRelease.releasePage} rel="noopener noreferrer">{releaseLabel}</a>, or start with
-      the <a href="/docs/">documentation</a>.
+  <header class="support-hero">
+    <span class="eyebrow">Support & Community Hub</span>
+    <h1>How can we help?</h1>
+    <p class="lede">
+      oh-my-md is free, open source (Apache-2.0), and developed completely in public. Choose the appropriate channel below so your feedback reaches the right discussion.
     </p>
-  </section>
+  </header>
+
+  <div class="support-channels-grid">
+    <SupportCard
+      title="Bug Reports & Feature Requests"
+      badge="Issues"
+      icon="🐛"
+      description="Encountered a crash, rendering defect, or want to suggest a focused improvement? File a structured issue on GitHub."
+      href={siteUrls.issues}
+      actionText="Open GitHub Issues"
+    />
+
+    <SupportCard
+      title="Community Discussions & Q&A"
+      badge="Discussions"
+      icon="💬"
+      description="Have questions about workflows, theme customization, or want to share feedback? Connect with other users in Discussions."
+      href={siteUrls.discussions}
+      actionText="Join Discussions"
+    />
+
+    <SupportCard
+      title="Security Advisories & Disclosures"
+      badge="Security"
+      icon="🛡️"
+      description="Found a potential security or privacy flaw? Report it responsibly via GitHub Private Security Advisories."
+      href={siteUrls.security}
+      actionText="Report Vulnerability"
+    />
+
+    <SupportCard
+      title="Contribute & Code Review"
+      badge="Open Source"
+      icon="🤝"
+      description="Want to fix an issue, refine documentation, or contribute to the CodeMirror engine? Check our guide."
+      href={siteUrls.contributing}
+      actionText="Read Contributing Guide"
+    />
+  </div>
+
+  <div class="support-checklist-card">
+    <h3>Before you file an issue:</h3>
+    <ol>
+      <li><strong>Check existing issues:</strong> Search the <a href={siteUrls.issues} rel="noopener noreferrer">open issues</a> to avoid duplicate reports.</li>
+      <li><strong>Provide system details:</strong> Include your operating system (macOS, Windows, Linux) and oh-my-md version (currently v{currentRelease.version}).</li>
+      <li><strong>Include reproducible steps:</strong> Share the exact Markdown snippet or steps that triggered the unexpected behavior.</li>
+      <li><strong>Local assets:</strong> If the issue involves images or files, specify your relative directory structure.</li>
+    </ol>
+  </div>
+
+  <div class="support-resources-bar">
+    <span class="muted">Quick links:</span>
+    <a href={siteUrls.readme} class="button button-small button-secondary-light" rel="noopener noreferrer">Main README</a>
+    <a href={currentRelease.releasePage} class="button button-small button-secondary-light" rel="noopener noreferrer">{releaseLabel}</a>
+    <a href={currentRelease.checksumUrl} class="button button-small button-secondary-light" rel="noopener noreferrer">SHA256SUMS.txt</a>
+    <a href="/docs/" class="button button-small button-secondary-light">Documentation</a>
+  </div>
 </ContentPage>
