@@ -17,10 +17,7 @@ const description = releaseDisplay.changelogDescription(currentRelease.version).
   <section class="content-section">
     <h2>{currentRelease.version}</h2>
     <ul>
-      <li>面向 macOS、Windows 和 Linux 的首个公开桌面版本。</li>
-      <li>用于本地 Markdown 写作的 Live Preview 与 Source 模式。</li>
-      <li>支持 CommonMark 与 GFM，并提供数学公式、图表和代码高亮。</li>
-      <li>提供本地工作区文件、搜索、大纲和标签页工具。</li>
+      {releaseDisplay.changelogFeatures.map((feature) => <li>{feature.zh}</li>)}
     </ul>
     <p>
       <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">

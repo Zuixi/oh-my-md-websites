@@ -31,7 +31,6 @@ export interface ReleaseDisplay {
   verificationInstructions: LocalizedText;
   checksumLinkLabel: LocalizedText;
   releasePageLinkLabel: (version: string) => LocalizedText;
-  releasePageLabel: LocalizedText;
   commandLabels: {
     unix: LocalizedText;
     windows: LocalizedText;
@@ -39,6 +38,7 @@ export interface ReleaseDisplay {
   copyOnlyNotice: LocalizedText;
   changelogDescription: (version: string) => LocalizedText;
   changelogIntro: (version: string, releasedAt: string) => LocalizedText;
+  changelogFeatures: readonly LocalizedText[];
   changelogReleaseLinkLabel: (version: string) => LocalizedText;
   updateNotice: (version: string) => LocalizedText;
   supportReleaseLabel: (version: string) => LocalizedText;
@@ -127,7 +127,6 @@ export const releaseDisplay = {
     en: `v${releaseVersion} release page`,
     zh: `v${releaseVersion} 发布页`,
   }),
-  releasePageLabel: { en: 'release page', zh: '发布页' },
   commandLabels: {
     unix: { en: 'Optional macOS / Linux convenience command', zh: '可选的 macOS / Linux 便捷命令' },
     windows: { en: 'Optional Windows PowerShell convenience command', zh: '可选的 Windows PowerShell 便捷命令' },
@@ -144,6 +143,12 @@ export const releaseDisplay = {
     en: `The current public release is v${releaseVersion}, published on ${releasedAt}.`,
     zh: `当前公开版本为 v${releaseVersion}，发布日期为 ${releasedAt}。`,
   }),
+  changelogFeatures: [
+    { en: 'Initial public desktop release for macOS, Windows, and Linux.', zh: '面向 macOS、Windows 和 Linux 的首个公开桌面版本。' },
+    { en: 'Live Preview and Source modes for local Markdown writing.', zh: '用于本地 Markdown 写作的 Live Preview 与 Source 模式。' },
+    { en: 'CommonMark and GFM support with math, diagrams, and syntax-highlighted code.', zh: '支持 CommonMark 与 GFM，并提供数学公式、图表和代码高亮。' },
+    { en: 'Local workspace tools including files, search, outline, and tabs.', zh: '提供本地工作区文件、搜索、大纲和标签页工具。' },
+  ],
   changelogReleaseLinkLabel: (releaseVersion) => ({
     en: `Read the v${releaseVersion} release on GitHub`,
     zh: `在 GitHub 阅读 v${releaseVersion} 发布说明`,
