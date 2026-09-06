@@ -8,17 +8,83 @@ import { siteUrls } from '../../data/site';
 const mac = releasePackagesByPlatform.macOS[0];
 const windows = releasePackagesByPlatform.Windows;
 const linux = releasePackagesByPlatform.Linux;
+const commandCopy = {
+  label: '复制命令',
+  copied: '已复制',
+  failed: '无法复制，请选择下方命令',
+};
 ---
 
-<ContentPage title={`下载 oh-my-md ${currentRelease.version}`} description="下载适用于 macOS、Windows 或 Linux 的当前 oh-my-md 桌面版本。" lang="zh" canonicalPath="/zh/download">
+<ContentPage
+  title={`下载 oh-my-md ${currentRelease.version}`}
+  description="下载适用于 macOS、Windows 或 Linux 的当前 oh-my-md 桌面版本。"
+  lang="zh"
+  canonicalPath="/zh/download"
+>
   <span class="eyebrow">当前版本 · {currentRelease.version}</span>
   <h1>下载 oh-my-md</h1>
   <p class="lede">为你的桌面系统选择安装包。当前版本及其文件以发布页为准。</p>
-  <aside class="warning" aria-label="未签名版本提示"><strong>未签名版本：</strong> {currentRelease.version} 安装包尚未完成代码签名或公证。操作系统可能显示警告；请在安装前核对校验和并查看源码。</aside>
+  <aside class="warning" aria-label="未签名版本提示">
+    <strong>未签名版本：</strong> {currentRelease.version} 安装包尚未完成代码签名或公证。操作系统可能显示警告；请在安装前核对校验和并查看源码。
+  </aside>
 
-  <section class="download-section" aria-labelledby="macos-title"><h2 id="macos-title">macOS</h2><div class="download-grid"><DownloadCard package={mac} downloadLabel="下载 DMG" /></div></section>
-  <section class="download-section" aria-labelledby="windows-title"><h2 id="windows-title">Windows</h2><p>NSIS 适合大多数用户，推荐优先选择。MSI 适用于受管理环境和手动安装。</p><div class="download-grid"><DownloadCard package={windows[0]} label="推荐" downloadLabel="下载 EXE" /><DownloadCard package={windows[1]} label="受管理 / 手动" note="当你的环境要求 MSI 时选择此安装包。" downloadLabel="下载 MSI" /></div></section>
-  <section class="download-section" aria-labelledby="linux-title"><h2 id="linux-title">Linux</h2><div class="download-grid"><DownloadCard package={linux[0]} downloadLabel="下载 AppImage" /><DownloadCard package={linux[1]} downloadLabel="下载 deb" /></div></section>
+  <section class="download-section" aria-labelledby="macos-title">
+    <h2 id="macos-title">macOS</h2>
+    <div class="download-grid">
+      <DownloadCard package={mac} lang="zh" />
+    </div>
+  </section>
 
-  <section class="download-section" aria-labelledby="verify-title"><h2 id="verify-title">校验与安装</h2><p>下载 <a href={currentRelease.checksumUrl} rel="noopener noreferrer">SHA256SUMS.txt</a>，打开安装包前比对校验和。你也可以查看 <a href={currentRelease.releasePage} rel="noopener noreferrer">v{currentRelease.version} 发布页</a>。</p><div class="install-grid"><InstallCommand label="可选的 macOS / Linux 便捷命令" copyLabel="复制命令" shell="bash" command={`shasum -a 256 <downloaded-file>`} /><InstallCommand label="可选的 Windows PowerShell 便捷命令" copyLabel="复制命令" shell="powershell" command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`} /></div><p class="muted">这些是仅供复制的校验和命令，不是远程安装程序；本网站不会执行它们。</p><p><a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">在 GitHub 查看全部版本</a></p></section>
+  <section class="download-section" aria-labelledby="windows-title">
+    <h2 id="windows-title">Windows</h2>
+    <p>NSIS 适合大多数用户，推荐优先选择。MSI 适用于受管理环境和手动安装。</p>
+    <div class="download-grid">
+      <DownloadCard package={windows[0]} lang="zh" />
+      <DownloadCard
+        package={windows[1]}
+        lang="zh"
+        note="当你的环境要求 MSI 时选择此安装包。"
+      />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="linux-title">
+    <h2 id="linux-title">Linux</h2>
+    <div class="download-grid">
+      <DownloadCard package={linux[0]} lang="zh" />
+      <DownloadCard package={linux[1]} lang="zh" />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="verify-title">
+    <h2 id="verify-title">校验与安装</h2>
+    <p>
+      下载 <a href={currentRelease.checksumUrl} rel="noopener noreferrer">SHA256SUMS.txt</a>，打开安装包前比对校验和。你也可以查看
+      <a href={currentRelease.releasePage} rel="noopener noreferrer">v{currentRelease.version} 发布页</a>。
+    </p>
+    <div class="install-grid">
+      <InstallCommand
+        label="可选的 macOS / Linux 便捷命令"
+        shell="bash"
+        command={`shasum -a 256 <downloaded-file>`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+      <InstallCommand
+        label="可选的 Windows PowerShell 便捷命令"
+        shell="powershell"
+        command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`}
+        copyLabel={commandCopy.label}
+        copiedLabel={commandCopy.copied}
+        copyFailedLabel={commandCopy.failed}
+      />
+    </div>
+    <p class="muted">这些是仅供复制的校验和命令，不是远程安装程序；本网站不会执行它们。</p>
+    <p>
+      <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
+        在 GitHub 查看全部版本
+      </a>
+    </p>
+  </section>
 </ContentPage>

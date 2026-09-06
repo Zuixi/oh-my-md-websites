@@ -3,13 +3,61 @@ import ContentPage from '../components/ContentPage.astro';
 import { siteUrls } from '../data/site';
 ---
 
-<ContentPage title="oh-my-md docs" description="Quick start and supported Markdown features for oh-my-md." lang="en" canonicalPath="/docs">
+<ContentPage
+  title="oh-my-md docs"
+  description="Quick start and supported Markdown features for oh-my-md."
+  lang="en"
+  canonicalPath="/docs"
+>
   <span class="eyebrow">Documentation</span>
   <h1>Start writing locally</h1>
-  <p class="lede">oh-my-md is a desktop Markdown editor for local files. Choose a package on the <a href="/download">download page</a>, open a Markdown file, and keep your work in a folder you control.</p>
-  <section class="content-section"><h2>Quick start</h2><ol><li>Install the package for your platform.</li><li>Open a Markdown file or folder workspace.</li><li>Write in Live Preview, or switch to Source mode for the exact Markdown text.</li><li>Save your file and keep related images in the local workspace.</li></ol></section>
-  <section class="content-section"><h2>Live Preview and Source mode</h2><p>Live Preview renders supported Markdown in place while keeping the document editable. Source mode shows the underlying Markdown without the preview presentation. Use the mode that fits the task, and switch between them as needed.</p></section>
-  <section class="content-section"><h2>Supported Markdown</h2><ul><li>CommonMark and GitHub Flavored Markdown, including tables, task lists, footnotes, and strikethrough.</li><li>KaTeX math and Mermaid diagrams in the live document.</li><li>Shiki code highlighting, highlights, and gemoji.</li><li>File tree, search, outline, and tabs for local workspaces.</li></ul></section>
-  <section class="content-section"><h2>Platforms and exports</h2><p>Current packages are available for macOS Universal, Windows x64, and Linux x64. oh-my-md works with Markdown files and local assets; it does not promise a hosted publishing or export service. For the most accurate current behavior, see the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>.</p></section>
-  <section class="content-section"><h2>Troubleshooting</h2><p>First check the <a href={siteUrls.readme} rel="noopener noreferrer">README</a> and the project’s <a href={siteUrls.manual} rel="noopener noreferrer">manual testing notes</a>. If a problem persists, <a href="/support">contact the project through its support links</a> with reproducible steps.</p></section>
+  <p class="lede">
+    oh-my-md is a desktop Markdown editor for local files. Choose a package on the
+    <a href="/download">download page</a>, open a Markdown file, and keep your work in a folder you
+    control.
+  </p>
+  <section class="content-section">
+    <h2>Quick start</h2>
+    <ol>
+      <li>Install the package for your platform.</li>
+      <li>Open a Markdown file or folder workspace.</li>
+      <li>Write in Live Preview, or switch to Source mode for the exact Markdown text.</li>
+      <li>Save your file and keep related images in the local workspace.</li>
+    </ol>
+  </section>
+  <section class="content-section">
+    <h2>Live Preview and Source mode</h2>
+    <p>
+      Live Preview renders supported Markdown in place while keeping the document editable. Source
+      mode shows the underlying Markdown without the preview presentation. Use the mode that fits
+      the task, and switch between them as needed.
+    </p>
+  </section>
+  <section class="content-section">
+    <h2>Supported Markdown</h2>
+    <ul>
+      <li>CommonMark and GitHub Flavored Markdown, including tables, task lists, footnotes, and strikethrough.</li>
+      <li>KaTeX math and Mermaid diagrams in the live document.</li>
+      <li>Shiki code highlighting, highlights, and gemoji.</li>
+      <li>File tree, search, outline, and tabs for local workspaces.</li>
+    </ul>
+  </section>
+  <section class="content-section">
+    <h2>Platforms and exports</h2>
+    <p>
+      Current packages are available for macOS Universal, Windows x64, and Linux x64. oh-my-md
+      works with Markdown files and local assets; it does not promise a hosted publishing or export
+      service. For the most accurate current behavior, see the
+      <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>.
+    </p>
+  </section>
+  <section class="content-section">
+    <h2>Troubleshooting</h2>
+    <p>
+      First check the <a href={siteUrls.readme} rel="noopener noreferrer">README</a> and the
+      project’s <a href={siteUrls.manual} rel="noopener noreferrer">manual testing notes</a>. If a
+      problem persists, <a href="/support">contact the project through its support links</a> with
+      reproducible steps.
+    </p>
+  </section>
 </ContentPage>

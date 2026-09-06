@@ -3,27 +3,43 @@ import type { ReleasePackage } from '../data/releases';
 
 interface Props {
   package: ReleasePackage;
-  label?: string;
+  lang: 'en' | 'zh';
   note?: string;
-  downloadLabel: string;
 }
 
-const { package: releasePackage, label, note, downloadLabel } = Astro.props;
+const { package: releasePackage, lang, note } = Astro.props;
+const downloadLabel = releasePackage.downloadLabel[lang];
 ---
 
 <article class="download-card card">
   <div class="download-card-heading">
     <div>
       <h3>{releasePackage.fileType}</h3>
-      {label && <span class="badge">{label}</span>}
+      {releasePackage.availabilityLabel[lang] && (
+        <span class="badge">{releasePackage.availabilityLabel[lang]}</span>
+      )}
     </div>
-    <a class="button button-small" href={releasePackage.url} download>{downloadLabel}</a>
+    <a class="button button-small" href={releasePackage.url} download>
+      {downloadLabel}
+    </a>
   </div>
   <dl class="package-meta">
-    <div><dt>File</dt><dd><code>{releasePackage.filename}</code></dd></div>
-    <div><dt>Architecture</dt><dd>{releasePackage.architecture}</dd></div>
-    <div><dt>Type</dt><dd>{releasePackage.fileType}</dd></div>
-    <div><dt>Signature</dt><dd>{releasePackage.signed ? 'Signed' : 'Unsigned'}</dd></div>
+    <div>
+      <dt>{releasePackage.display.fileLabel[lang]}</dt>
+      <dd><code>{releasePackage.filename}</code></dd>
+    </div>
+    <div>
+      <dt>{releasePackage.display.architectureLabel[lang]}</dt>
+      <dd>{releasePackage.architecture}</dd>
+    </div>
+    <div>
+      <dt>{releasePackage.display.typeLabel[lang]}</dt>
+      <dd>{releasePackage.fileType}</dd>
+    </div>
+    <div>
+      <dt>{releasePackage.display.signatureLabel[lang]}</dt>
+      <dd>{releasePackage.signed ? releasePackage.display.signedLabel[lang] : releasePackage.display.unsignedLabel[lang]}</dd>
+    </div>
   </dl>
   {note && <p class="package-note">{note}</p>}
 </article>

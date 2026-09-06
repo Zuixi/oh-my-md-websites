@@ -4,15 +4,26 @@ interface Props {
   shell: 'bash' | 'powershell';
   label: string;
   copyLabel: string;
+  copiedLabel: string;
+  copyFailedLabel: string;
 }
 
-const { command, shell, label, copyLabel } = Astro.props;
+const { command, shell, label, copyLabel, copiedLabel, copyFailedLabel } = Astro.props;
 ---
 
 <div class="install-command">
   <div class="install-command-header">
     <span>{label}</span>
-    <button type="button" class="copy-button" data-copy={command}>{copyLabel}</button>
+    <button
+      type="button"
+      class="copy-button"
+      data-copy={command}
+      data-copy-label={copyLabel}
+      data-copied-label={copiedLabel}
+      data-copy-failed-label={copyFailedLabel}
+    >
+      {copyLabel}
+    </button>
   </div>
   <pre><code data-shell={shell}>{command}</code></pre>
 </div>
@@ -21,11 +32,22 @@ const { command, shell, label, copyLabel } = Astro.props;
   for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
     button.addEventListener('click', async () => {
       const command = button.dataset.copy;
-      if (!command || !navigator.clipboard) return;
-      await navigator.clipboard.writeText(command);
-      const original = button.textContent;
-      button.textContent = 'Copied';
-      window.setTimeout(() => { button.textContent = original; }, 1200);
+      const copyLabel = button.dataset.copyLabel ?? button.textContent ?? '';
+      const copiedLabel = button.dataset.copiedLabel ?? copyLabel;
+      const copyFailedLabel = button.dataset.copyFailedLabel ?? copyLabel;
+      if (!command || !navigator.clipboard) {
+        button.textContent = copyFailedLabel;
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(command);
+        button.textContent = copiedLabel;
+      } catch {
+        button.textContent = copyFailedLabel;
+      }
+      window.setTimeout(() => {
+        button.textContent = copyLabel;
+      }, 1200);
     });
   }
 </script>

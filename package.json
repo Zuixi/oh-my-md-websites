@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs"
+    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs && pnpm run check-release-manifest && pnpm run check-routes",
+    "check-release-manifest": "tsx scripts/check-release-manifest.mjs",
+    "check-routes": "tsx scripts/check-routes.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
@@ -14,6 +16,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "tsx": "^4.23.13",
     "typescript": "^5.9.2"
   }
 }

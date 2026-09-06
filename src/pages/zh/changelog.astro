@@ -6,6 +6,22 @@ import { currentRelease } from '../../data/releases';
 <ContentPage title="更新日志 — oh-my-md" description="oh-my-md 0.0.1 版本更新说明。" lang="zh" canonicalPath="/zh/changelog">
   <span class="eyebrow">更新日志</span><h1>oh-my-md {currentRelease.version}</h1>
   <p class="lede">当前公开版本为 <strong>v{currentRelease.version}</strong>，发布日期为 {currentRelease.releasedAt}。</p>
-  <section class="content-section"><h2>0.0.1</h2><ul><li>面向 macOS、Windows 和 Linux 的首个公开桌面版本。</li><li>用于本地 Markdown 写作的 Live Preview 与 Source 模式。</li><li>支持 CommonMark 与 GFM，并提供数学公式、图表和代码高亮。</li><li>提供本地工作区文件、搜索、大纲和标签页工具。</li></ul><p><a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">在 GitHub 阅读 v{currentRelease.version} 发布说明</a></p></section>
-  <p>关于项目背景和源码，请查看<a href="https://github.com/Zuixi/oh-my-md#readme" rel="noopener noreferrer">主 README</a>。</p>
+  <section class="content-section">
+    <h2>{currentRelease.version}</h2>
+    <ul>
+      <li>面向 macOS、Windows 和 Linux 的首个公开桌面版本。</li>
+      <li>用于本地 Markdown 写作的 Live Preview 与 Source 模式。</li>
+      <li>支持 CommonMark 与 GFM，并提供数学公式、图表和代码高亮。</li>
+      <li>提供本地工作区文件、搜索、大纲和标签页工具。</li>
+    </ul>
+    <p>
+      <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">
+        在 GitHub 阅读 v{currentRelease.version} 发布说明
+      </a>
+    </p>
+  </section>
+  <p>
+    关于项目背景和源码，请查看
+    <a href="https://github.com/Zuixi/oh-my-md#readme" rel="noopener noreferrer">主 README</a>。
+  </p>
 </ContentPage>

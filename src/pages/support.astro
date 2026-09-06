@@ -3,9 +3,33 @@ import ContentPage from '../components/ContentPage.astro';
 import { siteUrls } from '../data/site';
 ---
 
-<ContentPage title="Support — oh-my-md" description="Support, bug reports, security reporting, and contributing links for oh-my-md." lang="en" canonicalPath="/support">
-  <span class="eyebrow">Support</span><h1>Find help, report issues, and contribute</h1>
-  <p class="lede">oh-my-md is developed in the open. Use the project’s existing GitHub channels so reports and discussions stay searchable for the community.</p>
-  <section class="content-section"><h2>Choose an entry point</h2><ul><li><a href={siteUrls.issues} rel="noopener noreferrer">GitHub Issues</a> for reproducible bugs and feature discussion.</li><li><a href={siteUrls.discussions} rel="noopener noreferrer">GitHub Discussions</a> for questions and broader conversation.</li><li><a href={siteUrls.security} rel="noopener noreferrer">Security Advisories</a> for private vulnerability reporting when available.</li><li><a href={siteUrls.contributing} rel="noopener noreferrer">Contributing guide</a> for changes to the project.</li></ul></section>
-  <section class="content-section"><h2>Useful references</h2><p>Read the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>, review the <a href={siteUrls.release} rel="noopener noreferrer">current v0.0.1 release</a>, or start with the <a href="/docs">documentation</a>.</p></section>
+<ContentPage
+  title="Support — oh-my-md"
+  description="Support, bug reports, security reporting, and contributing links for oh-my-md."
+  lang="en"
+  canonicalPath="/support"
+>
+  <span class="eyebrow">Support</span>
+  <h1>Find help, report issues, and contribute</h1>
+  <p class="lede">
+    oh-my-md is developed in the open. Use the project’s existing GitHub channels so reports and
+    discussions stay searchable for the community.
+  </p>
+  <section class="content-section">
+    <h2>Choose an entry point</h2>
+    <ul>
+      <li><a href={siteUrls.issues} rel="noopener noreferrer">GitHub Issues</a> for reproducible bugs and feature discussion.</li>
+      <li><a href={siteUrls.discussions} rel="noopener noreferrer">GitHub Discussions</a> for questions and broader conversation.</li>
+      <li><a href={siteUrls.security} rel="noopener noreferrer">Security Advisories</a> for private vulnerability reporting when available.</li>
+      <li><a href={siteUrls.contributing} rel="noopener noreferrer">Contributing guide</a> for changes to the project.</li>
+    </ul>
+  </section>
+  <section class="content-section">
+    <h2>Useful references</h2>
+    <p>
+      Read the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>, review the
+      <a href={siteUrls.release} rel="noopener noreferrer">current v0.0.1 release</a>, or start with
+      the <a href="/docs">documentation</a>.
+    </p>
+  </section>
 </ContentPage>

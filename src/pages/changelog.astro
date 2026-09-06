@@ -6,6 +6,22 @@ import { currentRelease } from '../data/releases';
 <ContentPage title="Changelog — oh-my-md" description="Release notes for oh-my-md version 0.0.1." lang="en" canonicalPath="/changelog">
   <span class="eyebrow">Changelog</span><h1>oh-my-md {currentRelease.version}</h1>
   <p class="lede">The current public release is <strong>v{currentRelease.version}</strong>, published on {currentRelease.releasedAt}.</p>
-  <section class="content-section"><h2>0.0.1</h2><ul><li>Initial public desktop release for macOS, Windows, and Linux.</li><li>Live Preview and Source modes for local Markdown writing.</li><li>CommonMark and GFM support with math, diagrams, and syntax-highlighted code.</li><li>Local workspace tools including files, search, outline, and tabs.</li></ul><p><a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">Read the v{currentRelease.version} release on GitHub</a></p></section>
-  <p>For the project’s full context and source, see the <a href="https://github.com/Zuixi/oh-my-md#readme" rel="noopener noreferrer">main README</a>.</p>
+  <section class="content-section">
+    <h2>{currentRelease.version}</h2>
+    <ul>
+      <li>Initial public desktop release for macOS, Windows, and Linux.</li>
+      <li>Live Preview and Source modes for local Markdown writing.</li>
+      <li>CommonMark and GFM support with math, diagrams, and syntax-highlighted code.</li>
+      <li>Local workspace tools including files, search, outline, and tabs.</li>
+    </ul>
+    <p>
+      <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">
+        Read the v{currentRelease.version} release on GitHub
+      </a>
+    </p>
+  </section>
+  <p>
+    For the project’s full context and source, see the
+    <a href="https://github.com/Zuixi/oh-my-md#readme" rel="noopener noreferrer">main README</a>.
+  </p>
 </ContentPage>
