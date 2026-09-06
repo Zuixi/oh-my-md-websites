@@ -1,0 +1,29 @@
+---
+import type { ReleasePackage } from '../data/releases';
+
+interface Props {
+  package: ReleasePackage;
+  label?: string;
+  note?: string;
+  downloadLabel: string;
+}
+
+const { package: releasePackage, label, note, downloadLabel } = Astro.props;
+---
+
+<article class="download-card card">
+  <div class="download-card-heading">
+    <div>
+      <h3>{releasePackage.fileType}</h3>
+      {label && <span class="badge">{label}</span>}
+    </div>
+    <a class="button button-small" href={releasePackage.url} download>{downloadLabel}</a>
+  </div>
+  <dl class="package-meta">
+    <div><dt>File</dt><dd><code>{releasePackage.filename}</code></dd></div>
+    <div><dt>Architecture</dt><dd>{releasePackage.architecture}</dd></div>
+    <div><dt>Type</dt><dd>{releasePackage.fileType}</dd></div>
+    <div><dt>Signature</dt><dd>{releasePackage.signed ? 'Signed' : 'Unsigned'}</dd></div>
+  </dl>
+  {note && <p class="package-note">{note}</p>}
+</article>

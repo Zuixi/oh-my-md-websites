@@ -1,0 +1,21 @@
+---
+import type { Language } from '../data/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Language;
+  canonicalPath: string;
+}
+
+const { title, description, lang, canonicalPath } = Astro.props;
+---
+
+<SiteLayout title={title} description={description} lang={lang} canonicalPath={canonicalPath}>
+  <section class="section content-page">
+    <div class="container content-column">
+      <slot />
+    </div>
+  </section>
+</SiteLayout>

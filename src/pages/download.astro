@@ -1,0 +1,49 @@
+---
+import ContentPage from '../components/ContentPage.astro';
+import DownloadCard from '../components/DownloadCard.astro';
+import InstallCommand from '../components/InstallCommand.astro';
+import { currentRelease, releasePackagesByPlatform } from '../data/releases';
+import { siteUrls } from '../data/site';
+
+const mac = releasePackagesByPlatform.macOS[0];
+const windows = releasePackagesByPlatform.Windows;
+const linux = releasePackagesByPlatform.Linux;
+---
+
+<ContentPage title={`Download oh-my-md ${currentRelease.version}`} description="Download the current oh-my-md desktop release for macOS, Windows, or Linux." lang="en" canonicalPath="/download">
+  <span class="eyebrow">Current release · {currentRelease.version}</span>
+  <h1>Download oh-my-md</h1>
+  <p class="lede">Choose a package for your desktop. The release page is the authoritative source for this version and its files.</p>
+  <aside class="warning" aria-label="Unsigned release warning"><strong>Unsigned release:</strong> These {currentRelease.version} packages are not code-signed or notarized. Your operating system may show a warning; verify the checksum and review the source before installing.</aside>
+
+  <section class="download-section" aria-labelledby="macos-title">
+    <h2 id="macos-title">macOS</h2>
+    <div class="download-grid"><DownloadCard package={mac} downloadLabel="Download DMG" /></div>
+  </section>
+  <section class="download-section" aria-labelledby="windows-title">
+    <h2 id="windows-title">Windows</h2>
+    <p>NSIS is the recommended option for most users. MSI is provided for managed environments and manual installation.</p>
+    <div class="download-grid">
+      <DownloadCard package={windows[0]} label="Recommended" downloadLabel="Download EXE" />
+      <DownloadCard package={windows[1]} label="Managed / manual" note="Use this package when your environment requires MSI." downloadLabel="Download MSI" />
+    </div>
+  </section>
+  <section class="download-section" aria-labelledby="linux-title">
+    <h2 id="linux-title">Linux</h2>
+    <div class="download-grid">
+      <DownloadCard package={linux[0]} downloadLabel="Download AppImage" />
+      <DownloadCard package={linux[1]} downloadLabel="Download deb" />
+    </div>
+  </section>
+
+  <section class="download-section" aria-labelledby="verify-title">
+    <h2 id="verify-title">Verify and install</h2>
+    <p>Download <a href={currentRelease.checksumUrl} rel="noopener noreferrer">SHA256SUMS.txt</a> and compare the package checksum before opening it. You can also inspect the <a href={currentRelease.releasePage} rel="noopener noreferrer">v{currentRelease.version} release page</a>.</p>
+    <div class="install-grid">
+      <InstallCommand label="Optional macOS / Linux convenience command" copyLabel="Copy command" shell="bash" command={`shasum -a 256 <downloaded-file>`} />
+      <InstallCommand label="Optional Windows PowerShell convenience command" copyLabel="Copy command" shell="powershell" command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`} />
+    </div>
+    <p class="muted">These are copy-only checksum commands. They are not remote installers and this website never executes them.</p>
+    <p><a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">Open all releases on GitHub</a></p>
+  </section>
+</ContentPage>

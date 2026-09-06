@@ -1,0 +1,31 @@
+---
+interface Props {
+  command: string;
+  shell: 'bash' | 'powershell';
+  label: string;
+  copyLabel: string;
+}
+
+const { command, shell, label, copyLabel } = Astro.props;
+---
+
+<div class="install-command">
+  <div class="install-command-header">
+    <span>{label}</span>
+    <button type="button" class="copy-button" data-copy={command}>{copyLabel}</button>
+  </div>
+  <pre><code data-shell={shell}>{command}</code></pre>
+</div>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    button.addEventListener('click', async () => {
+      const command = button.dataset.copy;
+      if (!command || !navigator.clipboard) return;
+      await navigator.clipboard.writeText(command);
+      const original = button.textContent;
+      button.textContent = 'Copied';
+      window.setTimeout(() => { button.textContent = original; }, 1200);
+    });
+  }
+</script>

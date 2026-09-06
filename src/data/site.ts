@@ -80,6 +80,12 @@ export interface SiteCopy {
 export const siteUrls = {
   repository: 'https://github.com/Zuixi/oh-my-md',
   release: 'https://github.com/Zuixi/oh-my-md/releases/latest',
+  issues: 'https://github.com/Zuixi/oh-my-md/issues',
+  discussions: 'https://github.com/Zuixi/oh-my-md/discussions',
+  security: 'https://github.com/Zuixi/oh-my-md/security/advisories/new',
+  contributing: 'https://github.com/Zuixi/oh-my-md/blob/main/CONTRIBUTING.md',
+  readme: 'https://github.com/Zuixi/oh-my-md#readme',
+  manual: 'https://github.com/Zuixi/oh-my-md/blob/main/docs/manual-qa.md',
 } as const;
 
 export const siteCopy: SiteCopy = {

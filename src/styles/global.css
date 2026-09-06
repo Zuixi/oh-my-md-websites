@@ -126,6 +126,38 @@ p { max-width: var(--copy-width); }
   .button { width: 100%; text-align: center; }
 }
 
+.content-page { background: var(--color-paper); min-height: 38rem; }
+.content-column { max-width: var(--copy-width); }
+.content-column > h1 { max-width: 18ch; margin: var(--space-3) 0 var(--space-4); }
+.lede { color: var(--color-muted); font-size: 1.15rem; }
+.content-section { margin-top: var(--space-6); }
+.content-section h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
+.content-section li + li { margin-top: var(--space-2); }
+.warning { margin: var(--space-5) 0; padding: var(--space-3) var(--space-4); border: 1px solid #d5a54d; border-left: 0.3rem solid #b47712; border-radius: var(--radius-sm); background: #fff6dd; }
+.download-section { margin-top: var(--space-7); }
+.download-section > p { color: var(--color-muted); }
+.download-grid, .install-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.download-card-heading, .install-command-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.download-card h3 { margin: 0; }
+.badge { display: inline-block; margin-top: var(--space-2); padding: 0.15rem 0.45rem; border-radius: 99rem; background: #e3f4ef; color: #246d61; font-size: 0.78rem; font-weight: 700; }
+.button-small { padding: 0.5rem 0.75rem; font-size: 0.88rem; white-space: nowrap; }
+.button-secondary-light { border: 1px solid var(--color-ink); background: transparent; color: var(--color-ink); }
+.button-secondary-light:hover { color: var(--color-ink); background: #e8eeec; }
+.package-meta { display: grid; gap: var(--space-2); margin: var(--space-4) 0 0; }
+.package-meta div { display: flex; justify-content: space-between; gap: var(--space-3); border-bottom: 1px solid var(--color-line); padding-bottom: var(--space-1); }
+.package-meta dt { color: var(--color-muted); font-size: 0.82rem; }
+.package-meta dd { margin: 0; text-align: right; }
+.package-meta code { font-size: 0.78rem; overflow-wrap: anywhere; }
+.package-note, .muted { color: var(--color-muted); font-size: 0.9rem; }
+.install-command { overflow: hidden; border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); }
+.install-command-header { padding: var(--space-3); background: #eaf3f1; font-size: 0.88rem; font-weight: 700; }
+.copy-button { padding: 0.35rem 0.6rem; border: 1px solid var(--color-line); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); font: inherit; cursor: pointer; }
+.install-command pre { overflow-x: auto; margin: 0; padding: var(--space-3); background: #0b1420; color: #cde9df; font: 0.84rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+@media (max-width: 52rem) {
+  .download-grid, .install-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
