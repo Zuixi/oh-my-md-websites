@@ -1,5 +1,8 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../../data/releases';
+
+const updateNotice = releaseDisplay.updateNotice(currentRelease.version).zh;
 ---
 
 <ContentPage
@@ -10,7 +13,9 @@ import ContentPage from '../../components/ContentPage.astro';
 >
   <span class="eyebrow">隐私</span>
   <h1>本地优先的产品与静态网站</h1>
-  <p class="lede">本网站是静态网站：无需账号，没有官网自建遥测，不上传文档，也不加载广告或分析脚本。</p>
+  <p class="lede">
+    本网站是静态网站：无需账号，没有官网自建遥测，不上传文档，也不加载广告或分析脚本。
+  </p>
   <section class="content-section">
     <h2>网站不会收集什么</h2>
     <ul>
@@ -29,7 +34,7 @@ import ContentPage from '../../components/ContentPage.astro';
   <section class="content-section">
     <h2>桌面应用更新</h2>
     <p>
-      应用更新行为与本网站分开记录。尤其要注意，首个 <strong>0.0.1</strong> 版本不声称提供可用的应用内更新器。请不要把本页面当作更新服务。
+      应用更新行为与本网站分开记录。尤其要注意，{updateNotice} 请不要把本页面当作更新服务。
     </p>
   </section>
 </ContentPage>

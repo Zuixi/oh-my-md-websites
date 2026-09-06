@@ -1,11 +1,21 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
-import { currentRelease } from '../../data/releases';
+import { currentRelease, releaseDisplay } from '../../data/releases';
+
+const description = releaseDisplay.changelogDescription(currentRelease.version).zh;
 ---
 
-<ContentPage title="更新日志 — oh-my-md" description="oh-my-md 0.0.1 版本更新说明。" lang="zh" canonicalPath="/zh/changelog">
-  <span class="eyebrow">更新日志</span><h1>oh-my-md {currentRelease.version}</h1>
-  <p class="lede">当前公开版本为 <strong>v{currentRelease.version}</strong>，发布日期为 {currentRelease.releasedAt}。</p>
+<ContentPage
+  title="更新日志 — oh-my-md"
+  description={description}
+  lang="zh"
+  canonicalPath="/zh/changelog"
+>
+  <span class="eyebrow">更新日志</span>
+  <h1>oh-my-md {currentRelease.version}</h1>
+  <p class="lede">
+    当前公开版本为 <strong>v{currentRelease.version}</strong>，发布日期为 {currentRelease.releasedAt}。
+  </p>
   <section class="content-section">
     <h2>{currentRelease.version}</h2>
     <ul>

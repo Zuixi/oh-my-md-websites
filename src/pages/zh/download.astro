@@ -2,26 +2,28 @@
 import ContentPage from '../../components/ContentPage.astro';
 import DownloadCard from '../../components/DownloadCard.astro';
 import InstallCommand from '../../components/InstallCommand.astro';
-import { currentRelease, releasePackagesByPlatform } from '../../data/releases';
+import { currentRelease, releaseDisplay, releasePackagesByPlatform } from '../../data/releases';
 import { siteUrls } from '../../data/site';
 
 const mac = releasePackagesByPlatform.macOS[0];
 const windows = releasePackagesByPlatform.Windows;
 const linux = releasePackagesByPlatform.Linux;
+const display = releaseDisplay;
+const version = currentRelease.version;
 const commandCopy = {
-  label: '复制命令',
-  copied: '已复制',
-  failed: '无法复制，请选择下方命令',
+  label: display.copyCommand.zh,
+  copied: display.copiedCommand.zh,
+  failed: display.copyUnavailable.zh,
 };
 ---
 
 <ContentPage
-  title={`下载 oh-my-md ${currentRelease.version}`}
+  title={`下载 oh-my-md ${version}`}
   description="下载适用于 macOS、Windows 或 Linux 的当前 oh-my-md 桌面版本。"
   lang="zh"
   canonicalPath="/zh/download"
 >
-  <span class="eyebrow">当前版本 · {currentRelease.version}</span>
+  <span class="eyebrow">当前版本 · {version}</span>
   <h1>下载 oh-my-md</h1>
   <p class="lede">为你的桌面系统选择安装包。当前版本及其文件以发布页为准。</p>
   <aside class="warning" aria-label="未签名版本提示">
@@ -80,10 +82,12 @@ const commandCopy = {
         copyFailedLabel={commandCopy.failed}
       />
     </div>
-    <p class="muted">这些是仅供复制的校验和命令，不是远程安装程序；本网站不会执行它们。</p>
+    <p class="muted">
+      这些是仅供复制的校验和命令，不是远程安装程序；本网站不会执行它们。
+    </p>
     <p>
       <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
-        在 GitHub 查看全部版本
+        {display.allReleases.zh}
       </a>
     </p>
   </section>

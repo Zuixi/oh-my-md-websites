@@ -1,6 +1,9 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../data/releases';
 import { siteUrls } from '../data/site';
+
+const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).en;
 ---
 
 <ContentPage
@@ -28,7 +31,7 @@ import { siteUrls } from '../data/site';
     <h2>Useful references</h2>
     <p>
       Read the <a href={siteUrls.readme} rel="noopener noreferrer">main README</a>, review the
-      <a href={siteUrls.release} rel="noopener noreferrer">current v0.0.1 release</a>, or start with
+      <a href={siteUrls.release} rel="noopener noreferrer">{releaseLabel}</a>, or start with
       the <a href="/docs">documentation</a>.
     </p>
   </section>

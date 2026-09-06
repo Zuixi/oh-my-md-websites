@@ -1,11 +1,22 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
-import { currentRelease } from '../data/releases';
+import { currentRelease, releaseDisplay } from '../data/releases';
+
+const description = releaseDisplay.changelogDescription(currentRelease.version).en;
 ---
 
-<ContentPage title="Changelog — oh-my-md" description="Release notes for oh-my-md version 0.0.1." lang="en" canonicalPath="/changelog">
-  <span class="eyebrow">Changelog</span><h1>oh-my-md {currentRelease.version}</h1>
-  <p class="lede">The current public release is <strong>v{currentRelease.version}</strong>, published on {currentRelease.releasedAt}.</p>
+<ContentPage
+  title="Changelog — oh-my-md"
+  description={description}
+  lang="en"
+  canonicalPath="/changelog"
+>
+  <span class="eyebrow">Changelog</span>
+  <h1>oh-my-md {currentRelease.version}</h1>
+  <p class="lede">
+    The current public release is <strong>v{currentRelease.version}</strong>, published on
+    {currentRelease.releasedAt}.
+  </p>
   <section class="content-section">
     <h2>{currentRelease.version}</h2>
     <ul>

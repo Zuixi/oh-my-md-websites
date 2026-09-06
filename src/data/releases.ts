@@ -4,6 +4,27 @@ export type ReleaseFileType = 'DMG' | 'NSIS installer' | 'MSI installer' | 'AppI
 export type ReleaseAvailability = 'current' | 'manual' | 'recommended';
 export type LocalizedText = { en: string; zh: string };
 
+export interface ReleaseDisplay {
+  downloadLabels: Record<ReleaseFileType, LocalizedText>;
+  availabilityLabels: Record<ReleaseAvailability, LocalizedText>;
+  metadataLabels: {
+    file: LocalizedText;
+    architecture: LocalizedText;
+    type: LocalizedText;
+    signature: LocalizedText;
+    signed: LocalizedText;
+    unsigned: LocalizedText;
+  };
+  allReleases: LocalizedText;
+  copyCommand: LocalizedText;
+  copiedCommand: LocalizedText;
+  copyUnavailable: LocalizedText;
+  changelogDescription: (version: string) => LocalizedText;
+  updateNotice: (version: string) => LocalizedText;
+  supportReleaseLabel: (version: string) => LocalizedText;
+  releasePageDescription: (version: string) => LocalizedText;
+}
+
 export interface ReleasePackage {
   platform: ReleasePlatform;
   architecture: ReleaseArchitecture;
@@ -12,17 +33,6 @@ export interface ReleasePackage {
   url: string;
   signed: false;
   availability: ReleaseAvailability;
-  downloadLabel: LocalizedText;
-  availabilityLabel: LocalizedText;
-  display: {
-    fileLabel: LocalizedText;
-    architectureLabel: LocalizedText;
-    typeLabel: LocalizedText;
-    signatureLabel: LocalizedText;
-    signedLabel: LocalizedText;
-    unsignedLabel: LocalizedText;
-  };
-  optional?: LocalizedText;
   size?: string;
 }
 
@@ -34,82 +44,79 @@ export interface ReleaseManifest {
   packages: readonly ReleasePackage[];
 }
 
-const releaseBase = 'https://github.com/Zuixi/oh-my-md/releases/download/v0.0.1';
-const packageDisplay = {
-  fileLabel: { en: 'File', zh: '文件' },
-  architectureLabel: { en: 'Architecture', zh: '架构' },
-  typeLabel: { en: 'Type', zh: '类型' },
-  signatureLabel: { en: 'Signature', zh: '签名' },
-  signedLabel: { en: 'Signed', zh: '已签名' },
-  unsignedLabel: { en: 'Unsigned', zh: '未签名' },
-} satisfies ReleasePackage['display'];
+const version = '0.0.1';
+const releaseBase = `https://github.com/Zuixi/oh-my-md/releases/download/v${version}`;
+
+export const releaseDisplay = {
+  downloadLabels: {
+    DMG: { en: 'Download DMG', zh: '下载 DMG' },
+    'NSIS installer': { en: 'Download EXE', zh: '下载 EXE' },
+    'MSI installer': { en: 'Download MSI', zh: '下载 MSI' },
+    AppImage: { en: 'Download AppImage', zh: '下载 AppImage' },
+    deb: { en: 'Download deb', zh: '下载 deb' },
+  },
+  availabilityLabels: {
+    current: { en: '', zh: '' },
+    recommended: { en: 'Recommended', zh: '推荐' },
+    manual: { en: 'Managed / manual', zh: '受管理 / 手动' },
+  },
+  metadataLabels: {
+    file: { en: 'File', zh: '文件' },
+    architecture: { en: 'Architecture', zh: '架构' },
+    type: { en: 'Type', zh: '类型' },
+    signature: { en: 'Signature', zh: '签名' },
+    signed: { en: 'Signed', zh: '已签名' },
+    unsigned: { en: 'Unsigned', zh: '未签名' },
+  },
+  allReleases: { en: 'Open all releases on GitHub', zh: '在 GitHub 查看全部版本' },
+  copyCommand: { en: 'Copy command', zh: '复制命令' },
+  copiedCommand: { en: 'Copied', zh: '已复制' },
+  copyUnavailable: { en: 'Copy unavailable; select the command below', zh: '无法复制，请选择下方命令' },
+  changelogDescription: (releaseVersion) => ({
+    en: `Release notes for oh-my-md version ${releaseVersion}.`,
+    zh: `oh-my-md ${releaseVersion} 版本更新说明。`,
+  }),
+  updateNotice: (releaseVersion) => ({
+    en: `This ${releaseVersion} release does not claim a working in-app updater.`,
+    zh: `首个 ${releaseVersion} 版本不声称提供可用的应用内更新器。`,
+  }),
+  supportReleaseLabel: (releaseVersion) => ({
+    en: `current v${releaseVersion} release`,
+    zh: `当前 v${releaseVersion} 发布版本`,
+  }),
+  releasePageDescription: (releaseVersion) => ({
+    en: `The current public release is v${releaseVersion}.`,
+    zh: `当前公开版本为 v${releaseVersion}。`,
+  }),
+} satisfies ReleaseDisplay;
+
+const packageRecord = (
+  platform: ReleasePlatform,
+  architecture: ReleaseArchitecture,
+  fileType: ReleaseFileType,
+  filename: string,
+  availability: ReleaseAvailability,
+): ReleasePackage => ({
+  platform,
+  architecture,
+  fileType,
+  filename,
+  url: `${releaseBase}/${filename}`,
+  signed: false,
+  availability,
+});
 
 export const currentRelease = {
-  version: '0.0.1',
+  version,
   releasedAt: '2026-09-04T16:59:36Z',
-  releasePage: 'https://github.com/Zuixi/oh-my-md/releases/tag/v0.0.1',
+  releasePage: `https://github.com/Zuixi/oh-my-md/releases/tag/v${version}`,
   checksumUrl: `${releaseBase}/SHA256SUMS.txt`,
   packages: [
-    {
-      platform: 'macOS',
-      architecture: 'Universal',
-      fileType: 'DMG',
-      filename: 'oh-my-md_0.0.1_universal.dmg',
-      url: `${releaseBase}/oh-my-md_0.0.1_universal.dmg`,
-      signed: false,
-      availability: 'current',
-      downloadLabel: { en: 'Download DMG', zh: '下载 DMG' },
-      availabilityLabel: { en: '', zh: '' },
-      display: packageDisplay,
-    },
-    {
-      platform: 'Windows',
-      architecture: 'x64',
-      fileType: 'NSIS installer',
-      filename: 'oh-my-md_0.0.1_x64-setup.exe',
-      url: `${releaseBase}/oh-my-md_0.0.1_x64-setup.exe`,
-      signed: false,
-      availability: 'recommended',
-      downloadLabel: { en: 'Download EXE', zh: '下载 EXE' },
-      availabilityLabel: { en: 'Recommended', zh: '推荐' },
-      display: packageDisplay,
-    },
-    {
-      platform: 'Windows',
-      architecture: 'x64',
-      fileType: 'MSI installer',
-      filename: 'oh-my-md_0.0.1_x64_en-US.msi',
-      url: `${releaseBase}/oh-my-md_0.0.1_x64_en-US.msi`,
-      signed: false,
-      availability: 'manual',
-      downloadLabel: { en: 'Download MSI', zh: '下载 MSI' },
-      availabilityLabel: { en: 'Managed / manual', zh: '受管理 / 手动' },
-      display: packageDisplay,
-    },
-    {
-      platform: 'Linux',
-      architecture: 'x64',
-      fileType: 'AppImage',
-      filename: 'oh-my-md_0.0.1_amd64.AppImage',
-      url: `${releaseBase}/oh-my-md_0.0.1_amd64.AppImage`,
-      signed: false,
-      availability: 'current',
-      downloadLabel: { en: 'Download AppImage', zh: '下载 AppImage' },
-      availabilityLabel: { en: '', zh: '' },
-      display: packageDisplay,
-    },
-    {
-      platform: 'Linux',
-      architecture: 'x64',
-      fileType: 'deb',
-      filename: 'oh-my-md_0.0.1_amd64.deb',
-      url: `${releaseBase}/oh-my-md_0.0.1_amd64.deb`,
-      signed: false,
-      availability: 'current',
-      downloadLabel: { en: 'Download deb', zh: '下载 deb' },
-      availabilityLabel: { en: '', zh: '' },
-      display: packageDisplay,
-    },
+    packageRecord('macOS', 'Universal', 'DMG', `oh-my-md_${version}_universal.dmg`, 'current'),
+    packageRecord('Windows', 'x64', 'NSIS installer', `oh-my-md_${version}_x64-setup.exe`, 'recommended'),
+    packageRecord('Windows', 'x64', 'MSI installer', `oh-my-md_${version}_x64_en-US.msi`, 'manual'),
+    packageRecord('Linux', 'x64', 'AppImage', `oh-my-md_${version}_amd64.AppImage`, 'current'),
+    packageRecord('Linux', 'x64', 'deb', `oh-my-md_${version}_amd64.deb`, 'current'),
   ],
 } satisfies ReleaseManifest;
 

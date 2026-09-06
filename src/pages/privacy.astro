@@ -1,5 +1,8 @@
 ---
 import ContentPage from '../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../data/releases';
+
+const updateNotice = releaseDisplay.updateNotice(currentRelease.version).en;
 ---
 
 <ContentPage
@@ -33,9 +36,8 @@ import ContentPage from '../components/ContentPage.astro';
   <section class="content-section">
     <h2>Desktop app updates</h2>
     <p>
-      App update behavior is documented separately from this website. In particular, this first
-      <strong>0.0.1</strong> release does not claim a working in-app updater. Do not treat this page as
-      an update service.
+      App update behavior is documented separately from this website. In particular, {updateNotice} Do
+      not treat this page as an update service.
     </p>
   </section>
 </ContentPage>

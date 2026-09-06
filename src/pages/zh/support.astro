@@ -1,6 +1,9 @@
 ---
 import ContentPage from '../../components/ContentPage.astro';
+import { currentRelease, releaseDisplay } from '../../data/releases';
 import { siteUrls } from '../../data/site';
+
+const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).zh;
 ---
 
 <ContentPage
@@ -25,7 +28,7 @@ import { siteUrls } from '../../data/site';
     <h2>有用链接</h2>
     <p>
       阅读<a href={siteUrls.readme} rel="noopener noreferrer">主 README</a>，查看
-      <a href={siteUrls.release} rel="noopener noreferrer">当前 v0.0.1 发布版本</a>，或从
+      <a href={siteUrls.release} rel="noopener noreferrer">{releaseLabel}</a>，或从
       <a href="/zh/docs">文档</a>开始。
     </p>
   </section>

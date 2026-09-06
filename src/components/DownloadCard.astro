@@ -1,4 +1,5 @@
 ---
+import { releaseDisplay } from '../data/releases';
 import type { ReleasePackage } from '../data/releases';
 
 interface Props {
@@ -8,16 +9,16 @@ interface Props {
 }
 
 const { package: releasePackage, lang, note } = Astro.props;
-const downloadLabel = releasePackage.downloadLabel[lang];
+const downloadLabel = releaseDisplay.downloadLabels[releasePackage.fileType][lang];
+const availabilityLabel = releaseDisplay.availabilityLabels[releasePackage.availability][lang];
+const metadataLabels = releaseDisplay.metadataLabels;
 ---
 
 <article class="download-card card">
   <div class="download-card-heading">
     <div>
       <h3>{releasePackage.fileType}</h3>
-      {releasePackage.availabilityLabel[lang] && (
-        <span class="badge">{releasePackage.availabilityLabel[lang]}</span>
-      )}
+      {availabilityLabel && <span class="badge">{availabilityLabel}</span>}
     </div>
     <a class="button button-small" href={releasePackage.url} download>
       {downloadLabel}
@@ -25,20 +26,22 @@ const downloadLabel = releasePackage.downloadLabel[lang];
   </div>
   <dl class="package-meta">
     <div>
-      <dt>{releasePackage.display.fileLabel[lang]}</dt>
+      <dt>{metadataLabels.file[lang]}</dt>
       <dd><code>{releasePackage.filename}</code></dd>
     </div>
     <div>
-      <dt>{releasePackage.display.architectureLabel[lang]}</dt>
+      <dt>{metadataLabels.architecture[lang]}</dt>
       <dd>{releasePackage.architecture}</dd>
     </div>
     <div>
-      <dt>{releasePackage.display.typeLabel[lang]}</dt>
+      <dt>{metadataLabels.type[lang]}</dt>
       <dd>{releasePackage.fileType}</dd>
     </div>
     <div>
-      <dt>{releasePackage.display.signatureLabel[lang]}</dt>
-      <dd>{releasePackage.signed ? releasePackage.display.signedLabel[lang] : releasePackage.display.unsignedLabel[lang]}</dd>
+      <dt>{metadataLabels.signature[lang]}</dt>
+      <dd>
+        {releasePackage.signed ? metadataLabels.signed[lang] : metadataLabels.unsigned[lang]}
+      </dd>
     </div>
   </dl>
   {note && <p class="package-note">{note}</p>}

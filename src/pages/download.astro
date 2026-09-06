@@ -2,35 +2,37 @@
 import ContentPage from '../components/ContentPage.astro';
 import DownloadCard from '../components/DownloadCard.astro';
 import InstallCommand from '../components/InstallCommand.astro';
-import { currentRelease, releasePackagesByPlatform } from '../data/releases';
+import { currentRelease, releaseDisplay, releasePackagesByPlatform } from '../data/releases';
 import { siteUrls } from '../data/site';
 
 const mac = releasePackagesByPlatform.macOS[0];
 const windows = releasePackagesByPlatform.Windows;
 const linux = releasePackagesByPlatform.Linux;
+const display = releaseDisplay;
+const version = currentRelease.version;
 const commandCopy = {
-  label: 'Copy command',
-  copied: 'Copied',
-  failed: 'Copy unavailable; select the command below',
+  label: display.copyCommand.en,
+  copied: display.copiedCommand.en,
+  failed: display.copyUnavailable.en,
 };
 ---
 
 <ContentPage
-  title={`Download oh-my-md ${currentRelease.version}`}
+  title={`Download oh-my-md ${version}`}
   description="Download the current oh-my-md desktop release for macOS, Windows, or Linux."
   lang="en"
   canonicalPath="/download"
 >
-  <span class="eyebrow">Current release · {currentRelease.version}</span>
+  <span class="eyebrow">Current release · {version}</span>
   <h1>Download oh-my-md</h1>
   <p class="lede">
     Choose a package for your desktop. The release page is the authoritative source for this
     version and its files.
   </p>
   <aside class="warning" aria-label="Unsigned release warning">
-    <strong>Unsigned release:</strong> These {currentRelease.version} packages are not code-signed
-    or notarized. Your operating system may show a warning; verify the checksum and review the
-    source before installing.
+    <strong>Unsigned release:</strong> These {version} packages are not code-signed or notarized.
+    Your operating system may show a warning; verify the checksum and review the source before
+    installing.
   </aside>
 
   <section class="download-section" aria-labelledby="macos-title">
@@ -95,7 +97,7 @@ const commandCopy = {
     </p>
     <p>
       <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
-        Open all releases on GitHub
+        {display.allReleases.en}
       </a>
     </p>
   </section>
