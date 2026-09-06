@@ -1,0 +1,48 @@
+---
+interface ShortcutItem {
+  action: string;
+  mac: string;
+  win: string;
+  description?: string;
+}
+
+interface Props {
+  lang: 'en' | 'zh';
+  shortcuts: ShortcutItem[];
+}
+
+const { lang, shortcuts } = Astro.props;
+const headers = {
+  action: lang === 'zh' ? '操作' : 'Action',
+  mac: 'macOS',
+  win: lang === 'zh' ? 'Windows / Linux' : 'Windows / Linux',
+};
+---
+
+<div class="shortcut-table-wrapper">
+  <table class="shortcut-table">
+    <thead>
+      <tr>
+        <th scope="col">{headers.action}</th>
+        <th scope="col">{headers.mac}</th>
+        <th scope="col">{headers.win}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {shortcuts.map((item) => (
+        <tr>
+          <td>
+            <strong>{item.action}</strong>
+            {item.description && <span class="shortcut-desc">{item.description}</span>}
+          </td>
+          <td>
+            <kbd class="kbd-key">{item.mac}</kbd>
+          </td>
+          <td>
+            <kbd class="kbd-key">{item.win}</kbd>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
