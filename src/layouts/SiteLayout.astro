@@ -1,69 +1,87 @@
 ---
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { currentRelease } from '../data/releases';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
   lang: 'en' | 'zh';
-  canonicalPath: string;
+  canonicalPath?: string;
+  noindex?: boolean;
 }
 
-const { title, description, lang, canonicalPath } = Astro.props;
+const { title, description, lang, canonicalPath, noindex = false } = Astro.props;
 const siteUrl = Astro.site ?? new URL('https://ohmd.us');
-const canonicalUrl = new URL(canonicalPath, siteUrl);
-const alternatePath = lang === 'en' ? `/zh${canonicalPath === '/' ? '/' : canonicalPath}` : canonicalPath.replace(/^\/zh/, '') || '/';
-const alternateUrl = new URL(alternatePath, siteUrl);
-const locale = lang === 'zh' ? 'zh-CN' : 'en';
+const normalizePath = (path: string) => path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`;
+const normalizedCanonicalPath = canonicalPath ? normalizePath(canonicalPath) : undefined;
+const canonicalUrl = normalizedCanonicalPath ? new URL(normalizedCanonicalPath, siteUrl) : undefined;
+const alternatePath = normalizedCanonicalPath
+  ? lang === 'en'
+    ? normalizePath(`/zh${normalizedCanonicalPath}`)
+    : normalizePath(normalizedCanonicalPath.replace(/^\/zh/, '') || '/')
+  : undefined;
+const alternateUrl = alternatePath ? new URL(alternatePath, siteUrl) : undefined;
+const htmlLocale = lang === 'zh' ? 'zh-CN' : 'en';
+const ogLocale = lang === 'zh' ? 'zh_CN' : 'en_US';
 const socialImageUrl = new URL('/hero.png', siteUrl);
-const applicationSchema = {
+const applicationSchema = canonicalUrl ? {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'oh-my-md',
   applicationCategory: 'TextEditorApplication',
   operatingSystem: 'macOS, Windows, Linux',
-  softwareVersion: '0.0.1',
+  softwareVersion: currentRelease.version,
   description,
-  url: canonicalUrl.href,
+  url: canonicalUrl?.href ?? siteUrl.href,
   image: socialImageUrl.href,
   license: 'https://www.apache.org/licenses/LICENSE-2.0',
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Organization', name: 'oh-my-md', url: 'https://github.com/Zuixi/oh-my-md' },
-};
+} : null;
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={htmlLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#122034" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="oh-my-md" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl.href} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl.href} />}
     <meta property="og:image" content={socialImageUrl.href} />
-    <meta property="og:locale" content={locale} />
-    <meta property="og:locale:alternate" content={lang === 'en' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:locale" content={ogLocale} />
+    {!noindex && <meta property="og:locale:alternate" content={lang === 'en' ? 'zh_CN' : 'en_US'} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl.href} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href={canonicalUrl.href} />
-    <link rel="alternate" hreflang="en" href={(lang === 'en' ? canonicalUrl : alternateUrl).href} />
-    <link rel="alternate" hreflang="zh-CN" href={(lang === 'zh' ? canonicalUrl : alternateUrl).href} />
-    <link rel="alternate" hreflang="x-default" href={(lang === 'en' ? canonicalUrl : alternateUrl).href} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(applicationSchema)} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl.href} />}
+    {!noindex && canonicalUrl && alternateUrl && (
+      <>
+        <link rel="alternate" hreflang="en" href={(lang === 'en' ? canonicalUrl : alternateUrl).href} />
+        <link rel="alternate" hreflang="zh-CN" href={(lang === 'zh' ? canonicalUrl : alternateUrl).href} />
+        <link rel="alternate" hreflang="x-default" href={(lang === 'en' ? canonicalUrl : alternateUrl).href} />
+      </>
+    )}
+    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(applicationSchema)} />}
     <title>{title}</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">{lang === 'zh' ? '跳到主要内容' : 'Skip to content'}</a>
-    <Header lang={lang} alternatePath={alternatePath} />
+    <Header
+      lang={lang}
+      alternatePath={alternatePath ?? (lang === 'zh' ? '/' : '/zh/')}
+      showLanguageSwitcher={!noindex}
+    />
     <main id="main-content"><slot /></main>
     <Footer lang={lang} />
   </body>

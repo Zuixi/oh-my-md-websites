@@ -18,6 +18,10 @@ pnpm build
 
 The site is static-only: it has no runtime API, accounts, ads, analytics, hosted documents, external fonts, or user uploads. All release links point to the allowlisted HTTPS GitHub Releases host.
 
+## URL policy
+
+The site uses Astro's `trailingSlash: 'always'` policy. Content-route canonical URLs, internal links, language alternates, and sitemap entries use trailing slashes (the root remains `/`).
+
 ## Cloudflare Pages delivery
 
 - Build command: `pnpm build`

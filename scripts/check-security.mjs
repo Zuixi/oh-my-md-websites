@@ -28,7 +28,11 @@ for (const path of htmlFiles) {
   if (unsignedClaims.test(html)) throw new Error(`Unsupported signed/notarized claim in ${path}`);
   for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
     const attrs = match[1];
-    if (/\btarget="_blank"/i.test(attrs) && !/\brel="[^"]*noopener/i.test(attrs)) throw new Error(`New-tab link missing noopener in ${path}`);
+    const targetBlank = /\btarget\s*=\s*["']_blank["']/i.test(attrs);
+    if (targetBlank) {
+      const rel = attrs.match(/\brel\s*=\s*["']([^"']*)["']/i)?.[1].toLowerCase().split(/\s+/) ?? [];
+      if (!rel.includes('noopener') || !rel.includes('noreferrer')) throw new Error(`New-tab link must include noopener and noreferrer in ${path}`);
+    }
   }
 }
 const sourceFiles = files(root, (path) => /\.(astro|mjs|ts|json|yml|yaml|md|txt)$/.test(path));

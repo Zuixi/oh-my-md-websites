@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://ohmd.us',
+  trailingSlash: 'always',
   output: 'static',
   integrations: [
     sitemap({
