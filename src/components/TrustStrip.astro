@@ -3,12 +3,13 @@ import type { TrustItem } from '../data/site';
 
 interface Props {
   items: readonly TrustItem[];
+  ariaLabel: string;
 }
 
-const { items } = Astro.props;
+const { items, ariaLabel } = Astro.props;
 ---
 
-<div class="trust-strip" aria-label="Product facts">
+<div class="trust-strip" aria-label={ariaLabel}>
   <div class="container trust-grid">
     {items.map((item) => (
       <div class="trust-item">

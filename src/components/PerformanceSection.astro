@@ -28,13 +28,13 @@ const { copy, id = 'performance' } = Astro.props;
           {copy.rows.map((row) => (
             <tr>
               <th scope="row">{row.document}</th>
-              <td>{row.typing}</td>
+              <td>{row.typing}{row.safeMode ? <sup>{copy.safeModeMarker}</sup> : null}</td>
               <td>{row.open}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-    <p class="methodology"><sup>1</sup> {copy.footnote} <code>{copy.command}</code>.</p>
+    <p class="methodology"><sup>{copy.safeModeMarker}</sup> {copy.safeModeFootnote} {copy.methodology} <code>{copy.command}</code>.</p>
   </div>
 </section>

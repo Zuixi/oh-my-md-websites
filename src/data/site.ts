@@ -22,6 +22,7 @@ export interface PerformanceRow {
   document: string;
   typing: string;
   open: string;
+  safeMode?: boolean;
 }
 
 export interface PerformanceCopy {
@@ -35,8 +36,17 @@ export interface PerformanceCopy {
     open: string;
   };
   rows: readonly PerformanceRow[];
-  footnote: string;
+  safeModeMarker: string;
+  safeModeFootnote: string;
+  methodology: string;
   command: string;
+}
+
+export interface CtaCopy {
+  eyebrow: string;
+  title: string;
+  description: string;
+  buttonLabel: string;
 }
 
 export interface LocaleCopy {
@@ -49,6 +59,7 @@ export interface LocaleCopy {
     downloadLabel: string;
     githubLabel: string;
     screenshotAlt: string;
+    screenshotCaption: string;
   };
   trust: readonly TrustItem[];
   livePreview: FeatureSectionCopy;
@@ -56,6 +67,8 @@ export interface LocaleCopy {
   markdown: FeatureSectionCopy;
   localFiles: FeatureSectionCopy;
   platform: FeatureSectionCopy;
+  cta: CtaCopy;
+  trustAriaLabel: string;
   license: string;
 }
 
@@ -80,6 +93,7 @@ export const siteCopy: SiteCopy = {
       downloadLabel: 'Download oh-my-md',
       githubLabel: 'View on GitHub',
       screenshotAlt: 'oh-my-md showing a dark Markdown document with a file tree, outline, rendered KaTeX math, and an inline Mermaid diagram',
+      screenshotCaption: 'A real screenshot from the desktop app',
     },
     trust: [
       { label: 'License', value: 'Apache-2.0' },
@@ -105,10 +119,12 @@ export const siteCopy: SiteCopy = {
       headers: { document: 'Document', typing: 'Typing p95 (live / source)', open: 'Main-thread open' },
       rows: [
         { document: '10k lines', typing: '5.5 / 2 ms', open: '32 ms' },
-        { document: '10 MB · 380k lines', typing: '2.5 / 2 ms²', open: '~15 ms' },
+        { document: '10 MB · 380k lines', typing: '2.5 / 2 ms', open: '~15 ms', safeMode: true },
         { document: '20 MB · 750k lines', typing: '— / 2 ms', open: '~30 ms' },
       ],
-      footnote: 'Advisory benchmark measurements from the built-in engine benchmark on an M-series machine; they are not universal guarantees. Safe mode uses viewport-windowed live rendering for the 10 MB document. Run the benchmark yourself with',
+      safeModeMarker: '²',
+      safeModeFootnote: 'Safe mode: live rendering is viewport-windowed.',
+      methodology: 'Figures come from the built-in advisory benchmark on an M-series machine — run it yourself with',
       command: 'pnpm --filter @omd/engine bench',
     },
     markdown: {
@@ -141,6 +157,13 @@ export const siteCopy: SiteCopy = {
         { title: 'Linux', description: 'Linux x64 packages include AppImage and deb options.' },
       ],
     },
+    cta: {
+      eyebrow: 'Open by default',
+      title: 'A Markdown editor you can keep simple.',
+      description: 'Download the current release, or inspect the source and build it yourself. Apache-2.0 licensed.',
+      buttonLabel: 'Choose your platform',
+    },
+    trustAriaLabel: 'Product facts',
     license: 'Apache-2.0',
   },
   zh: {
@@ -153,6 +176,7 @@ export const siteCopy: SiteCopy = {
       downloadLabel: '下载 oh-my-md',
       githubLabel: '在 GitHub 查看',
       screenshotAlt: 'oh-my-md 深色编辑器界面，展示文件树、大纲、KaTeX 数学公式和 Mermaid 图表',
+      screenshotCaption: '真实应用截图',
     },
     trust: [
       { label: '协议', value: 'Apache-2.0' },
@@ -178,10 +202,12 @@ export const siteCopy: SiteCopy = {
       headers: { document: '文档', typing: '输入 p95（Live / Source）', open: '主线程打开' },
       rows: [
         { document: '1 万行', typing: '5.5 / 2 ms', open: '32 ms' },
-        { document: '10 MB · 38 万行', typing: '2.5 / 2 ms²', open: '~15 ms' },
+        { document: '10 MB · 38 万行', typing: '2.5 / 2 ms', open: '~15 ms', safeMode: true },
         { document: '20 MB · 75 万行', typing: '— / 2 ms', open: '~30 ms' },
       ],
-      footnote: '这些是内置引擎 benchmark 在 M 系列机器上的 advisory 测量，并非对所有设备的普遍保证；10 MB 文档的安全模式使用视口窗口化 Live 渲染。你也可以自行运行',
+      safeModeMarker: '²',
+      safeModeFootnote: '安全模式：Live 渲染使用视口窗口化。',
+      methodology: '数据来自 M 系列机器上的内置 advisory benchmark — 你也可以自行运行',
       command: 'pnpm --filter @omd/engine bench',
     },
     markdown: {
@@ -214,6 +240,13 @@ export const siteCopy: SiteCopy = {
         { title: 'Linux', description: 'Linux x64 提供 AppImage 和 deb 选项。' },
       ],
     },
+    cta: {
+      eyebrow: '默认开放',
+      title: '保持简单的 Markdown 编辑器。',
+      description: '下载当前版本，或查看源码并自行构建。采用 Apache-2.0 协议。',
+      buttonLabel: '选择你的平台',
+    },
+    trustAriaLabel: '产品信息',
     license: 'Apache-2.0',
   },
 };

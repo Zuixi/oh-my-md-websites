@@ -24,9 +24,9 @@ const downloadPath = lang === 'zh' ? '/zh/download' : '/download';
         <a class="button button-secondary" href={siteUrls.repository} rel="noreferrer">{locale.hero.githubLabel}</a>
       </div>
     </div>
-    <figure class="hero-figure">
-      <img class="hero-image" src="/hero.png" width="1920" height="1027" alt={locale.hero.screenshotAlt} loading="eager" />
-      <figcaption>{lang === 'zh' ? '真实应用截图' : 'A real screenshot from the desktop app'}</figcaption>
+      <figure class="hero-figure">
+        <img class="hero-image" src="/hero.png" width="1920" height="1027" alt={locale.hero.screenshotAlt} loading="eager" />
+        <figcaption>{locale.hero.screenshotCaption}</figcaption>
     </figure>
   </div>
 </section>

@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check && pnpm build && node scripts/check-site.mjs"
+    "check": "astro check && pnpm build && node scripts/check-site.mjs && node scripts/check-homepage.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
