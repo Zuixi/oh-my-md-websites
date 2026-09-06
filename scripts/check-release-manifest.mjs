@@ -1,6 +1,10 @@
 import { currentRelease } from '../src/data/releases.ts';
 
-const expectedVersion = currentRelease.version;
+const EXPECTED_VERSION = '0.0.1';
+if (currentRelease.version !== EXPECTED_VERSION) {
+  throw new Error(`Expected manifest version ${EXPECTED_VERSION}, received ${currentRelease.version}`);
+}
+const expectedVersion = EXPECTED_VERSION;
 const expectedReleaseBase = `https://github.com/Zuixi/oh-my-md/releases/download/v${expectedVersion}`;
 const expectedPackages = [
   ['macOS', 'Universal', 'DMG', 'universal.dmg', 'current'],

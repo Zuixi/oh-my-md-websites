@@ -19,20 +19,17 @@ const commandCopy = {
 
 <ContentPage
   title={`Download oh-my-md ${version}`}
-  description="Download the current oh-my-md desktop release for macOS, Windows, or Linux."
+  description={display.downloadDescription(version).en}
   lang="en"
   canonicalPath="/download"
 >
-  <span class="eyebrow">Current release · {version}</span>
+  <span class="eyebrow">{display.currentReleaseLabel(version).en}</span>
   <h1>Download oh-my-md</h1>
   <p class="lede">
-    Choose a package for your desktop. The release page is the authoritative source for this
-    version and its files.
+    Choose a package for your desktop. {display.authoritativeSource.en}
   </p>
-  <aside class="warning" aria-label="Unsigned release warning">
-    <strong>Unsigned release:</strong> These {version} packages are not code-signed or notarized.
-    Your operating system may show a warning; verify the checksum and review the source before
-    installing.
+  <aside class="warning" aria-label={display.unsignedAriaLabel.en}>
+    <strong>{display.unsignedLabel.en}</strong> {display.unsignedNotice(version).en}
   </aside>
 
   <section class="download-section" aria-labelledby="macos-title">
@@ -44,16 +41,13 @@ const commandCopy = {
 
   <section class="download-section" aria-labelledby="windows-title">
     <h2 id="windows-title">Windows</h2>
-    <p>
-      NSIS is the recommended option for most users. MSI is provided for managed environments and
-      manual installation.
-    </p>
+    <p>{display.windowsGuidance.en}</p>
     <div class="download-grid">
       <DownloadCard package={windows[0]} lang="en" />
       <DownloadCard
         package={windows[1]}
         lang="en"
-        note="Use this package when your environment requires MSI."
+        note={display.msiNote.en}
       />
     </div>
   </section>
@@ -67,15 +61,15 @@ const commandCopy = {
   </section>
 
   <section class="download-section" aria-labelledby="verify-title">
-    <h2 id="verify-title">Verify and install</h2>
+    <h2 id="verify-title">{display.verifyHeading.en}</h2>
     <p>
-      Download <a href={currentRelease.checksumUrl} rel="noopener noreferrer">SHA256SUMS.txt</a>
-      and compare the package checksum before opening it. You can also inspect the
-      <a href={currentRelease.releasePage} rel="noopener noreferrer">v{currentRelease.version} release page</a>.
+      Download <a href={currentRelease.checksumUrl} rel="noopener noreferrer">{display.checksumLinkLabel.en}</a>
+      {display.verificationInstructions.en}
+      <a href={currentRelease.releasePage} rel="noopener noreferrer">{display.releasePageLinkLabel(version).en}</a>.
     </p>
     <div class="install-grid">
       <InstallCommand
-        label="Optional macOS / Linux convenience command"
+        label={display.commandLabels.unix.en}
         shell="bash"
         command={`shasum -a 256 <downloaded-file>`}
         copyLabel={commandCopy.label}
@@ -83,7 +77,7 @@ const commandCopy = {
         copyFailedLabel={commandCopy.failed}
       />
       <InstallCommand
-        label="Optional Windows PowerShell convenience command"
+        label={display.commandLabels.windows.en}
         shell="powershell"
         command={`Get-FileHash .\\downloaded-file -Algorithm SHA256`}
         copyLabel={commandCopy.label}
@@ -91,10 +85,7 @@ const commandCopy = {
         copyFailedLabel={commandCopy.failed}
       />
     </div>
-    <p class="muted">
-      These are copy-only checksum commands. They are not remote installers and this website never
-      executes them.
-    </p>
+    <p class="muted">{display.copyOnlyNotice.en}</p>
     <p>
       <a class="button button-secondary-light" href={siteUrls.release} rel="noopener noreferrer">
         {display.allReleases.en}

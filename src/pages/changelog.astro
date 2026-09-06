@@ -13,10 +13,7 @@ const description = releaseDisplay.changelogDescription(currentRelease.version).
 >
   <span class="eyebrow">Changelog</span>
   <h1>oh-my-md {currentRelease.version}</h1>
-  <p class="lede">
-    The current public release is <strong>v{currentRelease.version}</strong>, published on
-    {currentRelease.releasedAt}.
-  </p>
+  <p class="lede">{releaseDisplay.changelogIntro(currentRelease.version, currentRelease.releasedAt).en}</p>
   <section class="content-section">
     <h2>{currentRelease.version}</h2>
     <ul>
@@ -27,7 +24,7 @@ const description = releaseDisplay.changelogDescription(currentRelease.version).
     </ul>
     <p>
       <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">
-        Read the v{currentRelease.version} release on GitHub
+        {releaseDisplay.changelogReleaseLinkLabel(currentRelease.version).en}
       </a>
     </p>
   </section>

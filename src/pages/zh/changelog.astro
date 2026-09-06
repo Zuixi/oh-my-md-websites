@@ -13,9 +13,7 @@ const description = releaseDisplay.changelogDescription(currentRelease.version).
 >
   <span class="eyebrow">更新日志</span>
   <h1>oh-my-md {currentRelease.version}</h1>
-  <p class="lede">
-    当前公开版本为 <strong>v{currentRelease.version}</strong>，发布日期为 {currentRelease.releasedAt}。
-  </p>
+  <p class="lede">{releaseDisplay.changelogIntro(currentRelease.version, currentRelease.releasedAt).zh}</p>
   <section class="content-section">
     <h2>{currentRelease.version}</h2>
     <ul>
@@ -26,7 +24,7 @@ const description = releaseDisplay.changelogDescription(currentRelease.version).
     </ul>
     <p>
       <a class="button" href={currentRelease.releasePage} rel="noopener noreferrer">
-        在 GitHub 阅读 v{currentRelease.version} 发布说明
+        {releaseDisplay.changelogReleaseLinkLabel(currentRelease.version).zh}
       </a>
     </p>
   </section>
