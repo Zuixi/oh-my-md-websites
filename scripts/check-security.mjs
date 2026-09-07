@@ -51,4 +51,33 @@ if (existsSync(workflow)) {
     if (/uses:\s*[^#\s]+@/.test(line) && !/@[0-9a-f]{40}\s*(?:#.*)?$/i.test(line)) throw new Error(`Workflow action is not pinned to a full SHA: ${line.trim()}`);
   }
 }
+
+const headersFile = join(root, 'public/_headers');
+if (!existsSync(headersFile)) {
+  throw new Error('Missing public/_headers — required for Cloudflare Pages security headers');
+}
+const headersText = readFileSync(headersFile, 'utf8');
+const requiredHeaderDirectives = [
+  'Strict-Transport-Security',
+  'X-Content-Type-Options',
+  'X-Frame-Options',
+  'Referrer-Policy',
+  'Content-Security-Policy',
+  'Permissions-Policy',
+];
+for (const directive of requiredHeaderDirectives) {
+  const matches = headersText.match(new RegExp(`^${directive}:`, 'gmi')) || [];
+  if (matches.length < 1) {
+    throw new Error(`public/_headers is missing required directive: ${directive}:`);
+  }
+}
+if (/frame-ancestors\s+(?:'[^']*'|"[^"]*"|[^;"\s]+)\s*\*\s*[;\s]?$/im.test(headersText)) {
+  throw new Error('public/_headers permits frame-ancestors * (clickjacking risk)');
+}
+if (/default-src\s+(?:'[^']*'|"[^"]*"|[^;"\s]+)\s*\*\s*[;\s]?$/im.test(headersText)) {
+  throw new Error('public/_headers permits default-src * (CSP too permissive)');
+}
+if (/script-src\s+(?:'[^']*'|"[^"]*"|[^;"\s]+)\s*\*\s*[;\s]?$/im.test(headersText)) {
+  throw new Error('public/_headers permits script-src * (CSP too permissive)');
+}
 process.stdout.write(`Security check passed: ${htmlFiles.length} generated pages and repository safety rules verified.\n`);
