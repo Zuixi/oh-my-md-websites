@@ -10,4 +10,5 @@ export default defineConfig({
       filter: (page) => !page.endsWith('/404'),
     }),
   ],
+  devToolbar: { enabled: false },
 });
