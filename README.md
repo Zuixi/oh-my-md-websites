@@ -1,5 +1,9 @@
 # oh-my-md website
 
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-deployed-orange?logo=cloudflare&style=flat)](https://ohmd.us)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
+[![Astro](https://img.shields.io/badge/Built_with-Astro-FF5D01?logo=astro)](https://astro.build)
+
 The static product website for [oh-my-md](https://github.com/Zuixi/oh-my-md), built with Astro and intended for Cloudflare Pages at [ohmd.us](https://ohmd.us).
 
 ## Development

@@ -1,0 +1,97 @@
+/*
+  Cloudflare Pages _headers file
+  https://developers.cloudflare.com/pages/configuration/headers/
+
+  Applied to all static pages. We enforce a strict, but compatible
+  Content-Security-Policy (no third-party analytics, ads, or remote
+  fonts) so the site remains 100% local-first.
+
+  Adjust directives ONLY through this file and a code review. Do not
+  inline CSP via meta tags in Astro components.
+*/
+
+# Universal security and caching defaults
+/*
+  Strict-Transport-Security:
+    1-year HSTS, includeSubDomains, preload-ready.
+    Cloudflare Pages will keep this only over HTTPS.
+*/
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+/*
+  X-Content-Type-Options: nosniff prevents MIME-based attacks.
+*/
+X-Content-Type-Options: nosniff
+/*
+  Referrer-Policy: strict-origin-when-cross-origin is the
+  privacy-preserving default.
+*/
+Referrer-Policy: strict-origin-when-cross-origin
+/*
+  Permissions-Policy: explicitly disable powerful features we do not use.
+*/
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+/*
+  X-Frame-Options + CSP frame-ancestors:
+    Clickjacking protection for HTML pages.
+*/
+X-Frame-Options: DENY
+/*
+  Cross-Origin-Opener-Policy: isolate the browsing context.
+*/
+Cross-Origin-Opener-Policy: same-origin
+/*
+  Cross-Origin-Resource-Policy: same-origin for HTML/SVG (Pages handles
+  cross-origin subresource requests via standard CORS).
+*/
+Cross-Origin-Resource-Policy: same-origin
+/*
+  Referrer-Policy is repeated above; CSP enforces additional constraints.
+  Content-Security-Policy:
+    - default-src 'self' — only same-origin resources by default
+    - script-src 'self' 'unsafe-inline' — Astro emits inline JSON-LD and
+      a small inline clipboard script; review before tightening
+    - style-src 'self' 'unsafe-inline' — Astro injects scoped styles
+    - img-src 'self' data: https://github.com https://avatars.githubusercontent.com
+    - font-src 'self' data: — only bundled/local fonts allowed
+    - connect-src 'self' — no XHR/fetch to third-party APIs
+    - form-action 'none' — no <form> submissions
+    - base-uri 'self'
+    - object-src 'none'
+    - frame-ancestors 'none'
+    - upgrade-insecure-requests — force HTTPS for any mixed content
+*/
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://github.com https://avatars.githubusercontent.com; font-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+
+# Allow Cloudflare Insights (optional, only if you enable it in the future)
+# Keep commented out so the default site is zero-tracking.
+# /cgi-bin/webscr
+#   Content-Security-Policy: default-src 'self'
+
+# Long-cache hashed static assets (Astro fingerprints them under /_astro/)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Sitemap and robots
+/sitemap-index.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/sitemap-0.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/security.txt
+  Content-Type: text/plain; charset=utf-8
+
+/.well-known/security.txt
+  Content-Type: text/plain; charset=utf-8
+
+# Image / favicon
+/logo.png
+  Cache-Control: public, max-age=604800
+
+/favicon.svg
+  Cache-Control: public, max-age=604800
