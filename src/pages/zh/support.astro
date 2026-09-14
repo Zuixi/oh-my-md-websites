@@ -5,14 +5,34 @@ import { currentRelease, releaseDisplay } from '../../data/releases';
 import { siteUrls } from '../../data/site';
 
 const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).zh;
+
+const supportFaqs = [
+  {
+    question: '如何反馈 oh-my-md 的 Bug 或异常崩溃？',
+    answer: '若遇到崩溃或渲染异常，请在 GitHub Issues 提交结构化 Issue，并附带操作系统、版本号以及能复现问题的 Markdown 文本片段。',
+  },
+  {
+    question: '在哪里可以交流 oh-my-md 的使用心得与工作流配置？',
+    answer: '欢迎前往 GitHub Discussions 社区参与日常 Q&A，与其他用户和开发者交流主题定制与本地工作流经验。',
+  },
+  {
+    question: '如何安全披露潜在的安全或隐私漏洞？',
+    answer: '若发现安全隐患，请通过 GitHub 私密安全通道（Security Advisories）进行负责任的漏洞披露。',
+  },
+  {
+    question: 'oh-my-md 是否完全免费且开源？',
+    answer: '是的。oh-my-md 基于 Apache-2.0 协议开源，完全免费，代码透明可查。',
+  },
+];
 ---
 
 <ContentPage
-  title="支持与社区中心 — oh-my-md"
-  description="提交问题反馈、加入功能讨论、报告安全漏洞并获取 oh-my-md 官方支持。"
+  title="支持与常见问题 — oh-my-md 开源编辑器"
+  description="获取 oh-my-md 帮助、反馈缺陷、查看常见问题解答。免费开源的本地优先桌面 Markdown 编辑器。"
   lang="zh"
   canonicalPath="/zh/support/"
   layoutClass="support-layout"
+  faqs={supportFaqs}
 >
   <header class="support-hero">
     <span class="eyebrow">支持与社区中心</span>

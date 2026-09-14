@@ -1,5 +1,6 @@
 ---
 import type { Language } from '../data/site';
+import type { FaqItem } from '../layouts/SiteLayout.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 interface Props {
@@ -9,13 +10,14 @@ interface Props {
   canonicalPath: string;
   wide?: boolean;
   layoutClass?: string;
+  faqs?: readonly FaqItem[];
 }
 
-const { title, description, lang, canonicalPath, wide = false, layoutClass } = Astro.props;
+const { title, description, lang, canonicalPath, wide = false, layoutClass, faqs } = Astro.props;
 const containerClass = layoutClass ? layoutClass : (wide ? 'download-layout' : 'content-column');
 ---
 
-<SiteLayout title={title} description={description} lang={lang} canonicalPath={canonicalPath}>
+<SiteLayout title={title} description={description} lang={lang} canonicalPath={canonicalPath} faqs={faqs}>
   <section class={`section content-page ${wide || layoutClass ? 'content-page-wide' : ''}`}>
     <div class={`container ${containerClass}`}>
       <slot />

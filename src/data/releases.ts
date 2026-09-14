@@ -138,8 +138,8 @@ export const releaseDisplay = {
   copiedCommand: { en: 'Copied', zh: '已复制' },
   copyUnavailable: { en: 'Copy unavailable; select the command below', zh: '无法复制，请选择下方命令' },
   downloadDescription: (releaseVersion) => ({
-    en: `Download the current oh-my-md ${releaseVersion} desktop release for macOS, Windows, or Linux.`,
-    zh: `下载适用于 macOS、Windows 或 Linux 的当前 oh-my-md ${releaseVersion} 桌面版本。`,
+    en: `Download oh-my-md ${releaseVersion} for macOS, Windows, and Linux. Free, open-source, local-first desktop Markdown editor with verified SHA256 checksums.`,
+    zh: `下载适用于 macOS、Windows 或 Linux 的 oh-my-md ${releaseVersion} 桌面客户端。免费、开源、本地优先，提供 SHA256 校验和。`,
   }),
   currentReleaseLabel: (releaseVersion) => ({
     en: `Current release · ${releaseVersion}`,
@@ -182,8 +182,8 @@ export const releaseDisplay = {
     zh: '这些是仅供复制的校验和命令，不是远程安装程序；本网站不会执行它们。',
   },
   changelogDescription: (releaseVersion) => ({
-    en: `Release notes for oh-my-md version ${releaseVersion}.`,
-    zh: `oh-my-md ${releaseVersion} 版本更新说明。`,
+    en: `Release notes and version history for oh-my-md ${releaseVersion}, the fast open-source Markdown editor for macOS, Windows, and Linux.`,
+    zh: `oh-my-md ${releaseVersion} 版本更新说明与历史记录。快速、开源的跨平台本地 Markdown 编辑器。`,
   }),
   changelogIntro: (releaseVersion, releasedAt) => ({
     en: `The current public release is v${releaseVersion}, published on ${releasedAt}.`,

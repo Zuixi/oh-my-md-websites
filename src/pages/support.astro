@@ -5,14 +5,34 @@ import { currentRelease, releaseDisplay } from '../data/releases';
 import { siteUrls } from '../data/site';
 
 const releaseLabel = releaseDisplay.supportReleaseLabel(currentRelease.version).en;
+
+const supportFaqs = [
+  {
+    question: 'How do I report a bug or crash in oh-my-md?',
+    answer: 'Encountered a crash, rendering defect, or unexpected behavior? File a structured issue on GitHub with your operating system, oh-my-md version, and reproducible Markdown snippet.',
+  },
+  {
+    question: 'Where can I ask questions about workflows and theme customization?',
+    answer: 'Connect with other users and maintainers in GitHub Discussions for questions about local workflows, theme preferences, and feature feedback.',
+  },
+  {
+    question: 'How do I responsibly report a security or privacy vulnerability?',
+    answer: 'Report potential security or privacy vulnerabilities confidentially via GitHub Private Security Advisories rather than public issues.',
+  },
+  {
+    question: 'Is oh-my-md free and open source?',
+    answer: 'Yes. oh-my-md is free software licensed under Apache-2.0 with all code publicly available on GitHub.',
+  },
+];
 ---
 
 <ContentPage
-  title="Support & Community Hub — oh-my-md"
-  description="Report bugs, ask questions, submit feature requests, and get help for oh-my-md."
+  title="Support & FAQ — oh-my-md Free Markdown Editor"
+  description="Get help, report issues, and find answers to common questions about oh-my-md, the free open-source desktop Markdown editor."
   lang="en"
   canonicalPath="/support/"
   layoutClass="support-layout"
+  faqs={supportFaqs}
 >
   <header class="support-hero">
     <span class="eyebrow">Support & Community Hub</span>

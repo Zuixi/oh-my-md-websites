@@ -31,7 +31,7 @@ const downloadPath = lang === 'zh' ? '/zh/download/' : '/download/';
     </div>
       <figure class="hero-figure">
         <span class="hero-figure-badge" aria-hidden="true">{locale.hero.versionBadge}</span>
-        <img class="hero-image" src="/hero.png" width="1920" height="1027" alt={locale.hero.screenshotAlt} loading="eager" />
+        <img class="hero-image" src="/hero.png" width="1920" height="1027" alt={locale.hero.screenshotAlt} loading="eager" fetchpriority="high" decoding="async" />
         <figcaption>{locale.hero.screenshotCaption}</figcaption>
     </figure>
   </div>
