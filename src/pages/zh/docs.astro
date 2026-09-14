@@ -23,14 +23,34 @@ const shortcuts = [
   { action: '1 至 6 级标题', mac: '⌘ 1 – 6', win: 'Ctrl + 1 – 6' },
   { action: '打字机 / 专注模式', mac: '⌥ ⌘ T', win: 'Alt + Ctrl + T' },
 ];
+
+const docsFaqs = [
+  {
+    question: 'oh-my-md 需要注册账号或连接云端吗？',
+    answer: '不需要。oh-my-md 采用 100% 本地优先架构，文档始终保存在本地硬盘，无需注册账号，无云端同步，零后台遥测。',
+  },
+  {
+    question: 'oh-my-md 的 Live Preview 实时预览是如何工作的？',
+    answer: 'Live Preview 会在输入时自然淡化 Markdown 标记并就地渲染。按下 ⌘ E 或 Ctrl + E 即可随时无缝切回原始 Source 源码模式。',
+  },
+  {
+    question: 'oh-my-md 如何保障大文档流畅编辑？',
+    answer: '基于 CodeMirror 6 视口虚拟化与 Tauri 2 原生 Rust 桌面架构，即使编辑 10 万行级别的大型笔记，输入延迟依然维持在 16 ms 帧预算内。',
+  },
+  {
+    question: 'oh-my-md 支持哪些丰富的 Markdown 语法块？',
+    answer: '完全支持 CommonMark 与 GFM 规范（表格、任务列表、脚注），并内置 KaTeX 数学公式、Mermaid 图表与 Shiki 代码语法高亮。',
+  },
+];
 ---
 
 <ContentPage
-  title="使用文档 — oh-my-md"
-  description="oh-my-md 桌面编辑器快速上手、工作区使用指南、核心快捷键与大文档性能机制。"
+  title="使用文档 — 快速开源 Markdown 编辑器 | oh-my-md"
+  description="oh-my-md 官方使用文档：Live Preview 实时预览、快捷键速查、KaTeX 数学公式、Mermaid 图表与本地大文档性能机制。"
   lang="zh"
   canonicalPath="/zh/docs/"
   layoutClass="docs-layout"
+  faqs={docsFaqs}
 >
   <header class="docs-hero">
     <span class="eyebrow">使用文档</span>

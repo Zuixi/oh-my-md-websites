@@ -4,15 +4,21 @@ import Header from '../components/Header.astro';
 import { currentRelease } from '../data/releases';
 import '../styles/global.css';
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface Props {
   title: string;
   description: string;
   lang: 'en' | 'zh';
   canonicalPath?: string;
   noindex?: boolean;
+  faqs?: readonly FaqItem[];
 }
 
-const { title, description, lang, canonicalPath, noindex = false } = Astro.props;
+const { title, description, lang, canonicalPath, noindex = false, faqs } = Astro.props;
 const siteUrl = Astro.site ?? new URL('https://ohmd.us');
 const normalizePath = (path: string) => path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`;
 const normalizedCanonicalPath = canonicalPath ? normalizePath(canonicalPath) : undefined;
@@ -25,7 +31,8 @@ const alternatePath = normalizedCanonicalPath
 const alternateUrl = alternatePath ? new URL(alternatePath, siteUrl) : undefined;
 const htmlLocale = lang === 'zh' ? 'zh-CN' : 'en';
 const ogLocale = lang === 'zh' ? 'zh_CN' : 'en_US';
-const socialImageUrl = new URL('/hero.png', siteUrl);
+const socialImageUrl = new URL('/og.png', siteUrl);
+const imageAlt = lang === 'zh' ? 'oh-my-md 桌面端应用界面截图' : 'oh-my-md desktop application screenshot';
 const applicationSchema = canonicalUrl ? {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -40,6 +47,61 @@ const applicationSchema = canonicalUrl ? {
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   author: { '@type': 'Organization', name: 'oh-my-md', url: 'https://github.com/Zuixi/oh-my-md' },
+} : null;
+
+const websiteSchema = !noindex ? {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl.href}#website`,
+  url: siteUrl.href,
+  name: 'oh-my-md',
+  description: lang === 'zh'
+    ? '免费、开源、本地优先的快速 Markdown 编辑器，专为大型文档设计。'
+    : 'Free, fast, open-source Markdown editor for large documents with true Live Preview.',
+  inLanguage: htmlLocale,
+} : null;
+
+const organizationSchema = !noindex ? {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteUrl.href}#organization`,
+  name: 'oh-my-md',
+  url: siteUrl.href,
+  logo: new URL('/logo.png', siteUrl).href,
+  sameAs: ['https://github.com/Zuixi/oh-my-md'],
+} : null;
+
+const isSubpage = canonicalPath && canonicalPath !== '/' && canonicalPath !== '/zh/';
+const breadcrumbSchema = !noindex && canonicalUrl && isSubpage ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: lang === 'zh' ? '首页' : 'Home',
+      item: (lang === 'zh' ? new URL('/zh/', siteUrl) : siteUrl).href,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: title.split(' — ')[0].split(' | ')[0].trim(),
+      item: canonicalUrl.href,
+    },
+  ],
+} : null;
+
+const faqSchema = !noindex && faqs && faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
 } : null;
 ---
 
@@ -57,12 +119,16 @@ const applicationSchema = canonicalUrl ? {
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl.href} />}
     <meta property="og:image" content={socialImageUrl.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:locale" content={ogLocale} />
     {!noindex && <meta property="og:locale:alternate" content={lang === 'en' ? 'zh_CN' : 'en_US'} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl.href} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl.href} />}
     {!noindex && canonicalUrl && alternateUrl && (
@@ -73,6 +139,10 @@ const applicationSchema = canonicalUrl ? {
       </>
     )}
     {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(applicationSchema)} />}
+    {!noindex && websiteSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
+    {!noindex && organizationSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />}
+    {!noindex && breadcrumbSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+    {!noindex && faqSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
     <title>{title}</title>
   </head>
   <body>

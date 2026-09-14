@@ -101,8 +101,8 @@ export const siteUrls = {
 
 export const siteCopy: SiteCopy = {
   en: {
-    title: 'oh-my-md — Fast, open-source Markdown editor',
-    description: 'A fast, native Markdown editor for large documents, with true Live Preview and Source modes.',
+    title: 'oh-my-md — Free, Open-Source Markdown Editor for Large Files',
+    description: 'Free, open-source, local-first Markdown editor for macOS, Windows & Linux. Instant open for large files, true Live Preview, zero telemetry, no account.',
     hero: {
       eyebrow: 'Open source · local-first · built for large documents',
       headline: 'A fast Markdown editor that keeps your files on your disk.',
@@ -193,8 +193,8 @@ export const siteCopy: SiteCopy = {
     license: 'Apache-2.0',
   },
   zh: {
-    title: 'oh-my-md — 快速、开源的 Markdown 编辑器',
-    description: '面向大型文档的快速原生 Markdown 编辑器，支持真正的 Live Preview 与 Source 模式。',
+    title: 'oh-my-md — 免费、开源、本地优先的快速 Markdown 编辑器',
+    description: '免费开源桌面 Markdown 编辑器，适用于 macOS、Windows 与 Linux。毫秒级打开大型文档，真实时预览，本地存储无账号无遥测。',
     hero: {
       eyebrow: '开源 · 本地优先 · 为大型文档而生',
       headline: '一款快到让你忘掉的 Markdown 编辑器，文件始终留在你的硬盘上。',

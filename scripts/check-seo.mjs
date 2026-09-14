@@ -42,8 +42,42 @@ for (const page of pages) {
   }
   if (!html.includes('application/ld+json') || !html.includes('SoftwareApplication')) throw new Error(`${page} is missing SoftwareApplication JSON-LD`);
   if (!html.includes(`"softwareVersion":"${expectedVersion}"`)) throw new Error(`${page} has stale SoftwareApplication version`);
+
+  // Rich metadata checks
+  if (!html.includes('property="og:image:width" content="1200"') || !html.includes('property="og:image:height" content="630"')) {
+    throw new Error(`${page} is missing explicit og:image dimensions`);
+  }
+  if (!html.includes('property="og:image:alt"') || !html.includes('name="twitter:image:alt"')) {
+    throw new Error(`${page} is missing og:image:alt or twitter:image:alt`);
+  }
+  if (!html.includes('SoftwareApplication') || !html.includes('WebSite') || !html.includes('Organization')) {
+    throw new Error(`${page} is missing core structured data schemas (SoftwareApplication, WebSite, Organization)`);
+  }
+
+  // Length and heading checks
+  const titleMatch = html.match(/<title>([^<]*)<\/title>/);
+  if (!titleMatch || titleMatch[1].length < 15 || titleMatch[1].length > 80) {
+    throw new Error(`${page} title length (${titleMatch?.[1]?.length}) is out of recommended SERP bounds (15-80)`);
+  }
+  const descMatch = html.match(/<meta name="description" content="([^"]+)"/);
+  if (!descMatch || descMatch[1].length < 40 || descMatch[1].length > 170) {
+    throw new Error(`${page} description length (${descMatch?.[1]?.length}) is out of recommended SERP bounds (40-170)`);
+  }
+  const h1Matches = html.match(/<h1\b[^>]*>/gi) || [];
+  if (h1Matches.length !== 1) {
+    throw new Error(`${page} must contain exactly one <h1> heading; found ${h1Matches.length}`);
+  }
+
+  if ((page.includes('/docs/') || page.includes('/support/')) && !html.includes('FAQPage')) {
+    throw new Error(`${page} must contain FAQPage schema`);
+  }
 }
-for (const required of ['robots.txt', 'security.txt', '.well-known/security.txt']) {
+for (const required of ['robots.txt', 'security.txt', '.well-known/security.txt', 'og.png', 'sitemap-0.xml', 'sitemap-index.xml']) {
   if (!existsSync(join(dist, required))) throw new Error(`Missing generated ${required}`);
+}
+
+const sitemapContent = readFileSync(join(dist, 'sitemap-0.xml'), 'utf8');
+if (!sitemapContent.includes('<lastmod>') || !sitemapContent.includes('<changefreq>')) {
+  throw new Error('sitemap-0.xml is missing lastmod or changefreq entries');
 }
 process.stdout.write(`SEO check passed: ${pages.length} pages have canonical, title, description, locale, alternates, and application metadata.\n`);

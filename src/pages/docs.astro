@@ -23,14 +23,34 @@ const shortcuts = [
   { action: 'Headings 1 to 6', mac: '⌘ 1 – 6', win: 'Ctrl + 1 – 6' },
   { action: 'Typewriter / Focus mode', mac: '⌥ ⌘ T', win: 'Alt + Ctrl + T' },
 ];
+
+const docsFaqs = [
+  {
+    question: 'Does oh-my-md require an account or cloud sync?',
+    answer: 'No. oh-my-md is 100% local-first. Your files stay on your disk with no account, no cloud sync, and zero telemetry.',
+  },
+  {
+    question: 'How does Live Preview work in oh-my-md?',
+    answer: 'Live Preview seamlessly fades Markdown syntax markers into rendered typography as you write. Toggle instantly to raw Source mode anytime using ⌘ E or Ctrl + E.',
+  },
+  {
+    question: 'How does oh-my-md handle very large Markdown documents?',
+    answer: 'oh-my-md uses CodeMirror 6 viewport virtualization and a lightweight native Tauri Rust shell, keeping typing latency under 16 ms even on 100,000+ line documents.',
+  },
+  {
+    question: 'What rich content blocks are supported in oh-my-md?',
+    answer: 'Full CommonMark and GFM support including tables, task lists, KaTeX math formulas ($...$ and $$...$$), Mermaid diagrams, and Shiki code syntax highlighting.',
+  },
+];
 ---
 
 <ContentPage
-  title="Documentation — oh-my-md"
-  description="Comprehensive documentation, workspace guide, keyboard shortcuts, and performance architecture for oh-my-md."
+  title="Documentation — Free Open-Source Markdown Editor | oh-my-md"
+  description="User guide and documentation for oh-my-md: Live Preview mode, keyboard shortcuts, KaTeX math, Mermaid diagrams, local workspace, and large file performance."
   lang="en"
   canonicalPath="/docs/"
   layoutClass="docs-layout"
+  faqs={docsFaqs}
 >
   <header class="docs-hero">
     <span class="eyebrow">Documentation</span>

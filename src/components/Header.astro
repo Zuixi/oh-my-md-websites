@@ -24,7 +24,7 @@ const homeLabel = isChinese ? 'oh-my-md 首页' : 'oh-my-md home';
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href={isChinese ? '/zh/' : '/'} aria-label={homeLabel}>
-      <img src="/logo.png" width="32" height="32" alt="" />
+      <img src="/logo.png" width="32" height="32" alt={isChinese ? 'oh-my-md 图标' : 'oh-my-md logo'} />
       <span>oh-my-md</span>
     </a>
     <nav class="primary-nav" aria-label={isChinese ? '主导航' : 'Primary navigation'}>
